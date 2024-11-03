@@ -1,0 +1,43 @@
+package GameEngine;
+
+import Util.Vector;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Scene {
+    String name;
+    protected Camera camera;
+    protected List<GameObject> gameObjectList;
+    protected Renderer renderer;
+
+    public Scene(String name){
+        this.name = name;
+        this.camera = new Camera(new Vector());
+        this.gameObjectList = new ArrayList<>();
+        this.renderer = new Renderer(this.camera);
+    }
+
+    public List<GameObject> getGameObjectList() {
+        return gameObjectList;
+    }
+
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    public Camera getCamera(){
+        return camera;
+    }
+
+    public void addGameObject(GameObject g){
+        gameObjectList.add(g);
+        renderer.submit(g);
+    }
+
+    public abstract void init();
+    public abstract void update(double dt);
+    public abstract void draw(Graphics2D g2);
+
+}

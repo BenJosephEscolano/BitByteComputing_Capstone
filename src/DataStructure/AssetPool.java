@@ -1,0 +1,43 @@
+package DataStructure;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import Component.Sprite;
+
+public class AssetPool {
+    static Map<String, Sprite> sprites = new HashMap<>();
+
+    public static boolean hasSprite(String pictureFile){
+        return AssetPool.sprites.containsKey(pictureFile);
+    }
+
+    public static Sprite getSprite(String pictureFile){
+        //"assets/pic.png" and "pic.png" will now return the same file everytime
+        File file = new File(pictureFile);
+        if (AssetPool.hasSprite(pictureFile)){
+            return AssetPool.sprites.get(file.getAbsolutePath());
+        } else {
+            Sprite sprite = new Sprite(pictureFile);
+            AssetPool.addSprite(pictureFile, sprite);
+            return AssetPool.sprites.get(file.getAbsolutePath());
+        }
+    }
+
+    /**
+     *
+     * @param pictureFile the absolute path to the picture
+     * @param sprite
+     */
+    public static void addSprite(String pictureFile, Sprite sprite){
+        File file = new File(pictureFile);
+        if (!AssetPool.hasSprite(file.getAbsolutePath())){
+            AssetPool.sprites.put(file.getAbsolutePath(), sprite);
+        } else {
+            System.out.println("Asset pool already has asset: " + file.getAbsolutePath());
+            System.exit(-1);
+        }
+    }
+
+}
