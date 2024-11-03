@@ -13,6 +13,9 @@ public class Sprite extends Component{
     private String pictureFile;
     private BufferedImage image;
     private int width, height;
+    private int row, column, index;
+
+    private boolean isSubSprite = false;
 
     public Sprite(String pictureFile){
         this.pictureFile = pictureFile;
@@ -40,6 +43,16 @@ public class Sprite extends Component{
         this.height = image.getHeight();
     }
 
+    public Sprite(BufferedImage image, int row, int column, int index){
+        this.image = image;
+        this.width = image.getWidth();
+        this.height = image.getHeight();
+        this.row = row;
+        this.column = column;
+        this.index = index;
+        this.isSubSprite = true;
+    }
+
     public BufferedImage getImage(){
         return image;
     }
@@ -51,7 +64,10 @@ public class Sprite extends Component{
 
     @Override
     public Component copy() {
-        return new Sprite(this.image);
+        if (!isSubSprite){
+            return new Sprite(this.image);
+        }
+        return new Sprite(this.image, this.row, this.column, this.index);
     }
 
     public int getHeight() {
@@ -60,5 +76,17 @@ public class Sprite extends Component{
 
     public int getWidth() {
         return width;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public boolean isSubSprite() {
+        return isSubSprite;
     }
 }

@@ -6,6 +6,7 @@ import GameEngine.Component;
 import GameEngine.GameObject;
 import GameEngine.ML;
 
+import Util.Constants;
 import Util.Vector;
 
 import java.awt.*;
@@ -33,7 +34,7 @@ public class SnapToGrid extends Component {
             getGameObject().setX(x * gridWidth - (float)camera.getX());
             getGameObject().setY(y * gridHeight - (float)camera.getY());
 
-            if (mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1 && debounceLeft < 0){
+            if (mouseListener.getY() < Constants.BUTTON_OFFSET_Y && mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1 && debounceLeft < 0){
                 debounceLeft = debounceTime;
                 GameObject object = getGameObject().copy();
                 object.setPosition(new Vector(x * gridWidth, y * gridHeight));

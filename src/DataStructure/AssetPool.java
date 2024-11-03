@@ -1,10 +1,10 @@
 package DataStructure;
 
+import Component.Sprite;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
-import Component.Sprite;
 
 public class AssetPool {
     static Map<String, Sprite> sprites = new HashMap<>();

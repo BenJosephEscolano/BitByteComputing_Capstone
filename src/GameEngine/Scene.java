@@ -34,6 +34,9 @@ public abstract class Scene {
     public void addGameObject(GameObject g){
         gameObjectList.add(g);
         renderer.submit(g);
+        for (Component c: g.getAllComponents()){
+            c.start();
+        }
     }
 
     public abstract void init();

@@ -21,5 +21,9 @@ public abstract class Component {
         return;
     }
 
+    public void start(){
+        return;
+    }
+
     public abstract Component copy();
 }

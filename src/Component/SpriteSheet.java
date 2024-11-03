@@ -27,15 +27,20 @@ public class SpriteSheet {
             for (int j = 0; j < columns && count < size; j++){
                 int imgX = (j * tileWidth) + (j * spacing);
                 int imgY = (i * tileHeight) + (i * spacing);
-
-                spriteList.add(new Sprite(parent.getImage().getSubimage(imgX, imgY, tileWidth, tileHeight)));
+                spriteList.add(new Sprite(parent.getImage().getSubimage(imgX, imgY, tileWidth, tileHeight),
+                        i, j, count));
                 count++;
             }
         }
+
     }
 
     public Sprite getSprite(int index){
         return spriteList.get(index);
+    }
+
+    public int getSize(){
+        return size;
     }
 
 }

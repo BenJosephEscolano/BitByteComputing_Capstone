@@ -18,6 +18,10 @@ public class GameObject {
         this.componentList = new ArrayList<>();
     }
 
+    public List<Component> getAllComponents(){
+        return this.componentList;
+    }
+
     public void addComponent(Component c){
         componentList.add(c);
         c.setGameObject(this);

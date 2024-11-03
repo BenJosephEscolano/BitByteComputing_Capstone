@@ -1,6 +1,7 @@
 package GameEngine;
 
 import DataStructure.Transform;
+import UI.MainContainer;
 import Util.Constants;
 import Util.Vector;
 import Component.*;
@@ -13,6 +14,7 @@ public class LevelEditorScene extends Scene{
     private GameObject mouseCursor;
     private Grid grid;
     private CameraControls cameraControls;
+    private MainContainer mainContainer = new MainContainer();
 
     public LevelEditorScene(String name){
         super(name);
@@ -26,12 +28,10 @@ public class LevelEditorScene extends Scene{
     public void init() {
         grid = new Grid();
         cameraControls = new CameraControls();
-        SpriteSheet objects = new SpriteSheet("assets/groundSprites.png",
-                42, 42, 2,6, 12);
-        Sprite mouseSprite = objects.getSprite(1);
+        mainContainer.start();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Vector()));
         mouseCursor.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
-        mouseCursor.addComponent(mouseSprite);
+
         player = new GameObject("Some game object", new Transform(new Vector(500.0f, 350.0f)));
         SpriteSheet layerOne = new SpriteSheet("assets/player/layerOne.png",
                 42, 42, 2, 13, 13 * 5);
@@ -68,6 +68,7 @@ public class LevelEditorScene extends Scene{
         }
         cameraControls.update(dt);
         grid.update(dt);
+        mainContainer.update(dt);
         mouseCursor.update(dt);
     }
 
@@ -78,6 +79,15 @@ public class LevelEditorScene extends Scene{
 
         grid.draw(g2);
         renderer.render(g2);
+        mainContainer.draw(g2);
         mouseCursor.draw(g2);
+    }
+
+    public GameObject getMouseCursor() {
+        return mouseCursor;
+    }
+
+    public void setMouseCursor(GameObject mouseCursor){
+        this.mouseCursor = mouseCursor;
     }
 }
