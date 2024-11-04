@@ -51,7 +51,7 @@ public class LevelEditorScene extends Scene{
         ground = new GameObject("Ground", new Transform(new Vector(0, Constants.GROUND_Y)));
         ground.addComponent(new Ground());
 
-        addGameObject(player);
+        //addGameObject(player);
         addGameObject(ground);
     }
 
