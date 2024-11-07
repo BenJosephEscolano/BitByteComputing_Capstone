@@ -48,6 +48,7 @@ public class Window extends JFrame implements Runnable {
                 lastFrameTime = time;
                 update(deltaTime);
             }
+            dispose();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -101,5 +102,9 @@ public class Window extends JFrame implements Runnable {
 
     public ML getMouseListener() {
         return mouseListener;
+    }
+
+    public KL getKeyListener(){
+        return keyListener;
     }
 }

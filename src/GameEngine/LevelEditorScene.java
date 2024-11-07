@@ -3,10 +3,16 @@ package GameEngine;
 import DataStructure.Transform;
 import UI.MainContainer;
 import Util.Constants;
+import Util.SceneCode;
 import Util.Vector;
 import Component.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.*;
 
 public class LevelEditorScene extends Scene{
     private GameObject player;
@@ -14,21 +20,18 @@ public class LevelEditorScene extends Scene{
     private GameObject mouseCursor;
     private Grid grid;
     private CameraControls cameraControls;
-    private MainContainer mainContainer = new MainContainer();
+    private MainContainer edittingButtons = new MainContainer();
+    private boolean isLoaded = false;
 
     public LevelEditorScene(String name){
         super(name);
-    }
-
-    public GameObject getPlayer(){
-        return player;
     }
 
     @Override
     public void init() {
         grid = new Grid();
         cameraControls = new CameraControls();
-        mainContainer.start();
+        edittingButtons.start();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Vector()));
         mouseCursor.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
 
@@ -57,6 +60,7 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void update(double dt) {
+        KL keyListener = Window.getWindow().getKeyListener();
         float newY = 0;
         if (camera.getY() > Constants.CAMERA_GROUND_OFFSET){
             newY = Constants.CAMERA_GROUND_OFFSET;
@@ -66,9 +70,46 @@ public class LevelEditorScene extends Scene{
         for (GameObject g: gameObjectList){
             g.update(dt);
         }
+        File fl = new File("level.obj");
+        if (keyListener.isKeyPressed(KeyEvent.VK_F1)){
+            try (FileOutputStream file = new FileOutputStream(fl)){
+                ObjectOutputStream oos = new ObjectOutputStream(file);
+                oos.writeObject(gameObjectList);
+                oos.flush();
+                oos.close();
+            } catch (FileNotFoundException ex){
+                System.out.println("oopsies FileNotFoundException");
+            } catch (IOException ex){
+                System.out.println();
+            }
+            Window.getWindow().close();
+        }
+        if (keyListener.isKeyPressed(KeyEvent.VK_F2) && !isLoaded){
+            try (FileInputStream file = new FileInputStream(fl)){
+                ObjectInputStream ois = new ObjectInputStream(file);
+                List<GameObject> loadDate = (List<GameObject>) ois.readObject();
+                for(GameObject ld: loadDate){
+                    addGameObject(ld);
+                }
+                ois.close();
+            } catch (FileNotFoundException ex){
+                System.out.println("oopsies FileNotFoundException");
+            } catch (IOException ex){
+                throw new RuntimeException(ex);
+
+            } catch (ClassCastException ex){
+                System.out.println("oopsies ClassCastException");
+            } catch (ClassNotFoundException ex){
+                System.out.println();
+            } finally {
+                System.out.println("Success?");
+                isLoaded = true;
+            }
+        }
+
         cameraControls.update(dt);
         grid.update(dt);
-        mainContainer.update(dt);
+        edittingButtons.update(dt);
         mouseCursor.update(dt);
     }
 
@@ -79,8 +120,8 @@ public class LevelEditorScene extends Scene{
 
         grid.draw(g2);
         renderer.render(g2);
-        mainContainer.draw(g2);
-        mouseCursor.draw(g2);
+        edittingButtons.draw(g2);
+        mouseCursor.getComponent(SnapToGrid.class).draw(g2);
     }
 
     public GameObject getMouseCursor() {

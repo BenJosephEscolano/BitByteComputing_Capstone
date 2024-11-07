@@ -11,8 +11,9 @@ import Util.Vector;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
-public class SnapToGrid extends Component {
+public class SnapToGrid extends Component implements Serializable {
     private float debounceTime = 0.2f;
     private float debounceLeft = 0.0f;
     private int gridWidth, gridHeight;

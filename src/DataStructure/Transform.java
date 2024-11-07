@@ -2,7 +2,9 @@ package DataStructure;
 
 import Util.Vector;
 
-public class Transform {
+import java.io.Serializable;
+
+public class Transform implements Serializable {
     private Vector position;
     private Vector scale;
     private float rotation;

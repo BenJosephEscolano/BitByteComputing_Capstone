@@ -6,8 +6,9 @@ import Util.Constants;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Player extends Component{
+public class Player extends Component implements Serializable {
     Sprite layerOne, layerTwo, layerThree;
     private final int width, height;
 

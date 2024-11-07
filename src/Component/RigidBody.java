@@ -4,7 +4,9 @@ import GameEngine.Component;
 import Util.Constants;
 import Util.Vector;
 
-public class RigidBody extends Component {
+import java.io.Serializable;
+
+public class RigidBody extends Component implements Serializable {
     public Vector velocity;
 
     public RigidBody(Vector velocity){

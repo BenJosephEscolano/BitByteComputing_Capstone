@@ -2,10 +2,11 @@ package Component;
 
 import DataStructure.AssetPool;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpriteSheet {
+public class SpriteSheet implements Serializable {
     private List<Sprite> spriteList;
     private int tileWidth;
     private int tileHeight;

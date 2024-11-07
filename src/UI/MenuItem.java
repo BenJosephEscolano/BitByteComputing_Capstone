@@ -12,6 +12,7 @@ public class MenuItem extends Component {
     private int x, y, width, height;
     private Sprite buttonSprite, hoverSprite, myImage;
     private boolean isSelected;
+    private int bufferX, bufferY;
 
     public MenuItem(int x, int y, int width, int height, Sprite buttonSprite, Sprite hoverSprite) {
         this.x = x;
@@ -26,12 +27,14 @@ public class MenuItem extends Component {
     @Override
     public void start(){
         myImage = getGameObject().getComponent(Sprite.class);
+        this.bufferX = (int)(this.width / 2.0 - myImage.getWidth() /2.0);
+        this.bufferY = (int)(this.height / 2.0 - myImage.getHeight() /2.0);
     }
 
     @Override
     public void draw(Graphics2D g2){
         g2.drawImage(this.buttonSprite.getImage(), this.x, this.y, this.width, this.height, null);
-        g2.drawImage(this.myImage.getImage(), this.x, this.y, myImage.getWidth(), myImage.getHeight(), null);
+        g2.drawImage(this.myImage.getImage(), this.x + bufferX, this.y + bufferY, myImage.getWidth(), myImage.getHeight(), null);
         if (isSelected){
             g2.drawImage(this.hoverSprite.getImage(), this.x, this.y, this.width, this.height, null);
         }

@@ -6,12 +6,11 @@ import GameEngine.Component;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
-public class Sprite extends Component{
+public class Sprite extends Component implements Serializable {
     private String pictureFile;
-    private BufferedImage image;
+    private transient BufferedImage image;
     private int width, height;
     private int row, column, index;
 
@@ -69,6 +68,20 @@ public class Sprite extends Component{
         }
         return new Sprite(this.image, this.row, this.column, this.index);
     }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException{
+        out.defaultWriteObject();
+        ImageIO.write(image, "png", out);
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        image = ImageIO.read(in);
+    }
+
 
     public int getHeight() {
         return height;

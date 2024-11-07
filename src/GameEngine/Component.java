@@ -1,8 +1,9 @@
 package GameEngine;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Component {
+public abstract class Component implements Serializable {
     private GameObject gameObject;
 
     public GameObject getGameObject(){

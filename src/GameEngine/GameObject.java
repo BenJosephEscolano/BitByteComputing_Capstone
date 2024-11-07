@@ -4,10 +4,11 @@ import DataStructure.Transform;
 import Util.Vector;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameObject {
+public class GameObject implements Serializable {
     private List<Component> componentList;
     private String name;
     private Transform transform;

@@ -8,8 +8,9 @@ import GameEngine.Window;
 import Util.Constants;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Ground extends Component {
+public class Ground extends Component implements Serializable {
     @Override
     public void update(double dt){
         float newX;

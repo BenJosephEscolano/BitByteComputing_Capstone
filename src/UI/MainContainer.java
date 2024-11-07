@@ -49,7 +49,7 @@ public class MainContainer extends Component {
     @Override
     public void draw(Graphics2D g2){
         for (GameObject g: menuItems){
-            g.draw(g2);
+            g.getComponent(MenuItem.class).draw(g2);
         }
     }
 

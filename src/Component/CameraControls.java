@@ -5,8 +5,9 @@ import GameEngine.ML;
 import GameEngine.Window;
 
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
-public class CameraControls extends Component {
+public class CameraControls extends Component implements Serializable {
     private float prevMx, prevMy;
     private ML mouseListener;
 

@@ -2,7 +2,9 @@ package Component;
 
 import GameEngine.Component;
 
-public class BoxBounds extends Component {
+import java.io.Serializable;
+
+public class BoxBounds extends Component implements Serializable {
     private float width, height;
 
     public BoxBounds(float width, float height){

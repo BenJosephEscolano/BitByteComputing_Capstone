@@ -7,8 +7,9 @@ import Util.Constants;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.io.Serializable;
 
-public class Grid extends Component {
+public class Grid extends Component implements Serializable {
 
     Camera camera;
     public int gridWidth, gridHeight;
