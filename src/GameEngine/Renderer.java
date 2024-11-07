@@ -20,6 +20,14 @@ public class Renderer {
         this.gameObjectList.add(gameObject);
     }
 
+    public void unsubmit(GameObject gameObject){
+        this.gameObjectList.remove(gameObject);
+    }
+
+    public void removeAll(){
+        gameObjectList.removeAll(gameObjectList);
+    }
+
     public void render(Graphics2D g2){
         for (GameObject g: gameObjectList){
             Transform oldTransform = new Transform(g.getPosition());

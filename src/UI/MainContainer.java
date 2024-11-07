@@ -1,5 +1,6 @@
 package UI;
 
+import DataStructure.AssetPool;
 import DataStructure.Transform;
 import GameEngine.Component;
 import GameEngine.GameObject;
@@ -20,8 +21,18 @@ public class MainContainer extends Component {
     }
 
     private void init(){
-        SpriteSheet groundSprites = new SpriteSheet("assets/groundSprites.png", 42, 42, 2, 6, 12);
-        SpriteSheet buttonSprites = new SpriteSheet("assets/buttonSprites.png", 60, 60, 2, 2, 2 );
+        SpriteSheet groundSprites, buttonSprites;
+        if (!AssetPool.hasSpriteSheet("assets/groundSprites.png")){
+            groundSprites = new SpriteSheet("assets/groundSprites.png", 42, 42, 2, 6, 12);
+        } else {
+            groundSprites = AssetPool.getSpriteSheet("assets/groundSprites.png");
+        }
+        if (!AssetPool.hasSpriteSheet("assets/buttonSprites.png")){
+            buttonSprites = new SpriteSheet("assets/buttonSprites.png", 60, 60, 2, 2, 2 );
+        } else {
+            buttonSprites = AssetPool.getSpriteSheet("assets/buttonSprites.png");
+        }
+
         for (int i = 0; i < groundSprites.getSize(); i++){
             Sprite currentSprite = groundSprites.getSprite(i);
             int x = Constants.BUTTON_OFFSET_X + (Constants.BUTTON_WIDTH + Constants.BUTTON_SPACING_HZ) * currentSprite.getColumn();

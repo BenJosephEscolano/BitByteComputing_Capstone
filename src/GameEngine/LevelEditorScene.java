@@ -1,5 +1,6 @@
 package GameEngine;
 
+import DataStructure.AssetPool;
 import DataStructure.Transform;
 import UI.MainContainer;
 import Util.Constants;
@@ -36,12 +37,26 @@ public class LevelEditorScene extends Scene{
         mouseCursor.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
 
         player = new GameObject("Some game object", new Transform(new Vector(500.0f, 350.0f)));
-        SpriteSheet layerOne = new SpriteSheet("assets/player/layerOne.png",
-                42, 42, 2, 13, 13 * 5);
-        SpriteSheet layerTwo = new SpriteSheet("assets/player/layerTwo.png",
-                42, 42, 2, 13, 13 * 5);
-        SpriteSheet layerThree = new SpriteSheet("assets/player/layerThree.png",
-                42, 42, 2, 13, 13 * 5);
+        SpriteSheet layerOne, layerTwo, layerThree;
+        if (!AssetPool.hasSpriteSheet("assets/player/layerOne.png")){
+             layerOne = new SpriteSheet("assets/player/layerOne.png",
+                    42, 42, 2, 13, 13 * 5);
+        } else {
+            layerOne = AssetPool.getSpriteSheet("assets/player/layerOne.png");
+        }
+        if (!AssetPool.hasSpriteSheet("assets/player/layerTwo.png")){
+            layerTwo = new SpriteSheet("assets/player/layerTwo.png",
+                    42, 42, 2, 13, 13 * 5);
+        } else {
+            layerTwo = AssetPool.getSpriteSheet("assets/player/layerTwo.png");
+        }
+        if (!AssetPool.hasSpriteSheet("assets/player/layerThree.png")){
+            layerThree = new SpriteSheet("assets/player/layerThree.png",
+                    42, 42, 2, 13, 13 * 5);
+        } else {
+            layerThree = AssetPool.getSpriteSheet("assets/player/layerThree.png");
+        }
+
         int spriteIndex = 42;
         Player playerComp = new Player(
                 layerOne.getSprite(spriteIndex),
@@ -54,7 +69,12 @@ public class LevelEditorScene extends Scene{
         ground = new GameObject("Ground", new Transform(new Vector(0, Constants.GROUND_Y)));
         ground.addComponent(new Ground());
 
-        //addGameObject(player);
+        /*gameObjectList.add(g);
+        renderer.submit(g);
+        for (Component c: g.getAllComponents()){
+            c.start();
+        }*/
+        renderer.submit(player);
         addGameObject(ground);
     }
 
@@ -71,7 +91,7 @@ public class LevelEditorScene extends Scene{
             g.update(dt);
         }
         File fl = new File("level.obj");
-        if (keyListener.isKeyPressed(KeyEvent.VK_F1)){
+        if (keyListener.isKeyPressed(KeyEvent.VK_F1) || keyListener.isKeyPressed(KeyEvent.VK_F4)){
             try (FileOutputStream file = new FileOutputStream(fl)){
                 ObjectOutputStream oos = new ObjectOutputStream(file);
                 oos.writeObject(gameObjectList);
@@ -82,12 +102,13 @@ public class LevelEditorScene extends Scene{
             } catch (IOException ex){
                 System.out.println();
             }
-            Window.getWindow().close();
+            //Window.getWindow().close();
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_F2) && !isLoaded){
             try (FileInputStream file = new FileInputStream(fl)){
                 ObjectInputStream ois = new ObjectInputStream(file);
                 List<GameObject> loadDate = (List<GameObject>) ois.readObject();
+
                 for(GameObject ld: loadDate){
                     addGameObject(ld);
                 }
@@ -105,6 +126,11 @@ public class LevelEditorScene extends Scene{
                 System.out.println("Success?");
                 isLoaded = true;
             }
+        } if (keyListener.isKeyPressed(KeyEvent.VK_F3)){
+            removeAll();
+        } if (keyListener.isKeyPressed(KeyEvent.VK_F4)){
+
+            Window.getWindow().changeScene(SceneCode.Level);
         }
 
         cameraControls.update(dt);

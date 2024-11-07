@@ -39,6 +39,11 @@ public abstract class Scene {
         }
     }
 
+    public void removeAll(){
+        gameObjectList.removeAll(gameObjectList);
+        renderer.removeAll();
+    }
+
     public abstract void init();
     public abstract void update(double dt);
     public abstract void draw(Graphics2D g2);

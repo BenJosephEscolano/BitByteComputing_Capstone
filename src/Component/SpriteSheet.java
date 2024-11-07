@@ -33,7 +33,7 @@ public class SpriteSheet implements Serializable {
                 count++;
             }
         }
-
+        AssetPool.addSpriteSheet(pictureFile,this);
     }
 
     public Sprite getSprite(int index){

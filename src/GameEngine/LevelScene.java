@@ -1,14 +1,19 @@
 package GameEngine;
 
+import DataStructure.AssetPool;
 import DataStructure.Transform;
 import Util.Constants;
 import Util.Vector;
 import Component.*;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.*;
+import java.util.List;
 
 public class LevelScene extends Scene{
     private GameObject player;
+    private boolean isLoaded = false;
 
     public LevelScene(String name){
         super(name);
@@ -21,12 +26,28 @@ public class LevelScene extends Scene{
     @Override
     public void init() {
         player = new GameObject("Some game object", new Transform(new Vector(500.0f, 350.0f)));
-        SpriteSheet layerOne = new SpriteSheet("assets/player/layerOne.png",
-                42, 42, 2, 13, 13 * 5);
-        SpriteSheet layerTwo = new SpriteSheet("assets/player/layerTwo.png",
-                42, 42, 2, 13, 13 * 5);
-        SpriteSheet layerThree = new SpriteSheet("assets/player/layerThree.png",
-                42, 42, 2, 13, 13 * 5);
+        SpriteSheet layerOne, layerTwo, layerThree;
+        /*if (!AssetPool.hasSpriteSheet("assets/player/layerOne.png")){
+            layerOne = new SpriteSheet("assets/player/layerOne.png",
+                    42, 42, 2, 13, 13 * 5);
+        } else {
+            layerOne = AssetPool.getSpriteSheet("assets/player/layerOne.png");
+        }
+        if (!AssetPool.hasSpriteSheet("assets/player/layerTwo.png")){
+            layerTwo = new SpriteSheet("assets/player/layerTwo.png",
+                    42, 42, 2, 13, 13 * 5);
+        } else {
+            layerTwo = AssetPool.getSpriteSheet("assets/player/layerTwo.png");
+        }
+        if (!AssetPool.hasSpriteSheet("assets/player/layerThree.png")){
+            layerThree = new SpriteSheet("assets/player/layerThree.png",
+                    42, 42, 2, 13, 13 * 5);
+        } else {
+            layerThree = AssetPool.getSpriteSheet("assets/player/layerThree.png");
+        }*/
+        layerOne = AssetPool.getSpriteSheet("assets/player/layerOne.png");
+        layerTwo = AssetPool.getSpriteSheet("assets/player/layerTwo.png");
+        layerThree = AssetPool.getSpriteSheet("assets/player/layerThree.png");
         int spriteIndex = 42;
         Player playerComp = new Player(
                 layerOne.getSprite(spriteIndex),
@@ -47,6 +68,30 @@ public class LevelScene extends Scene{
 
     @Override
     public void update(double dt) {
+        if (!isLoaded) {
+            File fl = new File("level.obj");
+
+            try (FileInputStream file = new FileInputStream(fl)) {
+                ObjectInputStream ois = new ObjectInputStream(file);
+                java.util.List<GameObject> loadDate = (List<GameObject>) ois.readObject();
+                for (GameObject ld : loadDate) {
+                    addGameObject(ld);
+                }
+                ois.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println("oopsies FileNotFoundException");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+
+            } catch (ClassCastException ex) {
+                System.out.println("oopsies ClassCastException");
+            } catch (ClassNotFoundException ex) {
+                System.out.println();
+            } finally {
+                System.out.println("Success?");
+                isLoaded = true;
+            }
+        }
         float newX = 0;
         float newY = 0;
         if (player.getX() - camera.getX() > Constants.CAMERA_OFFSET_X){
