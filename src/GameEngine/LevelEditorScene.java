@@ -22,7 +22,6 @@ public class LevelEditorScene extends Scene{
     private Grid grid;
     private CameraControls cameraControls;
     private MainContainer edittingButtons = new MainContainer();
-    private boolean isLoaded = false;
 
     public LevelEditorScene(String name){
         super(name);
@@ -74,7 +73,7 @@ public class LevelEditorScene extends Scene{
         for (Component c: g.getAllComponents()){
             c.start();
         }*/
-        renderer.submit(player);
+        //renderer.submit(player);
         addGameObject(ground);
     }
 
@@ -102,9 +101,9 @@ public class LevelEditorScene extends Scene{
             } catch (IOException ex){
                 System.out.println();
             }
-            //Window.getWindow().close();
+            Window.getWindow().close();
         }
-        if (keyListener.isKeyPressed(KeyEvent.VK_F2) && !isLoaded){
+        if (keyListener.isKeyPressed(KeyEvent.VK_F2)){
             try (FileInputStream file = new FileInputStream(fl)){
                 ObjectInputStream ois = new ObjectInputStream(file);
                 List<GameObject> loadDate = (List<GameObject>) ois.readObject();
@@ -124,13 +123,9 @@ public class LevelEditorScene extends Scene{
                 System.out.println();
             } finally {
                 System.out.println("Success?");
-                isLoaded = true;
             }
-        } if (keyListener.isKeyPressed(KeyEvent.VK_F3)){
+        } if (keyListener.isKeyPressed(KeyEvent.VK_F3)) {
             removeAll();
-        } if (keyListener.isKeyPressed(KeyEvent.VK_F4)){
-
-            Window.getWindow().changeScene(SceneCode.Level);
         }
 
         cameraControls.update(dt);

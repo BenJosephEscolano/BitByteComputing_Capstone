@@ -13,7 +13,6 @@ import java.util.List;
 
 public class LevelScene extends Scene{
     private GameObject player;
-    private boolean isLoaded = false;
 
     public LevelScene(String name){
         super(name);
@@ -68,30 +67,6 @@ public class LevelScene extends Scene{
 
     @Override
     public void update(double dt) {
-        if (!isLoaded) {
-            File fl = new File("level.obj");
-
-            try (FileInputStream file = new FileInputStream(fl)) {
-                ObjectInputStream ois = new ObjectInputStream(file);
-                java.util.List<GameObject> loadDate = (List<GameObject>) ois.readObject();
-                for (GameObject ld : loadDate) {
-                    addGameObject(ld);
-                }
-                ois.close();
-            } catch (FileNotFoundException ex) {
-                System.out.println("oopsies FileNotFoundException");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-
-            } catch (ClassCastException ex) {
-                System.out.println("oopsies ClassCastException");
-            } catch (ClassNotFoundException ex) {
-                System.out.println();
-            } finally {
-                System.out.println("Success?");
-                isLoaded = true;
-            }
-        }
         float newX = 0;
         float newY = 0;
         if (player.getX() - camera.getX() > Constants.CAMERA_OFFSET_X){
