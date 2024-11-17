@@ -6,6 +6,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Scene class is a container of the related objects needed for the game to function
+ */
+
 public abstract class Scene {
     String name;
     protected Camera camera;
@@ -17,6 +21,7 @@ public abstract class Scene {
         this.camera = new Camera(new Vector());
         this.gameObjectList = new ArrayList<>();
         this.renderer = new Renderer(this.camera);
+
     }
 
     public List<GameObject> getGameObjectList() {

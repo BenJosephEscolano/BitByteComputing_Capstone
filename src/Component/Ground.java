@@ -10,10 +10,19 @@ import Util.Constants;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+* This Component was meant for a former prototype, back when I was trying to make a platformer and
+* I need an infinite scrolling ground. We probably don't need this anymore, but if your curious
+* It's just a Rectangle class that moves horizontally when the camera moves horizontally
+ */
 public class Ground extends Component implements Serializable {
     @Override
     public void update(double dt){
         float newX;
+        /*
+          Looking back what I should have done is to make the update method work regardless of the scene
+          it is in
+        */
         if (!Window.getWindow().isInEditor){
             LevelScene scene =  (LevelScene) Window.getWindow().getScene();
             GameObject player = scene.getPlayer();

@@ -4,6 +4,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * This class in charge of adding mouse functionality to our program
+ */
 public class ML extends MouseAdapter implements MouseListener {
     public boolean mousePressed = false;
     public boolean mouseDragged = false;

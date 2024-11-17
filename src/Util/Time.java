@@ -1,5 +1,8 @@
 package Util;
 
+/**
+ * This class served for readability purposes only
+ */
 public class Time {
     private static final double timeStarted = System.nanoTime();
 

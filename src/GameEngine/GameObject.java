@@ -23,11 +23,9 @@ public class GameObject implements Serializable {
         return this.componentList;
     }
 
-    public void addComponent(Component c){
-        componentList.add(c);
-        c.setGameObject(this);
-    }
-
+    /*
+    Courtesy from the lovely folks of StackOverflow, don't ask me how it works ( • ̀ω•́ )✧
+     */
     public <T extends Component> T getComponent(Class<T> componentClass){
         for (Component c: componentList){
             if (componentClass.isAssignableFrom(c.getClass())){
@@ -40,6 +38,11 @@ public class GameObject implements Serializable {
             }
         }
         return null;
+    }
+
+    public void addComponent(Component c){
+        componentList.add(c);
+        c.setGameObject(this);
     }
 
     public <T extends Component> void removeComponent(Class<T> componentClass){

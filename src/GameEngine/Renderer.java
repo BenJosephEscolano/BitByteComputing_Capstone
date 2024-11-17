@@ -34,7 +34,7 @@ public class Renderer {
             oldTransform.setScale(g.getScale());
             oldTransform.setRotation(g.getVectorRotation());
             g.setPosition(new Vector(g.getX() - camera.getPosition().getX(),
-                    g.getY() - camera.getPosition().getY()));
+                    g.getY() - camera.getPosition().getY() ));
             g.draw(g2);
             g.setTransform(oldTransform);
         }
