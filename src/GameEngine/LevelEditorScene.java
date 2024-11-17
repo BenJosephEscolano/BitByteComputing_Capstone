@@ -64,6 +64,7 @@ public class LevelEditorScene extends Scene{
                 Color.CYAN,
                 Color.BLUE);
         player.addComponent(playerComp);
+        GameObject myLove = new GameObject("Fauna", new Transform(new Vector()));
 
         ground = new GameObject("Ground", new Transform(new Vector(0, Constants.GROUND_Y)));
         ground.addComponent(new Ground());
