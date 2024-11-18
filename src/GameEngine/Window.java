@@ -21,6 +21,7 @@ public class Window extends JFrame implements Runnable {
     private Image doubleBufferImage = null;
     private Graphics doubleBufferGraphics = null;
     public boolean isInEditor = true; // This is the only field that I am contemplating of removing
+    public static boolean run = false;
 
     private Window(){
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -50,17 +51,21 @@ public class Window extends JFrame implements Runnable {
     @Override
     public void run() {
         double lastFrameTime = 0.0;
-        try {
-            while(isRunning){
-                double time = Time.getTime();
-                double deltaTime = time - lastFrameTime;
-                lastFrameTime = time;
-                update(deltaTime);
+
+            try {
+                while(isRunning){
+                    double time = Time.getTime();
+                    double deltaTime = time - lastFrameTime;
+                    lastFrameTime = time;
+                    update(deltaTime);
+                    run= true;
+                }
+                dispose();
+            } catch (Exception e){
+                e.printStackTrace();
             }
-            dispose();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+
+
     }
     public void update(double dt){
         currentScene.update(dt);
@@ -72,7 +77,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     public void init(){
-        changeScene(SceneCode.LevelEditor);
+        changeScene(SceneCode.Level);
     }
 
 
