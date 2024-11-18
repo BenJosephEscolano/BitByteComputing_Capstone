@@ -67,7 +67,7 @@ public class LevelEditorScene extends Scene{
         GameObject myLove = new GameObject("Fauna", new Transform(new Vector()));
 
         ground = new GameObject("Ground", new Transform(new Vector(0, Constants.GROUND_Y)));
-        ground.addComponent(new Ground());
+        //ground.addComponent(new Ground());
 
         /*gameObjectList.add(g);
         renderer.submit(g);

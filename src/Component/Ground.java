@@ -6,8 +6,10 @@ import GameEngine.LevelEditorScene;
 import GameEngine.LevelScene;
 import GameEngine.Window;
 import Util.Constants;
+import Util.Vector;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 /**
@@ -16,6 +18,11 @@ import java.io.Serializable;
 * It's just a Rectangle class that moves horizontally when the camera moves horizontally
  */
 public class Ground extends Component implements Serializable {
+    private Rectangle2D ground;
+    public Ground(Vector position){
+        ground = new Rectangle((int) position.getX(), (int) position.getY(), Constants.SCREEN_WIDTH + 20, Constants.SCREEN_HEIGHT) {
+        };
+    }
     @Override
     public void update(double dt){
         float newX;
@@ -27,7 +34,6 @@ public class Ground extends Component implements Serializable {
             LevelScene scene =  (LevelScene) Window.getWindow().getScene();
             GameObject player1 = scene.getPlayer1();
             GameObject player2 = scene.getPlayer2();
-            GameObject player3 = scene.getPlayer3();
             if (player1.getY() + player1.getComponent(BoxBounds.class).getHeight() > getGameObject().getY()){
                 player1.setY(getGameObject().getY() - player1.getComponent(BoxBounds.class).getHeight());
                 player1.getComponent(PlayerOneControls.class).hasJumped = false;
@@ -36,10 +42,12 @@ public class Ground extends Component implements Serializable {
                 player2.setY(getGameObject().getY() - player2.getComponent(BoxBounds.class).getHeight());
                 player2.getComponent(PlayerOneControls.class).hasJumped = false;
             }
-            if (player3.getY() + player3.getComponent(BoxBounds.class).getHeight() > getGameObject().getY()){
-                player3.setY(getGameObject().getY() - player3.getComponent(BoxBounds.class).getHeight());
-                player3.getComponent(PlayerOneControls.class).hasJumped = false;
-            }
+            /*if (player1.getComponent(BoxBounds.class).getBoundbox().intersects(ground)){
+                player1.setY(getGameObject().getY() - player1.getComponent(BoxBounds.class).getHeight());
+                //player1.setY(getGameObject().getY() - player1.getComponent(BoxBounds.class).getHeight());
+                player1.getComponent(PlayerOneControls.class).hasJumped = false;
+                System.out.println("is intersecting");
+            }*/
 
             newX =(float) scene.getCamera().getX() - 10;
             getGameObject().setX(newX);
@@ -53,7 +61,7 @@ public class Ground extends Component implements Serializable {
     @Override
     public void draw(Graphics2D g2){
         g2.setColor(Color.BLACK);
-        g2.drawRect((int)getGameObject().getX() - 10, (int) getGameObject().getY(), Constants.SCREEN_WIDTH + 20, Constants.SCREEN_HEIGHT);
+        g2.drawRect((int)getGameObject().getX() , (int) getGameObject().getY(), Constants.SCREEN_WIDTH + 20, Constants.SCREEN_HEIGHT);
     }
 
     @Override

@@ -1,7 +1,11 @@
 package Component;
 
+import DataStructure.AssetPool;
+import DataStructure.Transform;
 import GameEngine.Component;
+import GameEngine.GameObject;
 import Util.Constants;
+import Util.Vector;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -45,6 +49,19 @@ public class Player extends Component implements Serializable {
             }
         }
     }
+    public static GameObject createPlayer(int layerOneIndex, int layerTwoIndex, int layerThreeIndex, Color colorOne, Color colorTwo){
+        Sprite SpriteOne = AssetPool.getSpriteSheet("assets/player/layerOne.png").getSprite(layerOneIndex);
+        Sprite SpriteTwo = AssetPool.getSpriteSheet("assets/player/layerTwo.png").getSprite(layerTwoIndex);
+        Sprite SpriteThree = AssetPool.getSpriteSheet("assets/player/layerThree.png").getSprite(layerThreeIndex);
+        Player playerSprites = new Player(SpriteOne, SpriteTwo, SpriteThree, colorOne, colorTwo);
+        GameObject player = new GameObject("", new Transform(new Vector()));
+        player.addComponent(playerSprites);
+        player.addComponent(new RigidBody(new Vector()));
+        player.addComponent(new BoxBounds(playerSprites.width, playerSprites.height));
+        player.getComponent(BoxBounds.class).init();
+        return player;
+    }
+
 
     @Override
     public void draw(Graphics2D g2){

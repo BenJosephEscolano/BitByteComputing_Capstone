@@ -27,6 +27,10 @@ public class RigidBody extends Component implements Serializable {
         }
     }
 
+    public void setYVelocity(float y){
+        velocity.setY(y);
+    }
+
     @Override
     public Component copy() {
         return null;

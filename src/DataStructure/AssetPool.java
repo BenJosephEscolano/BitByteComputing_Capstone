@@ -37,13 +37,11 @@ public class AssetPool {
         } else {
             System.out.println("Spritesheet '" + pictureFile + "' does not exist.");
             System.exit(-1);
-            
         }
         return null;
     }
 
     /**
-     *
      * @param pictureFile the absolute path to the picture
      * @param sprite
      */
@@ -65,6 +63,7 @@ public class AssetPool {
             System.exit(-1);
         }
     }
+
     
 
 }
