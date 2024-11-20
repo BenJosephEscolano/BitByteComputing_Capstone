@@ -22,7 +22,6 @@ public class CameraControls extends Component implements Serializable {
         if (mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON3){
             float dx = (mouseListener.getX() + mouseListener.getDX() - prevMx);
             float dy = (mouseListener.getY() + mouseListener.getDY() - prevMy);
-            System.out.println("middle mouse");
             Window.getWindow().getScene().getCamera().setX(
                     (float) (Window.getWindow().getScene().getCamera().getX() - dx)
             );

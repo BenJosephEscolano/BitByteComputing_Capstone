@@ -33,15 +33,15 @@ public class Ground extends Component implements Serializable {
         if (!Window.getWindow().isInEditor){
             LevelScene scene =  (LevelScene) Window.getWindow().getScene();
             GameObject player1 = scene.getPlayer1();
-            GameObject player2 = scene.getPlayer2();
+            //GameObject player2 = scene.getPlayer2();
             if (player1.getY() + player1.getComponent(BoxBounds.class).getHeight() > getGameObject().getY()){
                 player1.setY(getGameObject().getY() - player1.getComponent(BoxBounds.class).getHeight());
                 player1.getComponent(PlayerOneControls.class).hasJumped = false;
             }
-            if (player2.getY() + player2.getComponent(BoxBounds.class).getHeight() > getGameObject().getY()){
+            /*if (player2.getY() + player2.getComponent(BoxBounds.class).getHeight() > getGameObject().getY()){
                 player2.setY(getGameObject().getY() - player2.getComponent(BoxBounds.class).getHeight());
                 player2.getComponent(PlayerOneControls.class).hasJumped = false;
-            }
+            }*/
             /*if (player1.getComponent(BoxBounds.class).getBoundbox().intersects(ground)){
                 player1.setY(getGameObject().getY() - player1.getComponent(BoxBounds.class).getHeight());
                 //player1.setY(getGameObject().getY() - player1.getComponent(BoxBounds.class).getHeight());
