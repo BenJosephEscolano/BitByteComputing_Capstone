@@ -8,17 +8,35 @@ public class PlayerOneControls extends Controls{
     public boolean hasJumped;
     private int i=0;
 
+    private Vector lastDirection = new Vector(0, 0);
+    // store last direction faced to shoot while not moving
+
+    private Gun currentGun;
+    // store current gun (pistol or AR)
+
     public PlayerOneControls(){
         hasJumped = false;
     }
+
     @Override
     public void update(double dt){
+
         if (keyLisentner.isKeyPressed(KeyEvent.VK_W)){
+            lastDirection.setX(0);
+            lastDirection.setY(-1);
             jump();
-        }else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)){
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)){
+            lastDirection.setX(-1);
+            lastDirection.setY(0);
             moveLeft();
-        }else if (keyLisentner.isKeyPressed(KeyEvent.VK_D)){
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_D)){
+            lastDirection.setX(1);
+            lastDirection.setY(-0.5);
             moveRight();
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_S)){
+            lastDirection.setX(0);
+            lastDirection.setY(1);
+            moveDown();
         } else {
             stop();
         }
@@ -32,7 +50,6 @@ public class PlayerOneControls extends Controls{
             System.out.println(velocity.getY());
             hasJumped = true;
         }
-
 
     }
     public void stop(){
@@ -54,5 +71,9 @@ public class PlayerOneControls extends Controls{
     @Override
     public void moveDown() {
 
+    }
+
+    public Vector getLastDirection() {
+        return lastDirection;
     }
 }

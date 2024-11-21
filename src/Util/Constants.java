@@ -15,8 +15,8 @@ public class Constants {
     public static final float GRAVITY = 2850;
     public static final float TERMINAL_VELOCITY = 1900;
 
-    public static final int TILE_HEIGHT = 60;
-    public static final int TILE_WIDTH = 60;
+    public static final int TILE_HEIGHT = 42;
+    public static final int TILE_WIDTH = 42;
 
     public static final int BUTTON_OFFSET_X = 400;
     public static final int BUTTON_OFFSET_Y = 560;

@@ -13,6 +13,8 @@ import java.util.List;
 
 public class LevelScene extends Scene{
     private GameObject player1, player2;
+    private double spawnCooldown = 0.25;  // Time in seconds between bullet spawns (300 ms)
+    private double lastSpawnTime = 0;
 
     public LevelScene(String name){
         super(name);
@@ -30,10 +32,10 @@ public class LevelScene extends Scene{
     @Override
     public void init() {
         loadPlayerAssets();
-        player1 = Player.createPlayer(0,0,0);
+        player1 = Player.createPlayer(42,42,42, Color.CYAN, Color.BLUE);
         player1.setPosition(new Vector(500.0f, 350.0f));
         player1.addComponent(new PlayerOneControls());
-        player2 = Player.createPlayer(3, 3, 3);
+        player2 = Player.createPlayer(30, 30, 30, Color.ORANGE, Color.YELLOW);
         player2.setPosition(new Vector(700.0f, 350.0f));
         player2.addComponent(new PlayerTwoControls());
         GameObject ground = new GameObject("ground", new Transform(new Vector(90, Constants.GROUND_Y)));
@@ -47,7 +49,7 @@ public class LevelScene extends Scene{
     }
 
     private void loadPlayerAssets(){
-        /*if (!AssetPool.hasSpriteSheet("assets/player/layerOne.png")){
+        if (!AssetPool.hasSpriteSheet("assets/player/layerOne.png")){
             new SpriteSheet("assets/player/layerOne.png",
                     42, 42, 2, 13, 13 * 5);
         }
@@ -58,20 +60,7 @@ public class LevelScene extends Scene{
         if (!AssetPool.hasSpriteSheet("assets/player/layerThree.png")){
             new SpriteSheet("assets/player/layerThree.png",
                     42, 42, 2, 13, 13 * 5);
-        }*/
-        if (!AssetPool.hasSpriteSheet("assets/character_body.png")){
-            new SpriteSheet("assets/character_body.png",
-                    60, 60, 0, 4, 4);
         }
-        if (!AssetPool.hasSpriteSheet("assets/character_eyes.png")){
-            new SpriteSheet("assets/character_eyes.png",
-                    60, 60, 0, 4, 4);
-        }
-        if (!AssetPool.hasSpriteSheet("assets/character_mouth.png")){
-            new SpriteSheet("assets/character_mouth.png",
-                    60, 60, 0, 4, 4);
-        }
-
     }
 
     @Override
@@ -79,15 +68,37 @@ public class LevelScene extends Scene{
         for (GameObject g: gameObjectList){
             g.update(dt);
         }
+
+        lastSpawnTime += dt;
+
+        if (Window.getWindow().getKeyListener().isKeyPressed(KeyEvent.VK_SPACE) && lastSpawnTime >= spawnCooldown) {
+            spawnBullet();  //spawn the bullet
+            lastSpawnTime = 0;  //reset the cooldown timer
+        }
     }
 
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(Color.WHITE);
         g2.fillRect(0,0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-        layer1.render(g2);
-        layer2.render(g2);
+        renderer.render(g2);
     }
+
+    private void spawnBullet() {
+        Vector spawnPosition = player1.getPosition().copy();
+
+        //get the last direction from the controls
+        Vector lastDirection = player1.getComponent(PlayerOneControls.class).getLastDirection();
+
+        // if the last direction is non-zero, spawn a bullet
+        if (lastDirection.getX() != 0 || lastDirection.getY() != 0) {
+            Vector bulletVelocity = new Vector(lastDirection.getX() * 1000.0f, lastDirection.getY() * 1000.0f);
+            Bullet newBullet = new Bullet(spawnPosition, bulletVelocity);
+            addGameObject(newBullet);  //add bullet to the scene
+        }
+    }
+
+
 }
 
 
