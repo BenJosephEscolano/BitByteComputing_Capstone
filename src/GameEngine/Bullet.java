@@ -23,14 +23,14 @@ public class Bullet extends GameObject {
         position.setY(position.getY() + velocity.getY() * (float) dt);
 
         // Print bullet position and velocity for debugging
-        System.out.println("Bullet Position: " + position.getX() + ", " + position.getY());
-        System.out.println("Bullet Velocity: " + velocity.getX() + ", " + velocity.getY());
+        //System.out.println("Bullet Position: " + position.getX() + ", " + position.getY());
+        //System.out.println("Bullet Velocity: " + velocity.getX() + ", " + velocity.getY());
     }
-
 
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(Color.BLUE); // Bullet will be red for visibility
-        g2.fillOval((int) getX(), (int) getY(), radius * 2, radius * 2); // Draw the bullet as a circle
+        g2.fillOval((int) getX() + 10, (int) getY() + 10, radius * 2, radius * 2); // Draw the bullet as a circle
+        System.out.println((int) getY());
     }
 }
