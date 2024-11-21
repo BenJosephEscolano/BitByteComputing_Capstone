@@ -40,5 +40,9 @@ public class Vector implements Serializable {
         return new Vector(x, y);
     }
 
-
+    public Vector multiply(float scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+        return this;
+    }
 }

@@ -15,5 +15,6 @@ public abstract class Controls extends Component {
     public abstract void jump();
     public abstract void moveLeft();
     public abstract void moveRight();
+    //public abstract void moveRightSlow();
     public abstract void moveDown();
 }
