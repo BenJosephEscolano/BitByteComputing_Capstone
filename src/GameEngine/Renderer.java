@@ -39,4 +39,8 @@ public class Renderer {
             g.setTransform(oldTransform);
         }
     }
+
+    public List<GameObject> getRenderList(){
+        return gameObjectList;
+    }
 }
