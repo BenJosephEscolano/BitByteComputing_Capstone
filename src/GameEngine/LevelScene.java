@@ -13,7 +13,7 @@ import java.util.List;
 
 public class LevelScene extends Scene{
     private GameObject player1, player2;
-    private double spawnCooldown = 0.25;  // Time in seconds between bullet spawns (300 ms)
+    private double spawnCooldown = 0.15;  // Time in seconds between bullet spawns (300 ms)
     private double lastSpawnTime = 0;
 
     public LevelScene(String name){
@@ -32,7 +32,7 @@ public class LevelScene extends Scene{
     @Override
     public void init() {
         loadPlayerAssets();
-        player1 = Player.createPlayer(42,42,42, Color.CYAN, Color.BLUE);
+        player1 = Player.createPlayer(40,40,40, Color.CYAN, Color.BLUE);
         player1.setPosition(new Vector(500.0f, 350.0f));
         player1.addComponent(new PlayerOneControls());
         player2 = Player.createPlayer(30, 30, 30, Color.ORANGE, Color.YELLOW);
@@ -97,7 +97,6 @@ public class LevelScene extends Scene{
             addGameObject(newBullet);  //add bullet to the scene
         }
     }
-
 
 }
 
