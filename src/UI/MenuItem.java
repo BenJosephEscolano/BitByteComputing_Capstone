@@ -47,14 +47,14 @@ public class MenuItem extends Component {
                 mouseListener.getX() > this.x && mouseListener.getX() < this.x + this.width &&
                 mouseListener.getY() > this.y && mouseListener.getY() < this.y + this.height){
             if (mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1){
-                GameObject obj = getGameObject().copy();
+                /*GameObject obj = getGameObject().copy();
                 obj.removeComponent(MenuItem.class);
                 LevelEditorScene scene = (LevelEditorScene) Window.getWindow().getScene();
 
                 SnapToGrid snapToGrid = scene.getMouseCursor().getComponent(SnapToGrid.class);
                 obj.addComponent(snapToGrid);
                 scene.setMouseCursor(obj);
-                isSelected = true;
+                isSelected = true;*/
             }
         }
     }

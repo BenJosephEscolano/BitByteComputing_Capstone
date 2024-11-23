@@ -39,8 +39,14 @@ public class SnapToGrid extends Component implements Serializable {
             if (mouseListener.getY() < Constants.BUTTON_OFFSET_Y && mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1 && debounceLeft < 0){
                 debounceLeft = debounceTime;
                 GameObject object = getGameObject().copy();
+                GameObject objectShadow = getGameObject().copy();
+                objectShadow.removeComponent(Sprite.class);
+                Sprite shadow = (Sprite) getGameObject().getComponent(Shadow.class).getSubSprite().copy();
+                objectShadow.addComponent(shadow);
                 object.setPosition(new Vector(x * gridWidth, y * gridHeight));
-                Window.getWindow().getScene().addGameObject(object);
+                objectShadow.setPosition(new Vector(x * gridWidth - 10, y * gridHeight + 10));
+                Window.getWindow().getScene().addToLayerOne(objectShadow);
+                Window.getWindow().getScene().addToLayerTwo(object);
             }
         }
     }
@@ -51,7 +57,7 @@ public class SnapToGrid extends Component implements Serializable {
         if (sprite != null){
             float alpha = 0.5f;
             AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-            g2.setComposite(ac);
+            //g2.setComposite(ac);
             g2.drawImage(sprite.getImage(), (int) getGameObject().getX(), (int) getGameObject().getY()
             , sprite.getWidth(), sprite.getHeight(), null);
             alpha = 1.0f;

@@ -25,7 +25,7 @@ public class Grid extends Component implements Serializable {
 
     @Override
     public void draw(Graphics2D g2){
-        float bottom = (float) Math.min(Constants.GROUND_Y - camera.getY(), Constants.SCREEN_HEIGHT);
+        float bottom = (float) Constants.SCREEN_HEIGHT;
         float startX = (float) Math.floor(camera.getX() / gridWidth) * gridWidth - (float) camera.getX();
         float startY = (float) Math.floor(camera.getY() / gridHeight) * gridWidth - (float) camera.getY();
         g2.setStroke(new BasicStroke(1f));
@@ -35,7 +35,7 @@ public class Grid extends Component implements Serializable {
                 g2.draw(new Line2D.Float(startX, 0, startX, bottom));
                 startX += gridWidth;
             }
-            if (camera.getY() + startY < Constants.GROUND_Y){
+            if (camera.getY() + startY < Constants.SCREEN_HEIGHT){
                 g2.draw(new Line2D.Float(0, startY, Constants.SCREEN_WIDTH, startY));
                 startY += gridHeight;
             }
