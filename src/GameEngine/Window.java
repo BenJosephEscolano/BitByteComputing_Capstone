@@ -6,6 +6,7 @@ import Util.Time;
 
 import javax.swing.*;
 import java.awt.*;
+
 import java.awt.event.KeyEvent;
 
 /**
@@ -33,6 +34,7 @@ public class Window extends JFrame implements Runnable {
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
         this.addKeyListener(keyListener);
+
     }
     /*
     The singleton design pattern
