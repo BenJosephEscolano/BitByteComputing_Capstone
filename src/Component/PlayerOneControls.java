@@ -13,6 +13,18 @@ public class PlayerOneControls extends Controls{
     }
     @Override
     public void update(double dt){
+
+        if(keyLisentner.isKeyPressed((KeyEvent.VK_Q)) && keyLisentner.isKeyPressed(KeyEvent.VK_D)){
+            Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
+            velocity.setX(1500);
+            System.out.println("Dashing!X");
+        }
+        if(keyLisentner.isKeyPressed((KeyEvent.VK_Q)) && keyLisentner.isKeyPressed(KeyEvent.VK_A)){
+            Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
+            velocity.setX(-1500);
+            System.out.println("Dashing!Y");
+        }
+
         if (keyLisentner.isKeyPressed(KeyEvent.VK_W)){
             jump();
         }else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)){
@@ -27,7 +39,7 @@ public class PlayerOneControls extends Controls{
     public void jump() {
         if (!hasJumped){
             Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
-            velocity.setY(-1000);
+            velocity.setY(-800);
             System.out.println("Jumped");
             System.out.println(velocity.getY());
             hasJumped = true;

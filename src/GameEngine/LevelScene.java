@@ -11,21 +11,20 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.List;
 
-public class LevelScene extends Scene{
+public class LevelScene extends Scene {
     private GameObject player1, player2;
 
-    public LevelScene(String name){
+    public LevelScene(String name) {
         super(name);
     }
 
-    public GameObject getPlayer1(){
+    public GameObject getPlayer1() {
         return player1;
     }
 
-    public GameObject getPlayer2(){
+    public GameObject getPlayer2() {
         return player2;
     }
-
 
     @Override
     public void init() {
@@ -40,25 +39,43 @@ public class LevelScene extends Scene{
         ground.addComponent(new Ground(ground.getPosition()));
         GameObject grid = new GameObject("grid", new Transform(new Vector()));
         grid.addComponent(new Grid());
-        addGameObject(grid);
+        //addGameObject(grid);
         addGameObject(player1);
         addGameObject(player2);
         addGameObject(ground);
+
+        // platforms//joseph
+        createPlatform(300, 400, 200, 20, Color.DARK_GRAY);
+        createPlatform(600, 300, 150, 20, Color.DARK_GRAY);
+        createPlatform(100, 500, 100, 20, Color.DARK_GRAY);
+
+
     }
 
-    private void loadPlayerAssets(){
-        if (!AssetPool.hasSpriteSheet("assets/player/layerOne.png")){
+    private void loadPlayerAssets() {
+        if (!AssetPool.hasSpriteSheet("assets/player/layerOne.png")) {
             new SpriteSheet("assets/player/layerOne.png",
                     42, 42, 2, 13, 13 * 5);
         }
-        if (!AssetPool.hasSpriteSheet("assets/player/layerTwo.png")){
+        if (!AssetPool.hasSpriteSheet("assets/player/layerTwo.png")) {
             new SpriteSheet("assets/player/layerTwo.png",
                     42, 42, 2, 13, 13 * 5);
         }
-        if (!AssetPool.hasSpriteSheet("assets/player/layerThree.png")){
+        if (!AssetPool.hasSpriteSheet("assets/player/layerThree.png")) {
             new SpriteSheet("assets/player/layerThree.png",
                     42, 42, 2, 13, 13 * 5);
         }
+    }
+    //crete platforms//joseph
+    private void createPlatform(float x, float y, int width, int height, Color color) {
+        GameObject platform = new GameObject(
+                "platform",
+                new Transform(new Vector(x, y))
+        );
+        Platform platformComponent = new Platform(platform.getPosition(), width, height);
+        platformComponent.setColor(color);
+        platform.addComponent(platformComponent);
+        addGameObject(platform);
     }
 
     @Override
@@ -74,6 +91,6 @@ public class LevelScene extends Scene{
         g2.fillRect(0,0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         renderer.render(g2);
     }
+
+
 }
-
-

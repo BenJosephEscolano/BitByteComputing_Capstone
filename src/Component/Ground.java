@@ -20,8 +20,7 @@ import java.io.Serializable;
 public class Ground extends Component implements Serializable {
     private Rectangle2D ground;
     public Ground(Vector position){
-        ground = new Rectangle((int) position.getX(), (int) position.getY(), Constants.SCREEN_WIDTH + 20, Constants.SCREEN_HEIGHT) {
-        };
+        ground = new Rectangle((int) position.getX(), (int) position.getY(), Constants.SCREEN_WIDTH + 20, Constants.SCREEN_HEIGHT);
     }
     @Override
     public void update(double dt){
@@ -60,7 +59,7 @@ public class Ground extends Component implements Serializable {
 
     @Override
     public void draw(Graphics2D g2){
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.white);
         g2.drawRect((int)getGameObject().getX() , (int) getGameObject().getY(), Constants.SCREEN_WIDTH + 20, Constants.SCREEN_HEIGHT);
     }
 
