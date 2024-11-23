@@ -31,7 +31,7 @@ public class PlayerOneControls extends Controls{
             moveLeft();
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_D)){
             lastDirection.setX(1);
-            lastDirection.setY(-0.5);
+            lastDirection.setY(-0.5f);
             moveRight();
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_S)){
             lastDirection.setX(0);
