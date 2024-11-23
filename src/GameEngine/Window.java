@@ -6,6 +6,7 @@ import Util.Time;
 
 import javax.swing.*;
 import java.awt.*;
+
 import java.awt.event.KeyEvent;
 
 /**
@@ -26,13 +27,14 @@ public class Window extends JFrame implements Runnable {
     private Window(){
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         this.setTitle(Constants.SCREEN_TITLE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
         this.addKeyListener(keyListener);
+
     }
     /*
     The singleton design pattern
