@@ -1,11 +1,9 @@
 package Component;
 
-import GameEngine.Camera;
-import GameEngine.Window;
-import GameEngine.Component;
-import GameEngine.GameObject;
-import GameEngine.ML;
+import GameEngine.*;
 
+import GameEngine.Component;
+import GameEngine.Window;
 import Util.Constants;
 import Util.Vector;
 import java.util.List;
@@ -15,9 +13,11 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
 public class SnapToGrid extends Component implements Serializable {
-    private float debounceTime = 0.2f;
-    private float debounceLeft = 0.0f;
-    private int gridWidth, gridHeight;
+    protected float debounceTime = 0.2f;
+    protected float debounceLeft = 0.0f;
+    protected int gridWidth, gridHeight;
+    protected ML mouseListener = Window.getWindow().getMouseListener();
+    protected Camera camera = Window.getWindow().getScene().getCamera();
 
     public SnapToGrid(int gridWidth, int gridHeight){
         this.gridHeight = gridHeight;
@@ -27,26 +27,35 @@ public class SnapToGrid extends Component implements Serializable {
     @Override
     public void update(double dt){
         debounceLeft -= (float) dt;
-        ML mouseListener = Window.getWindow().getMouseListener();
-        Camera camera = Window.getWindow().getScene().getCamera();
+
         if (getGameObject().getComponent(Sprite.class) != null) {
             float x = (float) Math.floor((mouseListener.getX() + camera.getX() + mouseListener.getDX()) / gridWidth);
             float y = (float) Math.floor((mouseListener.getY() + camera.getY() + mouseListener.getDY()) / gridHeight);
 
-            getGameObject().setX(x * gridWidth - (float)camera.getX());
-            getGameObject().setY(y * gridHeight - (float)camera.getY());
+            getGameObject().setX(x * gridWidth - (float) camera.getX());
+            getGameObject().setY(y * gridHeight - (float) camera.getY());
 
-            if (mouseListener.getY() < Constants.BUTTON_OFFSET_Y && mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1 && debounceLeft < 0){
+            if (mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1) {
                 debounceLeft = debounceTime;
                 GameObject object = getGameObject().copy();
-                GameObject objectShadow = getGameObject().copy();
-                objectShadow.removeComponent(Sprite.class);
-                Sprite shadow = (Sprite) getGameObject().getComponent(Shadow.class).getSubSprite().copy();
-                objectShadow.addComponent(shadow);
-                object.setPosition(new Vector(x * gridWidth, y * gridHeight));
-                objectShadow.setPosition(new Vector(x * gridWidth - 10, y * gridHeight + 10));
-                Window.getWindow().getScene().addToLayerOne(objectShadow);
-                Window.getWindow().getScene().addToLayerTwo(object);
+                if (!((LevelEditorScene) Window.getWindow().getScene()).eraseMode) {
+                    GameObject shadow = getGameObject().copy();
+                    shadow.removeComponent(Sprite.class);
+                    Sprite hadow = (Sprite) getGameObject().getComponent(Shadow.class).getSubSprite().copy();
+                    shadow.addComponent(hadow);
+                    object.setPosition(new Vector(x * gridWidth, y * gridHeight));
+                    object.addComponent(new BoxBounds(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
+                    object.addComponent(new Platform(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
+                    shadow.setPosition(new Vector(x * gridWidth - 10, y * gridHeight + 10));
+                    Window.getWindow().getScene().setToLayerOne(shadow);
+                    Window.getWindow().getScene().setToLayerTwo(object);
+                } else {
+                    System.out.println("erase");
+                    Window.getWindow().getScene().erase(object);
+                }
+                System.out.println("GameObjectList: " + Window.getWindow().getScene().getGameObjectList().size());
+                System.out.println("Layer 1: " + Window.getWindow().getScene().getRenderer(1).getRenderList().size());
+                System.out.println("Layer 2: " + Window.getWindow().getScene().getRenderer(2).getRenderList().size());
             }
         }
     }

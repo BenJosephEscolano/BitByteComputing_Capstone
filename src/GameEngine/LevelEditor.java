@@ -7,7 +7,7 @@ public class LevelEditor {
         public static void main(String[] args) {
             //This block of code creates and initialize (init) the window object
             Window window = Window.getWindow();
-            window.init();
+            //window.init();
             window.changeScene(SceneCode.LevelEditor);
             //thread.start() calls on the window's run method
             Thread mainThread = new Thread(window);

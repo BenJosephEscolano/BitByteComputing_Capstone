@@ -1,5 +1,6 @@
 package Component;
 
+import GameEngine.Component;
 import GameEngine.GameObject;
 
 //joseph
@@ -10,7 +11,7 @@ public class Collision {
      */
     private static final float COLLISION_TOLERANCE = 5.0f;
 
-    public static void checkPlatformPlayerCollision(Platform platform1, GameObject player) {
+    /*public static void checkPlatformPlayerCollision(GameObject platform, GameObject player) {
         if (player == null) return;
 
         BoxBounds playerBounds = player.getComponent(BoxBounds.class);
@@ -22,10 +23,59 @@ public class Collision {
         float playerRight = player.getX() + playerBounds.getWidth();
         float playerLeft = player.getX();
 
-        float platformTop = platform1.getGameObject().getY();
-        float platformBottom = platform1.getGameObject().getY() + platform1.getHeight();
-        float platformLeft = platform1.getGameObject().getX();
-        float platformRight = platform1.getGameObject().getX() + platform1.getWidth();
+        float platformTop = platform.getY();
+        float platformBottom = platform.getY() + platform.getComponent(BoxBounds.class).getHeight();
+        float platformLeft = platform.getX();
+        float platformRight = platform.getX() + platform.getComponent(BoxBounds.class).getWidth();
+
+        if (playerRight > platformLeft && playerLeft < platformRight &&
+                playerBottom > platformTop && playerTop < platformBottom) {
+
+            float overlapLeft = playerRight - platformLeft;
+            float overlapRight = platformRight - playerLeft;
+            float overlapTop = playerBottom - platformTop;
+            float overlapBottom = platformBottom - playerTop;
+
+            float minOverlap = Math.min(Math.min(overlapLeft, overlapRight),
+                    Math.min(overlapTop, overlapBottom));
+
+            if (minOverlap == overlapTop && rb.velocity.getY() > 0) {
+
+                player.setY(platformTop - playerBounds.getHeight());
+                rb.velocity.setY(0);
+                resetJumpState(player);
+            } else if (minOverlap == overlapBottom && rb.velocity.getY() < 0) {
+
+                player.setY(platformBottom);
+                rb.velocity.setY(0);
+            } else if (minOverlap == overlapLeft && rb.velocity.getX() > 0) {
+
+                player.setX(platformLeft - playerBounds.getWidth());
+                rb.velocity.setX(0);
+            } else if (minOverlap == overlapRight && rb.velocity.getX() < 0) {
+
+                player.setX(platformRight);
+                rb.velocity.setX(0);
+            }
+        }
+    }*/
+
+    public static void checkPlatformPlayerCollision(Platform platform, GameObject player) {
+        if (player == null) return;
+
+        BoxBounds playerBounds = player.getComponent(BoxBounds.class);
+        RigidBody rb = player.getComponent(RigidBody.class);
+        if (playerBounds == null || rb == null) return;
+
+        float playerBottom = player.getY() + playerBounds.getHeight();
+        float playerTop = player.getY();
+        float playerRight = player.getX() + playerBounds.getWidth();
+        float playerLeft = player.getX();
+
+        float platformTop = platform.getGameObject().getY();
+        float platformBottom = platformTop + platform.getHeight();
+        float platformLeft = platform.getGameObject().getX();
+        float platformRight = platformLeft + platform.getWidth();
 
         if (playerRight > platformLeft && playerLeft < platformRight &&
                 playerBottom > platformTop && playerTop < platformBottom) {
@@ -58,6 +108,24 @@ public class Collision {
             }
         }
     }
+    
+    public static boolean checkCollision(BoxBounds box1, BoxBounds box2){
+        float box1Top = box1.getY();
+        float box1Bottom = box1Top + box1.getHeight();
+        float box1Left = box1.getX();
+        float box1Right = box1Left + box1.getWidth();
+
+        float box2Top = box2.getGameObject().getY();
+        float box2Bottom = box2Top + box2.getHeight();
+        float box2Left = box2.getGameObject().getX();
+        float box2Right = box2Left + box2.getWidth();
+
+        if (box1Right > box2Left && box1Left < box2Right &&
+                box1Bottom > box2Top && box1Top < box2Bottom) {
+            return true;
+        }
+        return false;
+    }
 
     private static void resetJumpState(GameObject player) {
         PlayerOneControls playerOneControls = player.getComponent(PlayerOneControls.class);
@@ -70,4 +138,5 @@ public class Collision {
             playerTwoControls.hasJumped = false;
         }
     }
+
 }

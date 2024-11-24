@@ -1,22 +1,31 @@
 package Component;
 
+import DataStructure.AssetPool;
+import GameEngine.Bullet;
+import GameEngine.GameObject;
+import GameEngine.Window;
 import Util.Vector;
 
 import java.awt.event.KeyEvent;
+import java.security.Key;
 
 public class PlayerOneControls extends Controls {
     boolean hasJumped;
-    private Vector lastDirection = new Vector(0, 0);
-    private float targetVelocityX = 0;
-    private final float acceleration = 1000.0f;
-    private final float maxSpeed = 500.0f;
+    protected Vector lastDirection = new Vector(0, 0);
+    protected float targetVelocityX = 0;
+    protected final float acceleration = 1000.0f;
+    protected final float maxSpeed = 500.0f;
+    protected GameObject player;
 
     public PlayerOneControls() {
         hasJumped = false;
+        player = Window.getWindow().getScene().getPlayer1();
     }
+
 
     @Override
     public void update(double dt) {
+
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
 
         //adjust velocity gradually towards the target
@@ -42,7 +51,7 @@ public class PlayerOneControls extends Controls {
             lastDirection.setX(0);
             lastDirection.setY(1);
             moveDown();
-        } else {
+        }  else {
             stop();
         }
     }
@@ -73,6 +82,12 @@ public class PlayerOneControls extends Controls {
     public void moveDown() {
 
     }
+
+
+
+
+
+
 
     public Vector getLastDirection() {
         return lastDirection;

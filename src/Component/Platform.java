@@ -11,23 +11,20 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 //joseph
 public class Platform extends Component implements Serializable {
-    private Rectangle2D platform;
-    private int width;
-    private int height;
+    private float width, height;
     private Color color;
     private static final float COLLISION_TOLERANCE = 5.0f;
 
-    public Platform(Vector position, int width, int height) {
+    public Platform(float width, float height) {
         this.width = width;
         this.height = height;
         this.color = Color.DARK_GRAY;
-        platform = new Rectangle((int) position.getX(), (int) position.getY(), width, height);
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
-    public int getHeight(){
+    public float getHeight(){
         return height;
     }
 
@@ -46,14 +43,7 @@ public class Platform extends Component implements Serializable {
 
 
 
-    @Override
-    public void draw(Graphics2D g2) {
-        g2.setColor(color);
-        g2.fillRect( (int)getGameObject().getX(), (int)getGameObject().getY(), width, height);
 
-        g2.setColor(Color.BLACK);
-        g2.drawRect( (int)getGameObject().getX(), (int)getGameObject().getY(), width, height);
-    }
 
     public void setColor(Color color) {
         this.color = color;
@@ -61,8 +51,9 @@ public class Platform extends Component implements Serializable {
 
     @Override
     public Component copy() {
-        Platform platform = new Platform( new Vector(getGameObject().getX(), getGameObject().getY()), width, height);
+        /*Platform platform = new Platform( new Vector(getGameObject().getX(), getGameObject().getY()), width, height);
         platform.setColor(this.color);
-        return platform;
+        return platform;*/
+        return null;
     }
 }

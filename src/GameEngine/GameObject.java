@@ -66,6 +66,13 @@ public class GameObject implements Serializable {
         }
     }
 
+    public boolean equals(GameObject g){
+        if (g.getX() == getX() && g.getY() == getY()){
+            return true;
+        }
+        return false;
+    }
+
     public GameObject copy(){
       GameObject newGameObject = new GameObject("Generated", transform.copy());
       for (Component c: componentList){

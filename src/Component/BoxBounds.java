@@ -27,6 +27,14 @@ public class BoxBounds extends Component implements Serializable {
 
     }
 
+    public float getX(){
+        return getGameObject().getX();
+    }
+
+    public float getY(){
+        return getGameObject().getY();
+    }
+
     public Rectangle2D getBoundbox(){
         return boundbox;
     }

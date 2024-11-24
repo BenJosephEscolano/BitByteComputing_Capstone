@@ -26,6 +26,7 @@ public class LevelEditorScene extends Scene{
     private int currIndex = 0;
     private float debounceTime = 0.5f;
     private float debounceLeft = 0.0f;
+    public boolean eraseMode = false;
 
     public LevelEditorScene(String name){
         super(name);
@@ -45,22 +46,27 @@ public class LevelEditorScene extends Scene{
     }
 
     private void loadAssets(){
-        if (!AssetPool.hasSpriteSheet("assets/platform_tiles.png")){
-            new SpriteSheet("assets/platform_tiles.png", 60, 60, 0, 7, 7);
+        if (!AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png")){
+            new SpriteSheet("assets/Tiles/platform_tiles.png", 60, 60, 0, 7, 7);
         }
-        if (!AssetPool.hasSpriteSheet("assets/platform_tiles_shadow.png")){
-            new SpriteSheet("assets/platform_tiles_shadow.png", 60, 60, 1, 7, 7);
+        if (!AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png")){
+            new SpriteSheet("assets/Tiles/platform_tiles_shadow.png", 60, 60, 0, 7, 7);
         }
     }
     private void loadEditorItems(){
         int numOfPlatforms = 7;
         for (int i = 0; i < numOfPlatforms; i++){
             GameObject block = new GameObject("block", new Transform(new Vector()));
-            block.addComponent(AssetPool.getSpriteSheet("assets/platform_tiles.png").getSprite(i));
+            block.addComponent(AssetPool.getSpriteSheet("assets/Tiles/platform_tiles.png").getSprite(i));
             block.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
-            block.addComponent(new Shadow(AssetPool.getSpriteSheet("assets/platform_tiles_shadow.png").getSprite(i)));
+            block.addComponent(new Shadow(AssetPool.getSpriteSheet("assets/Tiles/platform_tiles_shadow.png").getSprite(i)));
             editorItems.add(block);
         }
+        GameObject eraser = new GameObject("eraser", new Transform(new Vector()));
+        eraser.addComponent(AssetPool.getSpriteSheet("assets/Tiles/platform_tiles_shadow.png").getSprite(0));
+        eraser.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
+        eraser.addComponent(new Eraser());
+        editorItems.add(eraser);
         System.out.println("Level Items are loaded: " + editorItems.size());
     }
 
@@ -115,6 +121,15 @@ public class LevelEditorScene extends Scene{
     private void rotateItems(int num){
         currIndex = (editorItems.size() + currIndex + num) % editorItems.size();
         currItem = editorItems.get(currIndex);
+        if (editorItems.get(currIndex).getComponent(Eraser.class) == null){
+            eraseMode = false;
+            System.out.println("Erase mode: false" );
+        } else {
+            eraseMode = true;
+            System.out.println("Erase mode: true");
+        }
+        System.out.println("Eraser: " + currItem.getComponent(Eraser.class));
+        System.out.println("SnapToGrid: " + currItem.getComponent(SnapToGrid.class));
     }
 
     public void saveLevel(File fl1, File fl2){
@@ -181,6 +196,13 @@ public class LevelEditorScene extends Scene{
     }
     public void clearLevel(){
         removeAll();
+    }
+
+    public GameObject getPlayer1(){
+        return null;
+    }
+    public GameObject getPlayer2(){
+        return  null;
     }
 
 /*

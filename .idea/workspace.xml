@@ -4,15 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="merge conflict">
-      <change beforePath="$PROJECT_DIR$/src/Component/CameraControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/CameraControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Grid.java" afterDir="false" />
+    <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="Tried to fix my mistake when merging">
+      <change afterPath="$PROJECT_DIR$/src/Component/CollisionObj.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Component/Eraser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameEngine/CollisionLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Level_layer2.obj" beforeDir="false" afterPath="$PROJECT_DIR$/Level_layer2.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Player/layerOne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Player/layerThree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Player/layerTwo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/buttonSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/character_body.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/character_eyes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/character_mouth.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/groundSprites.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/platform_tiles.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/platform_tiles_shadow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/tileset.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/level_layer1.obj" beforeDir="false" afterPath="$PROJECT_DIR$/level_layer1.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/BoxBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/BoxBounds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Platform.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/SnapToGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/SnapToGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/GameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Renderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,45 +43,61 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="new-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "BenJosephEscolano"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;BenJosephEscolano&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/BenJosephEscolano/BitByteComputing_Capstone.git",
-    "accountId": "ab82d66a-33ba-4729-8b91-a34a40db7d7b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BenJosephEscolano/BitByteComputing_Capstone.git&quot;,
+    &quot;accountId&quot;: &quot;ab82d66a-33ba-4729-8b91-a34a40db7d7b&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2pFWS5BupQeM6DK4DLCnm4BCxBI" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LevelEditor$Main.executor": "Run",
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LevelEditor$Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LevelEditor.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="LevelEditor" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GameEngine.LevelEditor$Main" />
+      <module name="BitByteComputing_Capstone" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="BitByteComputing_Capstone" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -77,6 +116,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.LevelEditor" />
+      <item itemvalue="Application.Main" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -111,11 +159,20 @@
       <option name="project" value="LOCAL" />
       <updated>1732363132814</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Tried to fix my mistake when merging">
+      <option name="closed" value="true" />
+      <created>1732366491098</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732366491098</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge conflict" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge conflict" />
+    <MESSAGE value="Tried to fix my mistake when merging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tried to fix my mistake when merging" />
   </component>
 </project>
