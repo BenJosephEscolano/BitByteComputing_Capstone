@@ -2,14 +2,12 @@ package Util;
 
 public class Constants {
     public static final int SCREEN_WIDTH = 1260;
-    public static final int SCREEN_HEIGHT = 720;
+    public static final int SCREEN_HEIGHT = 760;
+    // we might one to change the one on day
     public static final String SCREEN_TITLE = "Geometry Dash";
     public static final int PLAYER_WIDTH = 60;
     public static final int PLAYER_HEIGHT = 60;
 
-    public static final int GROUND_Y = 600;
-    public static final int CAMERA_OFFSET_X = 300;
-    public static final int CAMERA_OFFSET_Y = 325;
     public static final int CAMERA_GROUND_OFFSET = 150;
 
     public static final float GRAVITY = 2850;
@@ -17,7 +15,7 @@ public class Constants {
 
     public static final int TILE_HEIGHT = 60;
     public static final int TILE_WIDTH = 60;
-
+    //This ones might stay if we recycle the UI logic for our character selection buttons
     public static final int BUTTON_OFFSET_X = 400;
     public static final int BUTTON_OFFSET_Y = 560;
     public static final int BUTTON_SPACING_HZ = 10;

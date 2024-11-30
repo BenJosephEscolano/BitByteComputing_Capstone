@@ -9,6 +9,8 @@ import Util.Vector;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.List;
+
 //joseph
 public class Platform extends Component implements Serializable {
     private float width, height;
@@ -30,13 +32,17 @@ public class Platform extends Component implements Serializable {
 
     @Override
     public void update(double dt) {
-        if (!Window.getWindow().isInEditor) {
+        /*if (!Window.getWindow().isInEditor) {
             LevelScene scene = (LevelScene) Window.getWindow().getScene();
             GameObject player1 = scene.getPlayer1();
             GameObject player2 = scene.getPlayer2();
 
             Collision.checkPlatformPlayerCollision(this, player1);
             Collision.checkPlatformPlayerCollision(this, player2);
+        }*/
+        List<GameObject> activeBodies = Window.getScene().getActiveBodies();
+        for (int i = 0; i < activeBodies.size(); i++){
+            Collision.checkPlatformPlayerCollision(this, activeBodies.get(i));
         }
     }
 

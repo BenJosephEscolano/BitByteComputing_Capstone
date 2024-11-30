@@ -16,7 +16,7 @@ public class Grid extends Component implements Serializable {
     public int gridColumns, gridRows;
 
     public Grid(){
-        this.camera = Window.getWindow().getScene().getCamera();
+        this.camera = Window.getScene().getCamera();
         this.gridHeight = Constants.TILE_HEIGHT;
         this.gridWidth = Constants.TILE_WIDTH;
         this.gridColumns = 31;

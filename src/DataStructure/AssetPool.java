@@ -16,7 +16,8 @@ public class AssetPool {
     }
 
     public static boolean hasSpriteSheet(String pictureFile){
-        return AssetPool.spriteSheets.containsKey(pictureFile);
+        File file = new File(pictureFile);
+        return AssetPool.spriteSheets.containsKey(file.getAbsolutePath());
     }
 
     public static Sprite getSprite(String pictureFile){

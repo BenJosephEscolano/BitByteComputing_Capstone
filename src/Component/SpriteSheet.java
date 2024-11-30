@@ -8,17 +8,9 @@ import java.util.List;
 
 public class SpriteSheet implements Serializable {
     private List<Sprite> spriteList;
-    private int tileWidth;
-    private int tileHeight;
-    private int spacing;
-    private int columns;
     private int size;
 
     public SpriteSheet(String pictureFile, int tileWidth, int tileHeight, int spacing, int columns, int size){
-        this.tileHeight = tileHeight;
-        this.tileWidth = tileWidth;
-        this.spacing = spacing;
-        this.columns = columns;
         this.size = size;
         Sprite parent = AssetPool.getSprite(pictureFile);
         spriteList = new ArrayList<>();

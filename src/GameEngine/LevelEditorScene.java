@@ -2,14 +2,13 @@ package GameEngine;
 
 import DataStructure.AssetPool;
 import DataStructure.Transform;
-import UI.MainContainer;
 import Util.Constants;
 import Util.SceneCode;
+import Util.Timer;
 import Util.Vector;
 import Component.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import java.awt.*;
@@ -17,21 +16,20 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 
 public class LevelEditorScene extends Scene{
-    private GameObject player;
     private GameObject mouseCursor;
     private Grid grid;
     private CameraControls cameraControls;
     private List<GameObject> editorItems;
     private GameObject currItem;
     private int currIndex = 0;
-    private float debounceTime = 0.5f;
-    private float debounceLeft = 0.0f;
-    public boolean eraseMode = false;
+    private Timer debounceTime;
+
 
     public LevelEditorScene(String name){
         super(name);
         editorItems = new ArrayList<>();
-        debounceLeft = debounceTime;
+        debounceTime = new Timer(0.5f, 0.5f);
+        loadLevel(currLevel);
     }
 
     @Override
@@ -46,13 +44,18 @@ public class LevelEditorScene extends Scene{
     }
 
     private void loadAssets(){
+        System.out.println("Loading Platforms: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png"));
+        System.out.println("Loading Shadows: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png"));
         if (!AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png")){
             new SpriteSheet("assets/Tiles/platform_tiles.png", 60, 60, 0, 7, 7);
         }
         if (!AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png")){
             new SpriteSheet("assets/Tiles/platform_tiles_shadow.png", 60, 60, 0, 7, 7);
         }
+        System.out.println("Loading Platforms: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png"));
+        System.out.println("Loading Shadows: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png"));
     }
+
     private void loadEditorItems(){
         int numOfPlatforms = 7;
         for (int i = 0; i < numOfPlatforms; i++){
@@ -62,18 +65,13 @@ public class LevelEditorScene extends Scene{
             block.addComponent(new Shadow(AssetPool.getSpriteSheet("assets/Tiles/platform_tiles_shadow.png").getSprite(i)));
             editorItems.add(block);
         }
-        GameObject eraser = new GameObject("eraser", new Transform(new Vector()));
-        eraser.addComponent(AssetPool.getSpriteSheet("assets/Tiles/platform_tiles_shadow.png").getSprite(0));
-        eraser.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
-        eraser.addComponent(new Eraser());
-        editorItems.add(eraser);
         System.out.println("Level Items are loaded: " + editorItems.size());
     }
 
     @Override
     public void update(double dt) {
-        debounceLeft -= (float) dt;
-        KL keyListener = Window.getWindow().getKeyListener();
+        debounceTime.addTime(dt);
+        KL keyListener = Window.getKeyListener();
         if (camera.getY() > Constants.CAMERA_GROUND_OFFSET){
             float newY = Constants.CAMERA_GROUND_OFFSET;
             camera.setY(newY);
@@ -81,23 +79,36 @@ public class LevelEditorScene extends Scene{
         for (GameObject g: gameObjectList){
             g.update(dt);
         }
-        File fl1 = new File("level_layer1.obj");
-        File fl2 = new File("Level_layer2.obj");
-        if (keyListener.isKeyPressed(KeyEvent.VK_F1) || keyListener.isKeyPressed(KeyEvent.VK_F4)){
-            saveLevel(fl1, fl2);
+
+        LevelData lvl = levels.getLevels().getFirst();
+        if (keyListener.isKeyPressed(KeyEvent.VK_F1)){
+            saveLevel(lvl);
         }
-        if (keyListener.isKeyPressed(KeyEvent.VK_F2)){
-            loadLevel(fl1, fl2);
-        } if (keyListener.isKeyPressed(KeyEvent.VK_F3)) {
+        if (keyListener.isKeyPressed(KeyEvent.VK_F2) && debounceTime.isTime(0)){
+            loadLevel(lvl);
+        }
+        if (keyListener.isKeyPressed(KeyEvent.VK_F3)) {
             clearLevel();
         }
-        if (keyListener.isKeyPressed(KeyEvent.VK_D) && debounceLeft < 0){
-            debounceLeft = debounceTime;
+        if (keyListener.isKeyPressed(KeyEvent.VK_D) && debounceTime.isTime(0)){
             rotateItems(1);
         }
-        if (keyListener.isKeyPressed(KeyEvent.VK_A) && debounceLeft < 0){
-            debounceLeft = debounceTime;
+        if (keyListener.isKeyPressed(KeyEvent.VK_A) && debounceTime.isTime(0)){
             rotateItems(-1);
+        }
+        if (keyListener.isKeyPressed(KeyEvent.VK_Q) && debounceTime.isTime(0)){
+            rotateLevels(1);
+        }
+        if (keyListener.isKeyPressed(KeyEvent.VK_E) && debounceTime.isTime(0)){
+            rotateLevels(-1);
+        }
+        if (keyListener.isKeyPressed(KeyEvent.VK_Z) && debounceTime.isTime(0)){
+            remove();
+        }
+        if (keyListener.isKeyPressed(KeyEvent.VK_F10)){
+            System.out.println("Changing scene to level");
+            saveLevel(currLevel);
+            Window.changeScene(SceneCode.Level);
         }
         cameraControls.update(dt);
         grid.update(dt);
@@ -121,81 +132,14 @@ public class LevelEditorScene extends Scene{
     private void rotateItems(int num){
         currIndex = (editorItems.size() + currIndex + num) % editorItems.size();
         currItem = editorItems.get(currIndex);
-        if (editorItems.get(currIndex).getComponent(Eraser.class) == null){
-            eraseMode = false;
-            System.out.println("Erase mode: false" );
-        } else {
-            eraseMode = true;
-            System.out.println("Erase mode: true");
-        }
-        System.out.println("Eraser: " + currItem.getComponent(Eraser.class));
-        System.out.println("SnapToGrid: " + currItem.getComponent(SnapToGrid.class));
     }
 
-    public void saveLevel(File fl1, File fl2){
-        try (FileOutputStream file = new FileOutputStream(fl1)){
-            ObjectOutputStream oos = new ObjectOutputStream(file);
-            oos.writeObject(layer1.getRenderList());
-            oos.flush();
-            oos.close();
-        } catch (FileNotFoundException ex){
-            System.out.println("oopsies FileNotFoundException");
-        } catch (IOException ex){
-            System.out.println();
-        }
-        try (FileOutputStream file = new FileOutputStream(fl2)){
-            ObjectOutputStream oos = new ObjectOutputStream(file);
-            oos.writeObject(layer2.getRenderList());
-            oos.flush();
-            oos.close();
-        } catch (FileNotFoundException ex){
-            System.out.println("oopsies FileNotFoundException");
-        } catch (IOException ex){
-            System.out.println();
-        }
-        Window.getWindow().close();
-    }
-    public void loadLevel(File fl1, File fl2){
-        clearLevel();
-        try (FileInputStream file = new FileInputStream(fl1)){
-            ObjectInputStream ois = new ObjectInputStream(file);
-            List<GameObject> loadDate = (List<GameObject>) ois.readObject();
-            for(GameObject ld: loadDate){
-                addToLayerOne(ld);
-            }
-            ois.close();
-        } catch (FileNotFoundException ex){
-            System.out.println("oopsies FileNotFoundException");
-        } catch (IOException ex){
-            throw new RuntimeException(ex);
-        } catch (ClassCastException ex){
-            System.out.println("oopsies ClassCastException");
-        } catch (ClassNotFoundException ex){
-            System.out.println();
-        } finally {
-            System.out.println("Success?");
-        }
-        try (FileInputStream file = new FileInputStream(fl2)){
-            ObjectInputStream ois = new ObjectInputStream(file);
-            List<GameObject> loadDate = (List<GameObject>) ois.readObject();
-            for(GameObject ld: loadDate){
-                addToLayerTwo(ld);
-            }
-            ois.close();
-        } catch (FileNotFoundException ex){
-            System.out.println("oopsies FileNotFoundException");
-        } catch (IOException ex){
-            throw new RuntimeException(ex);
-        } catch (ClassCastException ex){
-            System.out.println("oopsies ClassCastException");
-        } catch (ClassNotFoundException ex){
-            System.out.println();
-        } finally {
-            System.out.println("Success?");
-        }
-    }
-    public void clearLevel(){
-        removeAll();
+    private void rotateLevels(int num){
+        saveLevel(currLevel);
+        currLevelIndex = (getLevels().size() + currLevelIndex + num) % getLevels().size();
+        currLevel = getLevels().get(currLevelIndex);
+        loadLevel(currLevel);
+        System.out.println(currLevel + " | " + currLevelIndex);
     }
 
     public GameObject getPlayer1(){
@@ -205,12 +149,4 @@ public class LevelEditorScene extends Scene{
         return  null;
     }
 
-/*
-    public GameObject getMouseCursor() {
-        return mouseCursor;
-    }
-
-    public void setMouseCursor(GameObject mouseCursor){
-        this.mouseCursor = mouseCursor;
-    }*/
 }

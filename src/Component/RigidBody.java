@@ -27,6 +27,10 @@ public class RigidBody extends Component implements Serializable {
         }
     }
 
+    public void resetGravity(){
+        setYVelocity(0);
+    }
+
     public void setYVelocity(float y){
         velocity.setY(y);
     }

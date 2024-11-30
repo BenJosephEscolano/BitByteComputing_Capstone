@@ -11,55 +11,6 @@ public class Collision {
      */
     private static final float COLLISION_TOLERANCE = 5.0f;
 
-    /*public static void checkPlatformPlayerCollision(GameObject platform, GameObject player) {
-        if (player == null) return;
-
-        BoxBounds playerBounds = player.getComponent(BoxBounds.class);
-        RigidBody rb = player.getComponent(RigidBody.class);
-        if (playerBounds == null || rb == null) return;
-
-        float playerBottom = player.getY() + playerBounds.getHeight();
-        float playerTop = player.getY();
-        float playerRight = player.getX() + playerBounds.getWidth();
-        float playerLeft = player.getX();
-
-        float platformTop = platform.getY();
-        float platformBottom = platform.getY() + platform.getComponent(BoxBounds.class).getHeight();
-        float platformLeft = platform.getX();
-        float platformRight = platform.getX() + platform.getComponent(BoxBounds.class).getWidth();
-
-        if (playerRight > platformLeft && playerLeft < platformRight &&
-                playerBottom > platformTop && playerTop < platformBottom) {
-
-            float overlapLeft = playerRight - platformLeft;
-            float overlapRight = platformRight - playerLeft;
-            float overlapTop = playerBottom - platformTop;
-            float overlapBottom = platformBottom - playerTop;
-
-            float minOverlap = Math.min(Math.min(overlapLeft, overlapRight),
-                    Math.min(overlapTop, overlapBottom));
-
-            if (minOverlap == overlapTop && rb.velocity.getY() > 0) {
-
-                player.setY(platformTop - playerBounds.getHeight());
-                rb.velocity.setY(0);
-                resetJumpState(player);
-            } else if (minOverlap == overlapBottom && rb.velocity.getY() < 0) {
-
-                player.setY(platformBottom);
-                rb.velocity.setY(0);
-            } else if (minOverlap == overlapLeft && rb.velocity.getX() > 0) {
-
-                player.setX(platformLeft - playerBounds.getWidth());
-                rb.velocity.setX(0);
-            } else if (minOverlap == overlapRight && rb.velocity.getX() < 0) {
-
-                player.setX(platformRight);
-                rb.velocity.setX(0);
-            }
-        }
-    }*/
-
     public static void checkPlatformPlayerCollision(Platform platform, GameObject player) {
         if (player == null) return;
 

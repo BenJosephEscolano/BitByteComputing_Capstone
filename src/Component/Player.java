@@ -4,12 +4,12 @@ import DataStructure.AssetPool;
 import DataStructure.Transform;
 import GameEngine.Component;
 import GameEngine.GameObject;
+import GameEngine.Window;
 import Util.Constants;
 import Util.Vector;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class Player extends Component implements Serializable {
@@ -38,6 +38,7 @@ public class Player extends Component implements Serializable {
         player.addComponent(new RigidBody(new Vector()));
         player.addComponent(new BoxBounds(body.getWidth(), body.getHeight()));
         player.getComponent(BoxBounds.class).init();
+        Window.getScene().addToActiveBody(player);
         return player;
     }
 

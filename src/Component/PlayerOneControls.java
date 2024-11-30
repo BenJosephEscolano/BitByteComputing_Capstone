@@ -4,6 +4,7 @@ import DataStructure.AssetPool;
 import GameEngine.Bullet;
 import GameEngine.GameObject;
 import GameEngine.Window;
+import Util.Timer;
 import Util.Vector;
 
 import java.awt.event.KeyEvent;
@@ -11,21 +12,22 @@ import java.security.Key;
 
 public class PlayerOneControls extends Controls {
     boolean hasJumped;
-    protected Vector lastDirection = new Vector(0, 0);
+    protected Vector lastDirection;
     protected float targetVelocityX = 0;
     protected final float acceleration = 3500f;
     protected final float maxSpeed = 400.0f;
-    protected GameObject player;
+    protected Timer reloadTime;
 
     public PlayerOneControls() {
         hasJumped = false;
-        player = Window.getWindow().getScene().getPlayer1();
+        reloadTime = new Timer(1.5f, 1.5f);
+        lastDirection = new Vector(1, 0);
     }
 
 
     @Override
     public void update(double dt) {
-
+        reloadTime.addTime(dt);
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
 
         //adjust velocity gradually towards the target
@@ -51,7 +53,9 @@ public class PlayerOneControls extends Controls {
             lastDirection.setX(0);
             lastDirection.setY(1);
             moveDown();
-        }  else {
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE) && reloadTime.isTime(0)){
+            Bullet.spawnBullet(getGameObject());
+        }else {
             stop();
         }
     }
@@ -89,6 +93,8 @@ public class PlayerOneControls extends Controls {
     public void moveDown() {
 
     }
+
+
 
 
 

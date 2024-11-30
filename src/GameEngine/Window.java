@@ -21,8 +21,6 @@ public class Window extends JFrame implements Runnable {
     private Scene currentScene;
     private Image doubleBufferImage = null;
     private Graphics doubleBufferGraphics = null;
-    public boolean isInEditor = true; // This is the only field that I am contemplating of removing
-    public static boolean run = false;
 
     private Window(){
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -34,7 +32,6 @@ public class Window extends JFrame implements Runnable {
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
         this.addKeyListener(keyListener);
-
     }
     /*
     The singleton design pattern
@@ -53,22 +50,19 @@ public class Window extends JFrame implements Runnable {
     @Override
     public void run() {
         double lastFrameTime = 0.0;
-
             try {
                 while(isRunning){
                     double time = Time.getTime();
                     double deltaTime = time - lastFrameTime;
                     lastFrameTime = time;
                     update(deltaTime);
-                    run= true;
                 }
                 dispose();
             } catch (Exception e){
                 e.printStackTrace();
             }
-
-
     }
+
     public void update(double dt){
         currentScene.update(dt);
         draw(getGraphics());
@@ -82,13 +76,12 @@ public class Window extends JFrame implements Runnable {
         changeScene(SceneCode.Level);
     }
 
-
     /*
     The draw method is in charge of drawing elements to the window. Specifically the draw and renderOffScreen
     method employs a double buffer technique were renderOffScreen draws on an image called doubleBufferImage
     that will display once it finishes drawing all the related elements of the scene.
      */
-    public void draw(Graphics g){
+    private void draw(Graphics g){
         if (doubleBufferImage == null){
             doubleBufferImage = createImage(getWidth(), getHeight());
             doubleBufferGraphics = doubleBufferImage.getGraphics();
@@ -97,35 +90,33 @@ public class Window extends JFrame implements Runnable {
         g.drawImage(doubleBufferImage, 0, 0, getWidth(), getHeight(), null);
     }
 
-    public void renderOffScreen(Graphics g){
+    private void renderOffScreen(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
         currentScene.draw(g2);
     }
     /*
     The changeScene method is in charge of switching between scenes
      */
-    public void changeScene(SceneCode scene){
+    public static void changeScene(SceneCode scene){
         if (scene == SceneCode.Level){
-            isInEditor = false;
-            currentScene = new LevelScene("Level");
-            currentScene.init();
+            getWindow().currentScene = new LevelScene("Level");
+            getWindow().currentScene.init();
         }
         if (scene == SceneCode.LevelEditor){
-            isInEditor = true;
-            currentScene = new LevelEditorScene("Level editor");
-            currentScene.init();
+            getWindow().currentScene = new LevelEditorScene("Level editor");
+            getWindow().currentScene.init();
         }
     }
 
-    public Scene getScene(){
-        return currentScene;
+    public static Scene getScene(){
+        return getWindow().currentScene;
     }
 
-    public ML getMouseListener() {
-        return mouseListener;
+    public static ML getMouseListener() {
+        return getWindow().mouseListener;
     }
 
-    public KL getKeyListener(){
-        return keyListener;
+    public static KL getKeyListener(){
+        return getWindow().keyListener;
     }
 }

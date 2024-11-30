@@ -109,10 +109,6 @@ public class GameObject implements Serializable {
         return transform.getRotation();
     }
 
-    public void setVectorRotation(float rotation){
-        transform.setRotation(rotation);
-    }
-
     public void setScale(float x, float y){
         transform.setScale(x, y);
     }

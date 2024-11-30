@@ -5,18 +5,19 @@ import GameEngine.Bullet;
 import GameEngine.GameObject;
 import GameEngine.KL;
 import GameEngine.Window;
+import Util.Timer;
 import Util.Vector;
 
 import java.awt.event.KeyEvent;
 
 public class PlayerTwoControls extends PlayerOneControls{
-    //private KL keyListener = Window.getWindow().getKeyListener();
-
     public PlayerTwoControls(){
-
+        super();
+        lastDirection.setX(-1);
     }
     @Override
     public void update(double dt){
+        reloadTime.addTime(dt);
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
 
         //adjust velocity gradually towards the target
@@ -41,10 +42,8 @@ public class PlayerTwoControls extends PlayerOneControls{
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_S)) {
             lastDirection.setX(0);
             lastDirection.setY(1);
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_S)) {
-            lastDirection.setX(0);
-            lastDirection.setY(1);
-            moveDown();
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1) && reloadTime.isTime(0)){
+            Bullet.spawnBullet(getGameObject());
         } else {
             stop();
         }

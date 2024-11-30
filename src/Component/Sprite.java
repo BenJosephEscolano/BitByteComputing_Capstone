@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class Sprite extends Component implements Serializable {
-    private String pictureFile;
     private transient BufferedImage image;
     private int width, height;
     private int row, column, index;
@@ -17,8 +16,6 @@ public class Sprite extends Component implements Serializable {
     private boolean isSubSprite = false;
 
     public Sprite(String pictureFile){
-        this.pictureFile = pictureFile;
-
         try {
             File file = new File(pictureFile);
             if (AssetPool.hasSprite(pictureFile)){
@@ -99,7 +96,4 @@ public class Sprite extends Component implements Serializable {
         return row;
     }
 
-    public boolean isSubSprite() {
-        return isSubSprite;
-    }
 }
