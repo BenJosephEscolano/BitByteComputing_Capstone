@@ -28,6 +28,7 @@ public class PlayerOneControls extends Controls {
     @Override
     public void update(double dt) {
         reloadTime.addTime(dt);
+        //System.out.println(reloadTime);
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
 
         //adjust velocity gradually towards the target
@@ -54,6 +55,8 @@ public class PlayerOneControls extends Controls {
             lastDirection.setY(1);
             moveDown();
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE) && reloadTime.isTime(0)){
+            System.out.println("bullet");
+            System.out.println("X: " + getGameObject().getX() + " Y: " + getGameObject().getY());
             Bullet.spawnBullet(getGameObject());
         }else {
             stop();

@@ -41,16 +41,17 @@ public class LevelEditorScene extends Scene{
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Vector()));
         mouseCursor.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
         currItem = editorItems.get(currIndex);
+        //resetCamera();
     }
 
     private void loadAssets(){
         System.out.println("Loading Platforms: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png"));
         System.out.println("Loading Shadows: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png"));
         if (!AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png")){
-            new SpriteSheet("assets/Tiles/platform_tiles.png", 60, 60, 0, 7, 7);
+            new SpriteSheet("assets/Tiles/platform_tiles.png", Constants.TILE_WIDTH, Constants.TILE_HEIGHT, 0, 7, 7);
         }
         if (!AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png")){
-            new SpriteSheet("assets/Tiles/platform_tiles_shadow.png", 60, 60, 0, 7, 7);
+            new SpriteSheet("assets/Tiles/platform_tiles_shadow.png", Constants.TILE_WIDTH, Constants.TILE_HEIGHT, 0, 7, 7);
         }
         System.out.println("Loading Platforms: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png"));
         System.out.println("Loading Shadows: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png"));
@@ -110,7 +111,7 @@ public class LevelEditorScene extends Scene{
             saveLevel(currLevel);
             Window.changeScene(SceneCode.Level);
         }
-        cameraControls.update(dt);
+        //cameraControls.update(dt);
         grid.update(dt);
         mouseCursor.update(dt);
         currItem.update(dt);

@@ -25,14 +25,14 @@ public class SnapToGrid extends Component implements Serializable {
     public void update(double dt){
         if (getGameObject().getComponent(Sprite.class) != null) {
             float x = (float) Math.floor((mouseListener.getX() + camera.getX() + mouseListener.getDX()) / gridWidth);
-            float y = (float) Math.floor((mouseListener.getY() + camera.getY() + mouseListener.getDY()) / gridHeight);
+            float y = (float) Math.floor((mouseListener.getY() + camera.getY() + mouseListener.getDY()) / gridHeight);//+ Window.getWindow().getInsets().top;
 
             getGameObject().setX(x * gridWidth - (float) camera.getX());
             getGameObject().setY(y * gridHeight - (float) camera.getY());
 
             if (mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1) {
+                System.out.println(getGameObject().getX() + " " + getGameObject().getY());
                 GameObject object = getGameObject().copy();
-
                 GameObject shadow = getGameObject().copy();
                 shadow.removeComponent(Sprite.class);
                 Sprite shadowSprite = (Sprite) getGameObject().getComponent(Shadow.class).getSubSprite().copy();

@@ -32,7 +32,7 @@ public class Bullet extends GameObject {
             if (Collision.checkCollision(c.getComponent(BoxBounds.class), getComponent(BoxBounds.class))){
                 Window.getScene().getRenderer(2).unsubmit(this);
                 Window.getScene().getGameObjectList().remove(this);
-                System.out.println(collision.size());
+                //System.out.println(collision.size());
             }
         }
         for (int i = 0; i < players.size(); i++){
@@ -51,8 +51,8 @@ public class Bullet extends GameObject {
     }
 
     public static void spawnBullet(GameObject player) {
-        float playerMidX = player.getX() + player.getComponent(BoxBounds.class).getWidth() / 2.0f -13;
-        float playerMidY = player.getY() + player.getComponent(BoxBounds.class).getHeight() / 2.0f - 13;
+        float playerMidX = player.getX() + player.getComponent(BoxBounds.class).getWidth() / 2.0f -10;
+        float playerMidY = player.getY() + player.getComponent(BoxBounds.class).getHeight() / 2.0f - 10;
         Vector lastDirection = player.getComponent(PlayerOneControls.class).getLastDirection();
 
         //get the last direction from the controls

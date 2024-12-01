@@ -53,16 +53,6 @@ public class LevelScene extends Scene{
     }
 
     private void respawn(){
-        /*if (!player1IsAlive){
-            Window.getScene().getRenderer(1).submit(player1);
-            player1IsAlive = true;
-            activeBodies.addToLayer(player1);
-        }
-        if (!player2IsAlive){
-            Window.getScene().getRenderer(1).submit(player2);
-            player2IsAlive = true;
-            activeBodies.addToLayer(player2);
-        }*/
         addGameObject(player1);
         addGameObject(player2);
         activeBodies.addToLayer(player1);
@@ -86,19 +76,19 @@ public class LevelScene extends Scene{
         System.out.println("Loading Shadows: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png"));
         if (!AssetPool.hasSpriteSheet("assets/Player/character_body.png")){
             new SpriteSheet("assets/Player/character_body.png",
-                    60, 60, 0, 4, 4);
+                    Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, 0, 4, 4);
         }
         if (!AssetPool.hasSpriteSheet("assets/Player/character_eyes.png")){
             new SpriteSheet("assets/Player/character_eyes.png",
-                    60, 60, 0, 4, 4);
+                    Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, 0, 4, 4);
         }
         if (!AssetPool.hasSpriteSheet("assets/Player/character_mouth.png")){
             new SpriteSheet("assets/Player/character_mouth.png",
-                    60, 60, 0, 4, 4);
+                    Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, 0, 4, 4);
         }
         if (!AssetPool.hasSpriteSheet("assets/Bullet/bullets.png")){
             new SpriteSheet("assets/Bullet/bullets.png",
-                     26, 26, 0, 4, 4);
+                     20, 20, 0, 4, 4);
         }
         new Sprite("assets/Background/background_yellow.png");
         new Sprite("assets/Background/background_yellow_1.png");
@@ -110,14 +100,12 @@ public class LevelScene extends Scene{
         for (int i = 0; i < gameObjectList.size(); i++){
             gameObjectList.get(i).update(dt);
         }
-        if (Window.getScene().activeBodies.getCollisionLayer().size() <= 2){
-            if (resetLevel.isTime(0)){
-                switchLevels(1);
-                respawn();
-            }
+
+        if (resetLevel.isTime(0)){
+            //switchLevels(1);
+            //respawn();
         }
-        System.out.println(Window.getScene().activeBodies.getCollisionLayer().size());
-        System.out.println(resetLevel);
+
         if (Window.getKeyListener().isKeyPressed(KeyEvent.VK_F9)){
             System.out.println("Changing scene to level editor");
             Window.changeScene(SceneCode.LevelEditor);

@@ -27,7 +27,7 @@ public class Grid extends Component implements Serializable {
     public void draw(Graphics2D g2){
         float bottom = (float) Constants.SCREEN_HEIGHT;
         float startX = (float) Math.floor(camera.getX() / gridWidth) * gridWidth - (float) camera.getX();
-        float startY = (float) Math.floor(camera.getY() / gridHeight) * gridWidth - (float) camera.getY();
+        float startY = (float) Math.floor(camera.getY() / gridHeight) * gridWidth - (float) camera.getY(); //+ Window.getWindow().getInsets().top;
         g2.setStroke(new BasicStroke(1f));
         g2.setColor(Color.GRAY);
         for (int i = 0; i < gridRows; i++){

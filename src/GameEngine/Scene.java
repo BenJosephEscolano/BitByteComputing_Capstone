@@ -40,6 +40,11 @@ public abstract class Scene {
         this.currLevel = levels.getLevels().get(currLevelIndex);
     }
 
+    public void resetCamera(){
+        camera.setX(0);
+        camera.setY(Window.getWindow().getInsets().top * -1);
+    }
+
     public List<GameObject> getGameObjectList() {
         return gameObjectList;
     }
@@ -85,8 +90,6 @@ public abstract class Scene {
         }
     }
     public void addToLayerTwo(GameObject g){
-        //levels.get(currLevelIndex).setLevelDataLayer2(g);
-        //currLevel.setLevelDataLayer2(g);
         gameObjectList.add(g);
         layer2.submit(g);
         staticBodies.addToLayer(g);
@@ -104,8 +107,6 @@ public abstract class Scene {
             if (gameObject.equals(g)){
                 gameObjectList.set(index, gameObject);
                 layer.set(layer.indexOf(g), gameObject);
-                //currLevel.setLevelDataLayer2(gameObject);
-                //levels.get(currLevelIndex).setLevelDataLayer2(gameObject);
                 return;
             } else {
                 index++;
@@ -115,14 +116,12 @@ public abstract class Scene {
     }
 
     public void setToLayerOne(GameObject gameObject){
-        //currLevel.setLevelDataLayer1(gameObject);
         List <GameObject> layer = layer1.getRenderList();
         int index = 0;
         for (GameObject g: gameObjectList){
             if (gameObject.equals(g)){
                 gameObjectList.set(index, gameObject);
                 layer.set(layer.indexOf(g), gameObject);
-                //levels.get(currLevelIndex).setLevelDataLayer2(gameObject);
                 return;
             } else {
                 index++;
@@ -163,6 +162,7 @@ public abstract class Scene {
         layer1.getRenderList().removeLast();
         layer2.getRenderList().removeLast();
         staticBodies.getCollisionLayer().removeLast();
+
     }
 
     public void removeAll(){
