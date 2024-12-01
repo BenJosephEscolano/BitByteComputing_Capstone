@@ -31,18 +31,18 @@ public class SnapToGrid extends Component implements Serializable {
             getGameObject().setY(y * gridHeight - (float) camera.getY());
 
             if (mouseListener.isMousePressed() && mouseListener.getMouseButton() == MouseEvent.BUTTON1) {
-                System.out.println(getGameObject().getX() + " " + getGameObject().getY());
+                //System.out.println(getGameObject().getX() + " " + getGameObject().getY());
                 GameObject object = getGameObject().copy();
+                object.setPosition(new Vector(x * gridWidth, y * gridHeight));
+                object.addComponent(new BoxBounds(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
+                object.addComponent(new Platform(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
                 GameObject shadow = getGameObject().copy();
                 shadow.removeComponent(Sprite.class);
                 Sprite shadowSprite = (Sprite) getGameObject().getComponent(Shadow.class).getSubSprite().copy();
                 shadow.addComponent(shadowSprite);
-                object.setPosition(new Vector(x * gridWidth, y * gridHeight));
-                object.addComponent(new BoxBounds(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
-                object.addComponent(new Platform(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
                 shadow.setPosition(new Vector(x * gridWidth - 10, y * gridHeight + 10));
                 Window.getScene().setToLayerOne(shadow);
-                Window.getScene().setToLayerTwo(object);
+                Window.getScene().setStaticBodies(object, 2);
 
                 System.out.println("GameObjectList: " + Window.getScene().getGameObjectList().size());
                 System.out.println("Layer 1: " + Window.getScene().getRenderer(1).getRenderList().size());

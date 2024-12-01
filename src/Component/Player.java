@@ -28,19 +28,7 @@ public class Player extends Component implements Serializable {
         this.height = Constants.PLAYER_HEIGHT;
     }
 
-    public static GameObject createPlayer(int layerOneIndex, int layerTwoIndex, int layerThreeIndex){
-        Sprite body = AssetPool.getSpriteSheet("assets/Player/character_body.png").getSprite(layerOneIndex);
-        Sprite eyes = AssetPool.getSpriteSheet("assets/Player/character_eyes.png").getSprite(layerTwoIndex);
-        Sprite mouth = AssetPool.getSpriteSheet("assets/Player/character_mouth.png").getSprite(layerThreeIndex);
-        Player playerSprites = new Player(body, eyes, mouth);
-        GameObject player = new GameObject("", new Transform(new Vector()));
-        player.addComponent(playerSprites);
-        player.addComponent(new RigidBody(new Vector()));
-        player.addComponent(new BoxBounds(body.getWidth(), body.getHeight()));
-        player.getComponent(BoxBounds.class).init();
-        Window.getScene().addToActiveBody(player);
-        return player;
-    }
+
 
 
     @Override

@@ -143,10 +143,10 @@ public class LevelEditorScene extends Scene{
         System.out.println(currLevel + " | " + currLevelIndex);
     }
 
-    public GameObject getPlayer1(){
+    public PlayerCharacter getPlayer1(){
         return null;
     }
-    public GameObject getPlayer2(){
+    public PlayerCharacter getPlayer2(){
         return  null;
     }
 

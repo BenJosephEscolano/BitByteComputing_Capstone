@@ -2,6 +2,8 @@ package Component;
 
 import GameEngine.Component;
 import GameEngine.GameObject;
+import GameEngine.PlayerCharacter;
+import Util.Constants;
 
 //joseph
 public class Collision {
@@ -88,6 +90,32 @@ public class Collision {
         if (playerTwoControls != null) {
             playerTwoControls.hasJumped = false;
         }
+    }
+
+    public static boolean isOutOfBounds(PlayerCharacter box){
+        if (box.getY() > Constants.SCREEN_HEIGHT && box.getAliveStatus()){
+            box.setY(50);
+        }
+        if (box.getX() < 0){
+            box.setX(Constants.SCREEN_WIDTH);
+        }
+        if (box.getX() > Constants.SCREEN_WIDTH){
+            box.setX(0);
+        }
+        return false;
+    }
+
+    public static boolean isOutOfBounds(GameObject box){
+        if (box.getY() > Constants.SCREEN_HEIGHT){
+            box.setY(50);
+        }
+        if (box.getX() < 0){
+            box.setX(Constants.SCREEN_WIDTH);
+        }
+        if (box.getX() > Constants.SCREEN_WIDTH){
+            box.setX(0);
+        }
+        return false;
     }
 
 }

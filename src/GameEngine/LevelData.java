@@ -23,6 +23,16 @@ public class LevelData {
         this.spawnpoint2 = spawnpoint2;
     }
 
+    public Vector getSpawnPoint(int n){
+        if (n == 1){
+            return spawnpoint1;
+        } else if (n == 2){
+            return spawnpoint2;
+        }
+        return null;
+    }
+
+
     public String getLevelLayer(int n){
         if (n == 1){
             return levelLayer1;

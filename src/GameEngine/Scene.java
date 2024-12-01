@@ -20,11 +20,10 @@ public abstract class Scene {
     protected Renderer background;
     protected CollisionLayer staticBodies;
     protected CollisionLayer activeBodies;
+    protected CollisionLayer projectileLayer;
     protected Level levels;
     protected LevelData currLevel;
     protected int currLevelIndex;
-    public boolean player1IsAlive = true;
-    public boolean player2IsAlive = true;
 
     public Scene(String name){
         this.name = name;
@@ -38,6 +37,7 @@ public abstract class Scene {
         this.levels = new Level();
         this.currLevelIndex = 0;
         this.currLevel = levels.getLevels().get(currLevelIndex);
+        this.projectileLayer = new CollisionLayer();
     }
 
     public void resetCamera(){
@@ -73,11 +73,8 @@ public abstract class Scene {
     }
 
     public void addToLayerOne(GameObject g){
-        //levels.get(currLevelIndex).setLevelDataLayer1(g);
-        //currLevel.setLevelDataLayer2(g);
         gameObjectList.add(g);
         layer1.submit(g);
-
         for (Component c: g.getAllComponents()){
             c.start();
         }
@@ -92,7 +89,6 @@ public abstract class Scene {
     public void addToLayerTwo(GameObject g){
         gameObjectList.add(g);
         layer2.submit(g);
-        staticBodies.addToLayer(g);
         for (Component c: g.getAllComponents()){
             c.start();
         }
@@ -100,9 +96,7 @@ public abstract class Scene {
 
     public void setToLayerTwo(GameObject gameObject){
         List <GameObject> layer = layer2.getRenderList();
-
         int index = 0;
-        staticBodies.addToLayer(gameObject);
         for (GameObject g: gameObjectList){
             if (gameObject.equals(g)){
                 gameObjectList.set(index, gameObject);
@@ -130,32 +124,58 @@ public abstract class Scene {
         addToLayerOne(gameObject);
     }
 
-    public void playerDead(int num){
-        if (num == 1){
-            player1IsAlive = false;
-        } else {
-            player2IsAlive = false;
+
+    public void setStaticBodies(GameObject gameObject, int renderLayer){
+        if (renderLayer == 1){
+            setToLayerOne(gameObject);
         }
+        if (renderLayer == 2){
+            setToLayerTwo(gameObject);
+        }
+        getStaticBodies().add(gameObject);
+    }
+
+    public void setActiveBodies(GameObject gameObject, int renderLayer){
+        if (renderLayer == 1){
+            setToLayerOne(gameObject);
+        }
+        if (renderLayer == 2){
+            setToLayerTwo(gameObject);
+        }
+        getActiveBodies().add(gameObject);
+    }
+
+    public void setProjectileLayer(GameObject gameObject){
+        setToLayerOne(gameObject);
+        projectileLayer.addToLayer(gameObject);
     }
 
     public List<GameObject> getStaticBodies(){
         return staticBodies.getCollisionLayer();
     }
 
+    public void removeActiveBody(GameObject gameObject){
+        activeBodies.remove(gameObject);
+        gameObjectList.remove(gameObject);
+    }
+
+    public void removeProjectileLayer(GameObject gameObject){
+        projectileLayer.remove(gameObject);
+        gameObjectList.remove(gameObject);
+        layer1.unsubmit(gameObject);
+    }
+
     public List<GameObject> getActiveBodies(){
         return activeBodies.getCollisionLayer();
+    }
+
+    public List<GameObject> getProjectileLayer(){
+        return projectileLayer.getCollisionLayer();
     }
 
     public void addToActiveBody(GameObject gameObject){
         this.activeBodies.addToLayer(gameObject);
     }
-    /* // This is might be cut
-    public void remove(GameObject gameObject){
-        gameObjectList.remove(gameObject);
-        layer1.getRenderList().remove(gameObject);
-        layer2.getRenderList().remove(gameObject);
-
-    }*/
 
     public void remove(){
         gameObjectList.removeLast();
@@ -232,7 +252,7 @@ public abstract class Scene {
             ObjectInputStream ois = new ObjectInputStream(file);
             List<GameObject> loadDate = (List<GameObject>) ois.readObject();
             for(GameObject ld: loadDate){
-                addToLayerTwo(ld);
+                setStaticBodies(ld, 2);
             }
             ois.close();
         } catch (FileNotFoundException ex){
@@ -244,12 +264,17 @@ public abstract class Scene {
         } catch (ClassNotFoundException ex){
             System.out.println();
         } finally {
-            System.out.println("Success?");
+            System.out.println("Game objects: " + gameObjectList.size());
+            System.out.println("Renderer: Layer 1: " + layer1.getRenderList().size() + " Layer 2: " + layer2.getRenderList().size());
+            System.out.println("Collision: Static: " + staticBodies.getCollisionLayer().size() + " Active: " + activeBodies.getCollisionLayer().size());
         }
     }
 
     public void clearLevel(){
         removeAll();
+        System.out.println("Game objects: " + gameObjectList.size());
+        System.out.println("Renderer: Layer 1: " + layer1.getRenderList().size() + " Layer 2: " + layer2.getRenderList().size());
+        System.out.println("Collision: Static: " + staticBodies.getCollisionLayer().size() + " Active: " + activeBodies.getCollisionLayer().size());
     }
 
     public List<LevelData> getLevels(){
@@ -259,6 +284,6 @@ public abstract class Scene {
     public abstract void init();
     public abstract void update(double dt);
     public abstract void draw(Graphics2D g2);
-    public abstract GameObject getPlayer1();
-    public abstract GameObject getPlayer2();
+    public abstract PlayerCharacter getPlayer1();
+    public abstract PlayerCharacter getPlayer2();
 }

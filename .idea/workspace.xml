@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the prototype">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Component/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Component/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Component/ShootCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Util/GunCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Bullet/bullets.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Bullet/bullets.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Gun/gun_drops/gun_drops.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Gun/gun_drops/gun_drops.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Gun/guns/guns.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Gun/guns/guns.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Player/character_body.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Player/character_body.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Player/character_eyes.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Player/character_eyes.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Player/character_mouth.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Player/character_mouth.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Tiles/platform_tiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Tiles/platform_tiles.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/Tiles/platform_tiles_shadow.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Tiles/platform_tiles_shadow.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_data/level01_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level01_layer1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_data/level01_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level01_layer2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_data/level02_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer1" afterDir="false" />
@@ -26,15 +21,18 @@
       <change beforePath="$PROJECT_DIR$/game_data/level04_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level04_layer2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_data/level05_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level05_layer1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_data/level05_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level05_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/BoxBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/BoxBounds.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/SnapToGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/SnapToGrid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Level.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Scene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,13 +43,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="new-branch" />
+        <entry key="$PROJECT_DIR$" value="master-copy" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -197,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732990202471</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="finishing the prototype">
+      <option name="closed" value="true" />
+      <created>1733012917149</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733012917149</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

@@ -2,10 +2,7 @@ package GameEngine;
 
 import DataStructure.AssetPool;
 import DataStructure.Transform;
-import Util.Constants;
-import Util.SceneCode;
-import Util.Timer;
-import Util.Vector;
+import Util.*;
 import Component.*;
 
 import java.awt.*;
@@ -15,21 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelScene extends Scene{
-    private GameObject player1, player2, grid;
+    private PlayerCharacter player1, player2, grid;
     private Timer resetLevel;
-
-
+    private Gun test, test2;
 
     public LevelScene(String name){
         super(name);
-        this.resetLevel = new Timer(2.5f);
+        this.resetLevel = new Timer(5.0f);
+        this.test = Gun.createGun(GunCode.Pistol);
+        this.test2 = Gun.createGun(GunCode.Rifle);
     }
 
-    public GameObject getPlayer1(){
+    public PlayerCharacter getPlayer1(){
         return player1;
     }
 
-    public GameObject getPlayer2(){
+    public PlayerCharacter getPlayer2(){
         return player2;
     }
 
@@ -39,28 +37,38 @@ public class LevelScene extends Scene{
         loadPlayerAssets();
         loadLevel(levels.getLevels().getFirst());
         System.out.println("Level Loaded: Layer 1 : " + getRenderer(1).getRenderList().size() + " Layer 2: " + getRenderer(2).getRenderList().size());
-        player1 = Player.createPlayer(0,0,0);
-        player1.setPosition(new Vector(300.0f, 350.0f));
-        player1.addComponent(new PlayerOneControls());
-        player2 = Player.createPlayer(2, 2, 2);
-        player2.setPosition(new Vector(900.0f, 350.0f));
-        player2.addComponent(new PlayerTwoControls());
+        player1 = PlayerCharacter.createPlayer(0,0,0);
+        PlayerOneControls controller1 = new PlayerOneControls(player1);
+        player1.addComponent(controller1);
+        player1.setPosition(currLevel.getSpawnPoint(1));
+        test.addComponent(new Item(player1));
+        player1.setWeapon(test);
+        player2 = PlayerCharacter.createPlayer(2, 2, 2);
+        PlayerTwoControls controller2 = new PlayerTwoControls(player2);
+        player2.addComponent(controller2);
+        player2.setPosition(currLevel.getSpawnPoint(2));
+        test2.addComponent(new Item(player2));
+        player2.setWeapon(test2);
         GameObject background = new GameObject("background", new Transform(new Vector()));
         background.addComponent(AssetPool.getSprite("assets/Background/background_yellow_1.png"));
         addToBackground(background);
         addGameObject(player1);
         addGameObject(player2);
+        addToLayerTwo(test2);
+        addToLayerTwo(test);
     }
 
     private void respawn(){
-        addGameObject(player1);
-        addGameObject(player2);
-        activeBodies.addToLayer(player1);
-        activeBodies.addToLayer(player2);
-        player1.setPosition(new Vector(500.0f, 350.0f));
+        setActiveBodies(player1, 2);
+        setActiveBodies(player2, 2);
+        player1.revive();
+        player2.revive();
+        player1.setPosition(currLevel.getSpawnPoint(1).copy());
         player1.getComponent(RigidBody.class).resetGravity();
-        player2.setPosition(new Vector(700.0f, 350.0f));
+        player2.setPosition(currLevel.getSpawnPoint(2).copy());
         player2.getComponent(RigidBody.class).resetGravity();
+        addToLayerTwo(test);
+        addToLayerTwo(test2);
     }
 
     private void switchLevels(int num){
@@ -101,9 +109,15 @@ public class LevelScene extends Scene{
             gameObjectList.get(i).update(dt);
         }
 
-        if (resetLevel.isTime(0)){
-            //switchLevels(1);
-            //respawn();
+        Collision.isOutOfBounds(player1);
+        Collision.isOutOfBounds(player2);
+
+        for (int i = 0; i < getProjectileLayer().size(); i++){
+            Collision.isOutOfBounds(getProjectileLayer().get(i));
+        }
+
+        if (resetLevel.isTime(0) && (!player1.getAliveStatus() || !player2.getAliveStatus())){
+            switchLevels(-1);
         }
 
         if (Window.getKeyListener().isKeyPressed(KeyEvent.VK_F9)){
