@@ -10,17 +10,24 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LevelScene extends Scene{
     private PlayerCharacter player1, player2, grid;
+    private GameObject background;
     private Timer resetLevel;
     private Gun test, test2;
+    private  int Player1Wins;
+    private  int Player2Wins;
 
     public LevelScene(String name){
         super(name);
         this.resetLevel = new Timer(5.0f);
         this.test = Gun.createGun(GunCode.Pistol);
         this.test2 = Gun.createGun(GunCode.Rifle);
+        this.background = new GameObject("", new Transform(new Vector()));
+        this.Player1Wins=0;
+        this.Player2Wins=0;
     }
 
     public PlayerCharacter getPlayer1(){
@@ -35,7 +42,7 @@ public class LevelScene extends Scene{
     @Override
     public void init() {
         loadPlayerAssets();
-        loadLevel(levels.getLevels().getFirst());
+        loadLevel(levels.getLevels().get(0));
         System.out.println("Level Loaded: Layer 1 : " + getRenderer(1).getRenderList().size() + " Layer 2: " + getRenderer(2).getRenderList().size());
         player1 = PlayerCharacter.createPlayer(0,0,0);
         PlayerOneControls controller1 = new PlayerOneControls(player1);
@@ -49,13 +56,13 @@ public class LevelScene extends Scene{
         player2.setPosition(currLevel.getSpawnPoint(2));
         test2.addComponent(new Item(player2));
         player2.setWeapon(test2);
-        GameObject background = new GameObject("background", new Transform(new Vector()));
-        background.addComponent(AssetPool.getSprite("assets/Background/background_yellow_1.png"));
+        switchBackground();
         addToBackground(background);
         addGameObject(player1);
         addGameObject(player2);
         addToLayerTwo(test2);
         addToLayerTwo(test);
+        //addToBackground(background);
     }
 
     private void respawn(){
@@ -69,6 +76,30 @@ public class LevelScene extends Scene{
         player2.getComponent(RigidBody.class).resetGravity();
         addToLayerTwo(test);
         addToLayerTwo(test2);
+    }
+
+    private void switchBackground(){
+        if (background.getComponent(Sprite.class) != null){
+            background.removeComponent(Sprite.class);
+        }
+        int upperBound=5;int lowerBound=1;int randomNumber = ThreadLocalRandom.current().nextInt(lowerBound, upperBound + 1);
+        System.out.println(randomNumber);
+        switch (randomNumber){
+            case 1:
+                background.addComponent(AssetPool.getSprite("assets/Background/background_yellow_1.png"));
+                break;
+            case 2:
+                background.addComponent(AssetPool.getSprite("assets/Background/background_blue_1.png"));
+                break;
+            case 3:
+                background.addComponent(AssetPool.getSprite("assets/Background/background_pink_1.png"));
+                break;
+            case 4:
+                background.addComponent(AssetPool.getSprite("assets/Background/background_green_1.png"));
+                break;
+            case 5:
+                background.addComponent(AssetPool.getSprite("assets/Background/background_blue_2.png"));
+                break;}
     }
 
     private void switchLevels(int num){
@@ -108,6 +139,15 @@ public class LevelScene extends Scene{
         for (int i = 0; i < gameObjectList.size(); i++){
             gameObjectList.get(i).update(dt);
         }
+        if(Player1Wins==3){
+            System.out.println("player 1 is winner");
+            Window.getWindow().close();
+        }
+        if(Player2Wins==3){
+            System.out.println("player 2 is winner");
+            Window.getWindow().close();
+        }
+
 
         Collision.isOutOfBounds(player1);
         Collision.isOutOfBounds(player2);
@@ -117,7 +157,15 @@ public class LevelScene extends Scene{
         }
 
         if (resetLevel.isTime(0) && (!player1.getAliveStatus() || !player2.getAliveStatus())){
+            switchBackground();
             switchLevels(-1);
+            if(!player1.getAliveStatus()){
+                Player2Wins++;
+                System.out.println("player 2 wins: "+Player2Wins);
+            }if(!player2.getAliveStatus()){
+                Player1Wins++;
+                System.out.println("player 1 wins: " + Player1Wins);
+            }
         }
 
         if (Window.getKeyListener().isKeyPressed(KeyEvent.VK_F9)){
@@ -131,7 +179,7 @@ public class LevelScene extends Scene{
     public void draw(Graphics2D g2) {
         g2.setColor(Color.WHITE);
         g2.fillRect(0,0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-        background.render(g2);
+        backgroundRender.render(g2);
         layer1.render(g2);
         layer2.render(g2);
     }

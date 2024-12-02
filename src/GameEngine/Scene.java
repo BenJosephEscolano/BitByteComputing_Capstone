@@ -17,7 +17,7 @@ public abstract class Scene {
     protected List<GameObject> gameObjectList;
     protected Renderer layer1;
     protected Renderer layer2;
-    protected Renderer background;
+    protected Renderer backgroundRender;
     protected CollisionLayer staticBodies;
     protected CollisionLayer activeBodies;
     protected CollisionLayer projectileLayer;
@@ -31,7 +31,7 @@ public abstract class Scene {
         this.gameObjectList = new ArrayList<>();
         this.layer1 = new Renderer(this.camera);
         this.layer2 = new Renderer(this.camera);
-        this.background = new Renderer(this.camera);
+        this.backgroundRender = new Renderer(this.camera);
         this.staticBodies = new CollisionLayer();
         this.activeBodies = new CollisionLayer();
         this.levels = new Level();
@@ -80,10 +80,10 @@ public abstract class Scene {
         }
     }
     public void addToBackground(GameObject g){
-        if (background.getRenderList().size() > 1){
-            background.getRenderList().set(0,g);
+        if (backgroundRender.getRenderList().size() > 1){
+            backgroundRender.getRenderList().set(0,g);
         } else {
-            background.getRenderList().add(g);
+            backgroundRender.getRenderList().add(g);
         }
     }
     public void addToLayerTwo(GameObject g){
@@ -178,10 +178,10 @@ public abstract class Scene {
     }
 
     public void remove(){
-        gameObjectList.removeLast();
-        layer1.getRenderList().removeLast();
-        layer2.getRenderList().removeLast();
-        staticBodies.getCollisionLayer().removeLast();
+        gameObjectList.remove(gameObjectList.get(gameObjectList.size()-1));
+        layer1.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));
+        layer2.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));
+        staticBodies.getCollisionLayer().remove(gameObjectList.get(gameObjectList.size()-1));
 
     }
 

@@ -55,8 +55,9 @@ public class GameObject implements Serializable {
     }
 
     public void update(double dt){
-        for (Component c: componentList){
-            c.update(dt);
+
+        for(int i=0;i<componentList.size();i++){
+            componentList.get(i).update(dt);
         }
     }
 
