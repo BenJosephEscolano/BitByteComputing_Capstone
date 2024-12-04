@@ -68,6 +68,7 @@ public class PlayerOneControls extends Controls {
         }
     }
 
+
     public void jump() {
         if (!hasJumped) {
             Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;

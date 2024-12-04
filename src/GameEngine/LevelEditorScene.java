@@ -81,7 +81,7 @@ public class LevelEditorScene extends Scene{
             g.update(dt);
         }
 
-        LevelData lvl = levels.getLevels().getFirst();
+        LevelData lvl = levels.getLevels().get(0);
         if (keyListener.isKeyPressed(KeyEvent.VK_F1)){
             saveLevel(lvl);
         }

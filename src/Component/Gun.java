@@ -25,10 +25,10 @@ public abstract class Gun extends GameObject{
 
     public static Gun createGun(GunCode gunType){
         switch (gunType){
-            case GunCode.Pistol:
+            case Pistol:
                 Gun pistol = new Gun.Pistol();
                 return pistol;
-            case GunCode.Rifle:
+            case Rifle:
                 Gun rifle = new Gun.AutomaticRifle();
                 return rifle;
             default:
@@ -59,6 +59,9 @@ public abstract class Gun extends GameObject{
     public static class Pistol extends Gun {
         public Pistol() {
             super(0.5f, 1000.0f); // 0.5 firing interval and 1000 units bullet speed
+
+
+
             Sprite gunSprite = AssetPool.getSprite("assets/Gun/guns/guns_pistol.png");
             addComponent(gunSprite.copy());
             addComponent(new BoxBounds(gunSprite.getWidth(), gunSprite.getHeight()));
