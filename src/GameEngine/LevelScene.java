@@ -48,14 +48,16 @@ public class LevelScene extends Scene{
         PlayerOneControls controller1 = new PlayerOneControls(player1);
         player1.addComponent(controller1);
         player1.setPosition(currLevel.getSpawnPoint(1));
-        test.addComponent(new Item(player1));
+        //test.addComponent(new Item(player1));
         player1.setWeapon(test);
+        test.setOwner(player1);
         player2 = PlayerCharacter.createPlayer(2, 2, 2);
         PlayerTwoControls controller2 = new PlayerTwoControls(player2);
         player2.addComponent(controller2);
         player2.setPosition(currLevel.getSpawnPoint(2));
-        test2.addComponent(new Item(player2));
+        //test2.addComponent(new Item(player2));
         player2.setWeapon(test2);
+        test2.setOwner(player2);
         switchBackground();
         addToBackground(background);
         addGameObject(player1);
@@ -129,8 +131,6 @@ public class LevelScene extends Scene{
             new SpriteSheet("assets/Bullet/bullets.png",
                      20, 20, 0, 4, 4);
         }
-        new Sprite("assets/Background/background_yellow.png");
-        new Sprite("assets/Background/background_yellow_1.png");
     }
 
     @Override

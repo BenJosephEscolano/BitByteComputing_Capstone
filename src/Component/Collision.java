@@ -105,7 +105,7 @@ public class Collision {
         return false;
     }
 
-    public static boolean isOutOfBounds(GameObject box){
+    public static void isOutOfBounds(GameObject box){
         if (box.getY() > Constants.SCREEN_HEIGHT){
             box.setY(50);
         }
@@ -115,7 +115,6 @@ public class Collision {
         if (box.getX() > Constants.SCREEN_WIDTH){
             box.setX(0);
         }
-        return false;
     }
 
 }

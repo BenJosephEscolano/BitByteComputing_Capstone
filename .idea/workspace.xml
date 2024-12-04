@@ -5,34 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the prototype">
-      <change afterPath="$PROJECT_DIR$/src/Component/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Component/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Component/ShootCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Util/GunCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level01_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level01_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level01_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level01_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level02_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level02_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level03_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level03_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level03_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level03_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level04_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level04_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level04_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level04_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level05_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level05_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level05_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level05_layer2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/1920x1080px.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/background_blue_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Background/background_blue_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/background_blue_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Background/background_blue_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/background_green_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Background/background_green_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/background_pink_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Background/background_pink_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/background_yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Background/background_yellow_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Background/background_yellow_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Bullet/26x26px.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Bullet/bullets.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Bullet/bullets.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/GUI/Button_.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/GUI/Button_left_arrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/GUI/Button_right_arrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Gun/gun_drops/gun_drops_sizes_guideline.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Gun/guns/gun_sizes_guidlines.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Gun/guns/guns_pistol.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Gun/guns/guns_rifle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Gun/guns/guns_sniper.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Player/60x60px.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Tiles/60x60px.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Collision.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/SnapToGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/SnapToGrid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Scene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733012917149</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="finishing the prototype">
+      <option name="closed" value="true" />
+      <created>1733073754183</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733073754183</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

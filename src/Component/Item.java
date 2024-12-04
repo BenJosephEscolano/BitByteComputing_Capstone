@@ -17,15 +17,15 @@ public class Item extends Component {
     public void update(double dt){
         Vector direction = owner.getComponent(PlayerOneControls.class).lastDirection;
         if (direction.getX() == 1){
-            getGameObject().setX(owner.getX() + owner.getComponent(BoxBounds.class).getWidth());
+            /*getGameObject().setX(owner.getX() + owner.getComponent(BoxBounds.class).getWidth());
             getGameObject().setScale(1,1);
             getGameObject().removeComponent(Sprite.class);
-            getGameObject().addComponent(AssetPool.getSprite("assets/Gun/guns/guns_rifle_side_right.png").copy());
+            getGameObject().addComponent(AssetPool.getSprite("assets/Gun/guns/guns_rifle_side_right.png").copy());*/
         } else {
-            getGameObject().setX(owner.getX() - getGameObject().getComponent(Sprite.class).getWidth());
+            /*getGameObject().setX(owner.getX() - getGameObject().getComponent(Sprite.class).getWidth());
             getGameObject().setScale(-1, 1);
             getGameObject().removeComponent(Sprite.class);
-            getGameObject().addComponent(AssetPool.getSprite("assets/Gun/guns/guns_rifle_side_left.png").copy());
+            getGameObject().addComponent(AssetPool.getSprite("assets/Gun/guns/guns_rifle_side_left.png").copy());*/
         }
         getGameObject().setY(owner.getY());
     }
