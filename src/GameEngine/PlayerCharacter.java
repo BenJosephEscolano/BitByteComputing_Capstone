@@ -8,8 +8,6 @@ import Component.Sprite;
 import Component.Player;
 import Component.RigidBody;
 import Component.BoxBounds;
-import Component.PlayerOneControls;
-import Component.Item;
 import Component.Gun;
 
 public class PlayerCharacter extends GameObject{
@@ -57,10 +55,6 @@ public class PlayerCharacter extends GameObject{
 
     public void setWeapon(Gun weapon){
         this.weapon = weapon;
-    }
-
-    public Gun getWeapon(){
-        return weapon;
     }
 
 }

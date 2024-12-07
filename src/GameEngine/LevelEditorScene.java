@@ -13,12 +13,11 @@ import java.util.List;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.*;
+
 
 public class LevelEditorScene extends Scene{
     private GameObject mouseCursor;
     private Grid grid;
-    private CameraControls cameraControls;
     private List<GameObject> editorItems;
     private GameObject currItem;
     private int currIndex = 0;
@@ -37,7 +36,6 @@ public class LevelEditorScene extends Scene{
         loadAssets();
         loadEditorItems();
         grid = new Grid();
-        cameraControls = new CameraControls();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Vector()));
         mouseCursor.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
         currItem = editorItems.get(currIndex);
@@ -116,7 +114,6 @@ public class LevelEditorScene extends Scene{
             saveLevel(currLevel);
             Window.changeScene(SceneCode.Level);
         }
-        //cameraControls.update(dt);
         grid.update(dt);
         mouseCursor.update(dt);
         currItem.update(dt);

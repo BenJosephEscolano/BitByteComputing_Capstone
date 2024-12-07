@@ -26,10 +26,6 @@ public class Timer {
         currTime += dt;
     }
 
-    public void setEndTime(double endTime){
-        this.endTime = endTime;
-    }
-
     public void resetTime(){
         currTime = 0.0;
     }

@@ -6,6 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the capstone">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Animation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/BoxBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/BoxBounds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/CameraControls.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Collision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/CollisionObj.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Command.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Controls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Controls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Eraser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Platform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/ShootCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -233,8 +252,27 @@
       <option name="project" value="LOCAL" />
       <updated>1733577493561</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="finishing the capstone">
+      <option name="closed" value="true" />
+      <created>1733581044921</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1733581044921</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge conflict" />

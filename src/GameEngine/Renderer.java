@@ -1,8 +1,5 @@
 package GameEngine;
 
-import DataStructure.Transform;
-import Util.Vector;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +27,6 @@ public class Renderer {
 
     public void render(Graphics2D g2){
         for (GameObject g: gameObjectList){
-            /*Transform oldTransform = new Transform(g.getPosition());
-            oldTransform.setScale(g.getScale());
-            oldTransform.setRotation(g.getVectorRotation());
-            g.setPosition(new Vector(g.getX() - camera.getPosition().getX(),
-                    g.getY() - camera.getPosition().getY() ));
-            g.draw(g2);
-            g.setTransform(oldTransform);*/
             g.draw(g2);
         }
     }

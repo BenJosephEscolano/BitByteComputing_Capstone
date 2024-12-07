@@ -264,8 +264,6 @@ public class LevelScene extends Scene{
         if (!Window.getKeyListener().isKeyPressed(KeyEvent.VK_ESCAPE)){
             toggle = true;
         }
-
-
     }
 
 

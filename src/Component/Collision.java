@@ -1,6 +1,6 @@
 package Component;
 
-import GameEngine.Component;
+
 import GameEngine.GameObject;
 import GameEngine.PlayerCharacter;
 import Util.Constants;
@@ -11,7 +11,6 @@ public class Collision {
     this check if there's a collision on four sides
     -if a player is top on platform it reset the jump
      */
-    private static final float COLLISION_TOLERANCE = 5.0f;
 
     public static void checkPlatformPlayerCollision(Platform platform, GameObject player) {
         if (player == null) return;

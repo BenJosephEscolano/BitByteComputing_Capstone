@@ -1,19 +1,10 @@
 package Component;
 
-import DataStructure.AssetPool;
-import DataStructure.Transform;
 import GameEngine.Component;
-import GameEngine.GameObject;
-import GameEngine.Window;
 import Util.Constants;
-import Util.Timer;
-import Util.Vector;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player extends Component implements Serializable {
     private Sprite layerOne, layerTwo, layerThree;

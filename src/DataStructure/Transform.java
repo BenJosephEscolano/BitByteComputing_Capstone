@@ -45,9 +45,6 @@ public class Transform implements Serializable {
         return rotation;
     }
 
-    public void setRotation(float rotation){
-        this.rotation = rotation;
-    }
 
     public Vector getScale(){
         return scale;

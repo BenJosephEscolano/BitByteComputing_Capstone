@@ -8,7 +8,6 @@ import Component.Gun;
 import javax.swing.*;
 import java.awt.*;
 
-import java.awt.event.KeyEvent;
 
 /**
  * This class handles the creation of the window and the game loop (update-draw cycle).

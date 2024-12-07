@@ -1,8 +1,6 @@
 package Component;
 
-import DataStructure.AssetPool;
 import GameEngine.*;
-import Util.Timer;
 import Util.Vector;
 
 import java.awt.event.KeyEvent;
@@ -24,15 +22,13 @@ public class PlayerTwoControls extends PlayerOneControls{
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_UP)) {
-            //lastDirection.setX(0);
-            //lastDirection.setY(-1);
+        if (keyLisentner.isKeyPressed(KeyEvent.VK_I)) {
             jump();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_LEFT)) {
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_J)) {
             lastDirection.setX(-1);
             lastDirection.setY(0);
             moveLeft();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_RIGHT)) {
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_L)) {
             lastDirection.setX(1);
             lastDirection.setY(0);
             moveRight();

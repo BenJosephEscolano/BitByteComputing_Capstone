@@ -34,14 +34,7 @@ public class BoxBounds extends Component implements Serializable {
     public float getY(){
         return getGameObject().getY();
     }
-    /*@Override
-    public void draw(Graphics2D g2){
-        g2.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
-    }*/
 
-    public Rectangle2D getBoundbox(){
-        return boundbox;
-    }
 
     @Override
     public Component copy() {

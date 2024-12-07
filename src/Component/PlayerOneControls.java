@@ -1,9 +1,6 @@
 package Component;
 
-import GameEngine.Bullet;
-import GameEngine.GameObject;
 import GameEngine.PlayerCharacter;
-import Util.Timer;
 import Util.Vector;
 
 import java.awt.event.KeyEvent;
@@ -27,7 +24,6 @@ public class PlayerOneControls extends Controls {
 
     @Override
     public void update(double dt) {
-        //System.out.println(reloadTime);
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
         //adjust velocity gradually towards the target
         if (velocity.getX() < targetVelocityX) {
@@ -37,8 +33,6 @@ public class PlayerOneControls extends Controls {
         }
 
         if (keyLisentner.isKeyPressed(KeyEvent.VK_W)) {
-            //lastDirection.setX(0);
-            //lastDirection.setY(-1);
             jump();
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)) {
             lastDirection.setX(-1);
@@ -56,7 +50,6 @@ public class PlayerOneControls extends Controls {
         }
 
     }
-
 
     public void jump() {
         if (!hasJumped) {
@@ -78,11 +71,6 @@ public class PlayerOneControls extends Controls {
     @Override
     public void moveRight() {
         targetVelocityX = maxSpeed;
-    }
-
-    @Override
-    public void moveDown() {
-
     }
 
     public void setCommand(Gun shoot){
