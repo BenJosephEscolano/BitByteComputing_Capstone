@@ -22,6 +22,8 @@ public class Bullet extends GameObject {
         this.velocity = velocity;
         this.animationFrame = new Timer(0.16f);
         setBulletSprite(player.bulletIndex);
+        SoundEffect.getInstance().loadSoundEffect("gun_shot", "assets/Music/music_gun_sfx.wav");
+        SoundEffect.getInstance().playSoundEffect("gun_shot");
     }
 
 

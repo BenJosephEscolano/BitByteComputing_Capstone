@@ -31,41 +31,41 @@ public class CharacterSelectionScreen extends Scene{
     public CharacterSelectionScreen(String name) {
         super(name);
         mouse = Window.getMouseListener();
-        this.background = new GameObject("", new Transform(new Vector()));
-        this.p1bdybtnleft = new GameObject("", new Transform(new Vector(165, 230)));
-        this.p1bdybtnright = new GameObject("", new Transform(new Vector(545, 230)));
+        this.background = new GameObject("", new Transform(new Vector(2,30)));
+        this.p1eyebtnleft = new GameObject("", new Transform(new Vector(165, 230)));
+        this.p1eyebtnright = new GameObject("", new Transform(new Vector(545, 230)));
 
-        this.p1eyebtnleft = new GameObject("", new Transform(new Vector(165,303)));
-        this.p1eyebtnright = new GameObject("", new Transform(new Vector(545, 303)));
+        this.p1mthbtnleft = new GameObject("", new Transform(new Vector(165,303)));
+        this.p1mthbtnright = new GameObject("", new Transform(new Vector(545, 303)));
 
-        this.p1mthbtnleft = new GameObject("", new Transform(new Vector(165, 376)));
-        this.p1mthbtnright = new GameObject("", new Transform(new Vector(545, 376)));
+        this.p1bdybtnleft = new GameObject("", new Transform(new Vector(165, 376)));
+        this.p1bdybtnright = new GameObject("", new Transform(new Vector(545, 376)));
 
         this.p1gunbtnleft = new GameObject("", new Transform(new Vector(165, 610)));
         this.p1gunbtnright = new GameObject("", new Transform(new Vector(545, 610)));
 
-        this.p2bdybtnleft = new GameObject("", new Transform(new Vector(660, 230)));
-        this.p2bdybtnright = new GameObject("", new Transform(new Vector(1040, 230)));
+        this.p2eyebtnleft = new GameObject("", new Transform(new Vector(660, 230)));
+        this.p2eyebtnright = new GameObject("", new Transform(new Vector(1040, 230)));
 
-        this.p2eyebtnleft = new GameObject("", new Transform(new Vector(660,303)));
-        this.p2eyebtnright = new GameObject("", new Transform(new Vector(1040, 303)));
+        this.p2mthbtnleft = new GameObject("", new Transform(new Vector(660,303)));
+        this.p2mthbtnright = new GameObject("", new Transform(new Vector(1040, 303)));
 
-        this.p2mthbtnleft = new GameObject("", new Transform(new Vector(660, 376)));
-        this.p2mthbtnright = new GameObject("", new Transform(new Vector(1040, 376)));
+        this.p2bdybtnleft = new GameObject("", new Transform(new Vector(660, 376)));
+        this.p2bdybtnright = new GameObject("", new Transform(new Vector(1040, 376)));
 
         this.p2gunbtnleft = new GameObject("", new Transform(new Vector(660, 610)));
         this.p2gunbtnright = new GameObject("", new Transform(new Vector(1040, 610)));
 
         this.playbtn = new GameObject("", new Transform(new Vector(1090, 0)));
 
-        this.player1 = new GameObject("", new Transform(new Vector(322,240)));
-        this.player2 = new GameObject("", new Transform(new Vector(817,240)));
+        this.player1 = new GameObject("", new Transform(new Vector(322,267)));
+        this.player2 = new GameObject("", new Transform(new Vector(817,267)));
 
-        this.color1 = new GameObject("", new Transform(new Vector(351, 388)));
-        this.color2 = new GameObject("", new Transform(new Vector(845, 388)));
+        this.color1 = new GameObject("", new Transform(new Vector(353, 415)));
+        this.color2 = new GameObject("", new Transform(new Vector(846, 415)));
 
-        this.gun1 = new GameObject("", new Transform(new Vector(255, 577)));
-        this.gun2 = new GameObject("", new Transform(new Vector(750, 577)));
+        this.gun1 = new GameObject("", new Transform(new Vector(257, 607)));
+        this.gun2 = new GameObject("", new Transform(new Vector(757, 607)));
         this.currbody1 = 0;
         this.currbody2 = 2;
         this.curreye1 = 0;
