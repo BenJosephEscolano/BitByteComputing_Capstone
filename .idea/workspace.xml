@@ -4,25 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the prototype">
-      <change afterPath="$PROJECT_DIR$/src/Component/Button.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GameEngine/SplashScene.java" afterDir="false" />
+    <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the capstone">
+      <change afterPath="$PROJECT_DIR$/src/GameEngine/Sound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameEngine/WinScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Collision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/ShootCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/ShootCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Bullet/bullet_sprites/bullets_green_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Bullet/bullet_sprites/bullets_green_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Bullet/bullet_sprites/bullets_pink_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Bullet/bullet_sprites/bullets_pink_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Bullet/bullet_sprites/bullets_yellow_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/Bullet/bullet_sprites/bullets_yellow_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/Bullet/gun_sfx.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/charcter_selection_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/charcter_selection_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/CharacterSelection/charcter_selection_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/charcter_selection_cords(inkscape).svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/CharacterSelection/charcter_selection_cords(inkscape).svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/music_character_selection(continue from splash music).mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/SplashScreen/music_splash_screen.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/SuddenDeath/storm_side_left.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/SuddenDeath/storm_side_right.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/WinnerScreen/winner_sfx.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Scene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/SplashScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/SplashScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Util/SceneCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/SceneCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Util/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/Timer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,13 +212,22 @@
       <option name="project" value="LOCAL" />
       <updated>1733323177809</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="finishing the capstone">
+      <option name="closed" value="true" />
+      <created>1733543946461</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733543946461</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge conflict" />
     <MESSAGE value="Tried to fix my mistake when merging" />
     <MESSAGE value="finishing the prototype" />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing the prototype" />
+    <MESSAGE value="finishing the capstone" />
+    <option name="LAST_COMMIT_MESSAGE" value="finishing the capstone" />
   </component>
 </project>

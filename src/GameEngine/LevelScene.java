@@ -7,17 +7,26 @@ import Component.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
+import Component.Button;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LevelScene extends Scene{
     private PlayerCharacter player1, player2;
     private GameObject background;
+    private GameObject pauseScreen;
+    private GameObject winScreen;
     private Timer resetLevel;
     private Gun gun1, gun2;
     private  int Player1Wins;
     private  int Player2Wins;
+    private Timer keyboardBuffer;
+    private boolean toggle = true;
+    private GameObject exitButton, continueButton;
+    private ML mouse = Window.getMouseListener();
+    private KL key = Window.getKeyListener();
 
     public LevelScene(String name, PlayerCharacter player1, PlayerCharacter player2, Gun gun1, Gun gun2){
         super(name);
@@ -29,6 +38,11 @@ public class LevelScene extends Scene{
         this.background = new GameObject("", new Transform(new Vector()));
         this.Player1Wins=0;
         this.Player2Wins=0;
+        this.pauseScreen = new GameObject("", new Transform(new Vector()));
+        this.winScreen = new GameObject("", new Transform(new Vector()));
+        this.keyboardBuffer = new Timer(0.5f);
+        this.continueButton = new GameObject("", new Transform(new Vector(380,233)));
+        this.exitButton = new GameObject("", new Transform(new Vector(320, 350)));
     }
 
     public PlayerCharacter getPlayer1(){
@@ -43,6 +57,8 @@ public class LevelScene extends Scene{
     @Override
     public void init() {
         loadPlayerAssets();
+        Sound.getInstance().loadMusic("assets/Music/music_in_game.wav");
+        Sound.getInstance().playMusic();
         loadLevel(levels.getLevels().get(0));
         player1.setPosition(currLevel.getSpawnPoint(1));
         gun1.setOwner(player1);
@@ -55,6 +71,9 @@ public class LevelScene extends Scene{
         setActiveBodies(player2, 2);
         addToLayerTwo(gun2);
         addToLayerTwo(gun1);
+        pauseScreen.addComponent(AssetPool.getSprite("assets/PauseScreen/screen_pause.png"));
+        continueButton.addComponent(new Button(550, 100));
+        exitButton.addComponent(new Button(550, 100));
     }
 
     private void respawn(){
@@ -142,17 +161,49 @@ public class LevelScene extends Scene{
                 System.out.println("player 1 wins: " + Player1Wins);
             }
             if(Player1Wins==3){
-                System.out.println("player 1 is winner");
-                Window.getWindow().close();
+                Window.changeScene(SceneCode.WinScreen, 1, player1.bulletIndex);
             }
             if(Player2Wins==3){
-                System.out.println("player 2 is winner");
-                Window.getWindow().close();
+                Window.changeScene(SceneCode.WinScreen, 2, player2.bulletIndex);
             }
             resetLevel.resetTime();
             switchBackground();
             switchLevels(-1);
         }
+        if (Window.getWindow().isPause() && key.isKeyPressed(KeyEvent.VK_ESCAPE) && toggle){
+            Window.getWindow().play();
+            Window.getScene().getRenderer(2).unsubmit(pauseScreen);
+        }
+        if (mouse.isMousePressed()
+                && mouse.getX() > exitButton.getX()
+                && mouse.getX() < exitButton.getX() + exitButton.getComponent(Button.class).getWidth()
+                && mouse.getY() > exitButton.getY()
+                && mouse.getY() < exitButton.getY()+ exitButton.getComponent(Button.class).getHeight()
+        ){
+            Sound.getInstance().stopMusic();
+            Window.changeScene(SceneCode.SplashScreen);
+        }
+        if (mouse.isMousePressed()
+                && mouse.getX() > continueButton.getX()
+                && mouse.getX() < continueButton.getX() + continueButton.getComponent(Button.class).getWidth()
+                && mouse.getY() > continueButton.getY()
+                && mouse.getY() < continueButton.getY()+ continueButton.getComponent(Button.class).getHeight()
+        ){
+            Window.getWindow().play();
+            Window.getScene().getRenderer(2).unsubmit(pauseScreen);
+        }
+        
+        if (keyboardBuffer.isTime(dt) && Window.getKeyListener().isKeyPressed(KeyEvent.VK_ESCAPE)){
+            keyboardBuffer.resetTime();
+            Window.getWindow().pause();
+            Window.getScene().addToLayerTwo(pauseScreen);
+            toggle = false;
+        }
+        if (!Window.getKeyListener().isKeyPressed(KeyEvent.VK_ESCAPE)){
+            toggle = true;
+        }
+
+
     }
 
 
@@ -163,6 +214,10 @@ public class LevelScene extends Scene{
         backgroundRender.render(g2);
         layer1.render(g2);
         layer2.render(g2);
+        if (Window.getWindow().isPause()){
+            exitButton.draw(g2);
+            continueButton.draw(g2);
+        }
     }
 
     public List<GameObject> getPlayers(){

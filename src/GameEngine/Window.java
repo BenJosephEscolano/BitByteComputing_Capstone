@@ -22,6 +22,7 @@ public class Window extends JFrame implements Runnable {
     private Scene currentScene;
     private Image doubleBufferImage = null;
     private Graphics doubleBufferGraphics = null;
+    private boolean play = true;
 
     private Window(){
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -57,7 +58,11 @@ public class Window extends JFrame implements Runnable {
                     double time = Time.getTime();
                     double deltaTime = time - lastFrameTime;
                     lastFrameTime = time;
-                    update(deltaTime);
+                    if (play){
+                        update(deltaTime);
+                    } else {
+                        update(0);
+                    }
                 }
                 dispose();
             } catch (Exception e){
@@ -74,8 +79,20 @@ public class Window extends JFrame implements Runnable {
         isRunning = false;
     }
 
+    public void pause(){
+        play = false;
+    }
+
+    public boolean isPause(){
+        return !play;
+    }
+
+    public void play(){
+        play = true;
+    }
+
     public void init(){
-        changeScene(SceneCode.CharacterSelection);
+        changeScene(SceneCode.SplashScreen);
     }
 
     /*
@@ -119,6 +136,13 @@ public class Window extends JFrame implements Runnable {
     public static void changeScene(SceneCode scene, PlayerCharacter player1, PlayerCharacter player2, Gun gun1, Gun gun2){
         if (scene == SceneCode.Level){
             getWindow().currentScene = new LevelScene("Level", player1, player2, gun1, gun2);
+            getWindow().currentScene.init();
+        }
+    }
+
+    public static void changeScene(SceneCode scene, int player, int color){
+        if (scene == SceneCode.WinScreen){
+            getWindow().currentScene = new WinScreen("Win Screen", player, color);
             getWindow().currentScene.init();
         }
     }

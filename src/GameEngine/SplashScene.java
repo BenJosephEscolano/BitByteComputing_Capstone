@@ -32,7 +32,8 @@ public class SplashScene extends Scene{
         startbtn.setPosition(new Vector(530,475));
         exitbtn.addComponent(new Button(200.0f, 100.0f));
         exitbtn.setPosition(new Vector(530, 620));
-
+        Sound.getInstance().loadMusic("assets/Music/music_splash_screen.wav");
+        Sound.getInstance().playMusic();
     }
 
     @Override
@@ -45,7 +46,7 @@ public class SplashScene extends Scene{
             ){
             Window.changeScene(SceneCode.CharacterSelection);
         }
-        System.out.println("update");
+
         if (mouse.isMousePressed()
                 && mouse.getX() > exitbtn.getX()
                 && mouse.getX() < exitbtn.getX() + exitbtn.getComponent(Button.class).getWidth()

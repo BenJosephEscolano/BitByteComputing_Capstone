@@ -4,5 +4,6 @@ public enum SceneCode {
     LevelEditor,
     Level,
     SplashScreen,
-    CharacterSelection;
+    CharacterSelection,
+    WinScreen;
 }
