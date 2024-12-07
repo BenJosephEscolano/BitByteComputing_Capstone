@@ -5,6 +5,7 @@ import DataStructure.Transform;
 import GameEngine.Bullet;
 import GameEngine.GameObject;
 import GameEngine.PlayerCharacter;
+import GameEngine.Sound;
 import Util.GunCode;
 import Util.Timer;
 import Util.Vector;
@@ -107,6 +108,10 @@ public abstract class Gun extends GameObject{
             newBullet.spawnBullet();
             currAmmo--;
         }
+    }
+
+    public void resetAmmo(){
+        currAmmo = ammo;
     }
 
 

@@ -25,6 +25,8 @@ public class LevelScene extends Scene{
     private GameObject exitButton, continueButton;
     private ML mouse = Window.getMouseListener();
     private KL key = Window.getKeyListener();
+    private GameObject player1ScoreBoard, player2ScoreBoard;
+    private int scoreBoardIndex1, scoreBoardIndex2;
 
     public LevelScene(String name, PlayerCharacter player1, PlayerCharacter player2, Gun gun1, Gun gun2){
         super(name);
@@ -40,6 +42,8 @@ public class LevelScene extends Scene{
         this.keyboardBuffer = new Timer(0.5f);
         this.continueButton = new GameObject("", new Transform(new Vector(380,233)));
         this.exitButton = new GameObject("", new Transform(new Vector(320, 350)));
+        this.player1ScoreBoard = new GameObject("", new Transform(new Vector(20,70)));
+        this.player2ScoreBoard = new GameObject("", new Transform(new Vector(1140, 70)));
     }
 
     public PlayerCharacter getPlayer1(){
@@ -71,6 +75,54 @@ public class LevelScene extends Scene{
         pauseScreen.addComponent(AssetPool.getSprite("assets/PauseScreen/screen_pause.png"));
         continueButton.addComponent(new Button(550, 100));
         exitButton.addComponent(new Button(550, 100));
+        player1ScoreBoard.addComponent(getScoreBoard(1, player1.bulletIndex));
+        player2ScoreBoard.addComponent(getScoreBoard(2, player2.bulletIndex));
+    }
+
+    private Component getScoreBoard(int player, int color){
+        SpriteSheet scoreboard = AssetPool.getSpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png");
+        if (player == 1){
+            if (color == 0){
+                scoreBoardIndex1 = 1;
+            }
+            if (color == 1){
+                scoreBoardIndex1 = 0;
+            }
+            if (color == 2){
+                scoreBoardIndex1 = 3;
+            }
+            if (color == 3){
+                scoreBoardIndex1 = 2;
+            }
+            return scoreboard.getSprite(scoreBoardIndex1).copy();
+        } else {
+            if (color == 0){
+                scoreBoardIndex2 = 1 + 16;
+            }
+            if (color == 1){
+                scoreBoardIndex2 = 0 + 16;
+            }
+            if (color == 2){
+                scoreBoardIndex2 = 3 + 16;
+            }
+            if (color == 3){
+                scoreBoardIndex2 = 2 + 16;
+            }
+            return scoreboard.getSprite(scoreBoardIndex2).copy();
+        }
+    }
+
+    private void addPoint(int scoreBoard){
+        if (scoreBoard == 1){
+            scoreBoardIndex1 += 4;
+            player1ScoreBoard.removeComponent(Sprite.class);
+            player1ScoreBoard.addComponent(AssetPool.getSpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png").getSprite(scoreBoardIndex1).copy());
+        }
+        if (scoreBoard == 2){
+            scoreBoardIndex2 += 4;
+            player2ScoreBoard.removeComponent(Sprite.class);
+            player2ScoreBoard.addComponent(AssetPool.getSpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png").getSprite(scoreBoardIndex2).copy());
+        }
     }
 
     private void respawn(){
@@ -82,6 +134,8 @@ public class LevelScene extends Scene{
         player1.getComponent(RigidBody.class).resetGravity();
         player2.setPosition(currLevel.getSpawnPoint(2).copy());
         player2.getComponent(RigidBody.class).resetGravity();
+        gun1.resetAmmo();
+        gun2.resetAmmo();
         addToLayerTwo(gun1);
         addToLayerTwo(gun2);
     }
@@ -136,6 +190,10 @@ public class LevelScene extends Scene{
             new SpriteSheet("assets/Bullet/bullets.png",
                      20, 20, 0, 4, 4);
         }
+        if (!AssetPool.hasSpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png")){
+            new SpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png",
+                    92, 16, 0, 4, 4*8);
+        }
     }
 
     @Override
@@ -152,15 +210,17 @@ public class LevelScene extends Scene{
         if ((!player1.getAliveStatus() || !player2.getAliveStatus()) && resetLevel.isTime(dt) ){
             if(!player1.getAliveStatus()){
                 Player2Wins++;
+                addPoint(2);
                 System.out.println("player 2 wins: "+Player2Wins);
             }if(!player2.getAliveStatus()){
                 Player1Wins++;
+                addPoint(1);
                 System.out.println("player 1 wins: " + Player1Wins);
             }
-            if(Player1Wins==3){
+            if(Player1Wins==4){
                 Window.changeScene(SceneCode.WinScreen, 1, player1.bulletIndex);
             }
-            if(Player2Wins==3){
+            if(Player2Wins==4){
                 Window.changeScene(SceneCode.WinScreen, 2, player2.bulletIndex);
             }
             resetLevel.resetTime();
@@ -217,6 +277,8 @@ public class LevelScene extends Scene{
             exitButton.draw(g2);
             continueButton.draw(g2);
         }
+        player1ScoreBoard.draw(g2);
+        player2ScoreBoard.draw(g2);
     }
 
     public List<GameObject> getPlayers(){

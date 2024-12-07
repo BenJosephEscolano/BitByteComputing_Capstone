@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the capstone">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/GUI/button_click_sfx.mp3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Sound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Sound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/SplashScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/SplashScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/WinScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/WinScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733552112817</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="finishing the capstone">
+      <option name="closed" value="true" />
+      <created>1733568508933</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1733568508933</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
