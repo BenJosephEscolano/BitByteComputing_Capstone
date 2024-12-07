@@ -14,15 +14,13 @@ public class PlayerOneControls extends Controls {
     protected float targetVelocityX = 0;
     protected final float acceleration = 3500f;
     protected final float maxSpeed = 300.0f;
-    protected Timer reloadTime;
-    protected Command shoot;
+
+    protected Gun shoot;
     private PlayerCharacter player;
 
     public PlayerOneControls(PlayerCharacter player) {
         hasJumped = false;
-        reloadTime = new Timer(1.5f, 1.5f);
         lastDirection = new Vector(1, 0);
-        shoot = new Command();
         this.player = player;
     }
 
@@ -59,9 +57,8 @@ public class PlayerOneControls extends Controls {
         } else {
             stop();
         }
-        if (reloadTime.isTime(dt) && keyLisentner.isKeyPressed(KeyEvent.VK_SPACE)){
-            reloadTime.resetTime();
-            shoot.execute();
+        if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE)){
+            shoot.fire(player);
         }
 
     }
@@ -94,17 +91,9 @@ public class PlayerOneControls extends Controls {
 
     }
 
-    public void setCommand(Command shoot){
+    public void setCommand(Gun shoot){
         this.shoot = shoot;
     }
-
-
-
-
-
-
-
-
 
     public Vector getLastDirection() {
         return lastDirection;

@@ -6,6 +6,7 @@ import GameEngine.Bullet;
 import GameEngine.GameObject;
 import GameEngine.PlayerCharacter;
 import Util.GunCode;
+import Util.Timer;
 import Util.Vector;
 
 import java.util.ArrayList;
@@ -14,14 +15,16 @@ import java.util.List;
 // testing gun class but idk how
 
 public abstract class Gun extends GameObject{
-    protected float fireRate;
+    protected Timer fireRate;
+    protected Timer reloadTime;
     protected float bulletSpeed;
-    private double lastFireTime;
+    protected int ammo;
+    protected int currAmmo;
     private List<Sprite> loadedGun;
     private List<Sprite> unLoadedGun;
     private PlayerCharacter owner;
 
-    public Gun(float fireRate, float bulletSpeed, String l1, String l2, String ul1, String ul2) {
+    public Gun(int ammo, float fireRate, float bulletSpeed, float reloadSpeed, String l1, String l2, String ul1, String ul2) {
         super("", new Transform(new Vector()));
         this.loadedGun = new ArrayList<>();
         this.unLoadedGun = new ArrayList<>();
@@ -29,27 +32,49 @@ public abstract class Gun extends GameObject{
         loadedGun.add(AssetPool.getSprite(l2));
         unLoadedGun.add(AssetPool.getSprite(ul1));
         unLoadedGun.add(AssetPool.getSprite(ul2));
-        this.fireRate = fireRate;
+        this.fireRate = new Timer(fireRate);
+        this.reloadTime = new Timer(reloadSpeed);
         this.bulletSpeed = bulletSpeed;
-        this.lastFireTime = 0; // Gun hasn't fired yet
+        this.ammo = ammo;
+        currAmmo = ammo;
         addComponent(loadedGun.get(0));
     }
 
     public void update(double dt){
         super.update(dt);
+        if (currAmmo == 0 && reloadTime.isTime(dt)){
+            currAmmo = ammo;
+            reloadTime.resetTime();
+        }
+        fireRate.addTime(dt);
         if (owner != null){
             Vector direction = owner.getComponent(PlayerOneControls.class).lastDirection;
-            if (direction.getX() == 1){
-                setX(owner.getX() + owner.getComponent(BoxBounds.class).getWidth());
-                setScale(1,1);
-                removeComponent(Sprite.class);
-                addComponent(loadedGun.get(0).copy());
+            if (currAmmo > 0){
+                if (direction.getX() == 1){
+                    setX(owner.getX() + owner.getComponent(BoxBounds.class).getWidth());
+                    setScale(1,1);
+                    removeComponent(Sprite.class);
+                    addComponent(loadedGun.get(0).copy());
+                } else  {
+                    setX(owner.getX() - getComponent(Sprite.class).getWidth());
+                    setScale(-1, 1);
+                    removeComponent(Sprite.class);
+                    addComponent(loadedGun.get(1).copy());
+                }
             } else {
-                setX(owner.getX() - getComponent(Sprite.class).getWidth());
-                setScale(-1, 1);
-                removeComponent(Sprite.class);
-                addComponent(loadedGun.get(1).copy());
+                if (direction.getX() == 1){
+                    setX(owner.getX() + owner.getComponent(BoxBounds.class).getWidth());
+                    setScale(1,1);
+                    removeComponent(Sprite.class);
+                    addComponent(unLoadedGun.get(0).copy());
+                } else  {
+                    setX(owner.getX() - getComponent(Sprite.class).getWidth());
+                    setScale(-1, 1);
+                    removeComponent(Sprite.class);
+                    addComponent(unLoadedGun.get(1).copy());
+                }
             }
+
             setY(owner.getY());
         }
     }
@@ -72,32 +97,23 @@ public abstract class Gun extends GameObject{
 
     public void setOwner(PlayerCharacter owner){
         this.owner = owner;
-        owner.getComponent(PlayerOneControls.class).setCommand(new ShootCommand(owner, this));
+        owner.getComponent(PlayerOneControls.class).setCommand(this);
     }
 
-    // this checks if enough time has passed since the last shot to fire again
-    public boolean canFire(double currentTime) {
-        return currentTime - lastFireTime >= fireRate;
+    public void fire(PlayerCharacter owner){
+        if (fireRate.isTime(0) && currAmmo > 0){
+            fireRate.resetTime();
+            Bullet newBullet = new Bullet(owner, bulletSpeed);
+            newBullet.spawnBullet();
+            currAmmo--;
+        }
     }
 
-    //this reset the firing timer after a shot
-    public void resetFiringTimer(double currentTime) {
-        lastFireTime = currentTime;
-    }
-    public abstract void fire(PlayerCharacter owner);
-
-    public float getBulletSpeed() {
-        return bulletSpeed;
-    }
-
-    public float getFireRate() {
-        return fireRate;
-    }
 
     //pistol fires one bullet everytime you press space
     public static class Pistol extends Gun {
         public Pistol() {
-            super(0.5f, 1000.0f,
+            super(3,0.25f, 1000.0f, 1.0f,
                     "assets/Gun/guns/guns_pistol_side_right.png",
                     "assets/Gun/guns/guns_pistol_side_left.png",
                     "assets/Gun/guns/guns_pistol_side_right_reload.png",
@@ -105,16 +121,11 @@ public abstract class Gun extends GameObject{
             addComponent(new RigidBody(new Vector()));
         }
 
-        @Override
-        public void fire(PlayerCharacter owner) {
-                Bullet newBullet = new Bullet(owner);
-                newBullet.spawnBullet();
-        }
     }
 
     public static class Sniper extends Gun {
         public Sniper() {
-            super(0.5f, 1000.0f,
+            super(3,0.5f, 1500.0f, 2.0f,
                     "assets/Gun/guns/guns_sniper_side_right.png",
                     "assets/Gun/guns/guns_sniper_side_left.png",
                     "assets/Gun/guns/guns_sniper_side_right_reload.png",
@@ -122,18 +133,13 @@ public abstract class Gun extends GameObject{
             addComponent(new RigidBody(new Vector()));
         }
 
-        @Override
-        public void fire(PlayerCharacter owner) {
-            Bullet newBullet = new Bullet(owner);
-            newBullet.spawnBullet();
-        }
     }
 
 
     // an AR first continuously while holding space
     public static class AutomaticRifle extends Gun {
         public AutomaticRifle() {
-            super(0.1f, 1500.0f,
+            super(5, 0.1f, 500.0f, 3.0f,
                     "assets/Gun/guns/guns_rifle_side_right.png",
                     "assets/Gun/guns/guns_rifle_side_left.png",
                     "assets/Gun/guns/guns_rifle_side_right_reload.png",
@@ -141,10 +147,5 @@ public abstract class Gun extends GameObject{
             addComponent(new RigidBody(new Vector()));
         }
 
-        @Override
-        public void fire(PlayerCharacter owner) {
-            Bullet newBullet = new Bullet(owner);
-            newBullet.spawnBullet();
-        }
     }
 }

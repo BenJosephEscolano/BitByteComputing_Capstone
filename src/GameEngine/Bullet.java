@@ -15,6 +15,7 @@ public class Bullet extends GameObject {
     private PlayerCharacter player;
     private Sprite bullet2, bullet3;
     private Timer animationFrame;
+    private float bulletSpeed;
 
     public Bullet(Vector position, Vector velocity, PlayerCharacter player) {
         super("bullet", new Transform(position));
@@ -23,9 +24,12 @@ public class Bullet extends GameObject {
         setBulletSprite(player.bulletIndex);
     }
 
-    public Bullet(PlayerCharacter player){
+
+
+    public Bullet(PlayerCharacter player, float bulletSpeed){
         super("bullet", new Transform(new Vector()));
         this.player = player;
+        this.bulletSpeed = bulletSpeed;
         setBulletSprite(player.bulletIndex);
     }
 
@@ -121,7 +125,7 @@ public class Bullet extends GameObject {
         Vector spawnPosition = new Vector(playerMidX, playerMidY);
         // if the last direction is non-zero, spawn a bullet
         if (lastDirection.getX() != 0 || lastDirection.getY() != 0) {
-            Vector bulletVelocity = new Vector(lastDirection.getX() * 500.0f, lastDirection.getY() * 500.0f);
+            Vector bulletVelocity = new Vector(lastDirection.getX() * bulletSpeed, lastDirection.getY() * bulletSpeed);
             Bullet newBullet = new Bullet(spawnPosition, bulletVelocity, player);
             newBullet.addComponent(AssetPool.getSpriteSheet("assets/Bullet/bullets.png").getSprite(player.bulletIndex).copy());
             newBullet.addComponent(new BoxBounds(20, 20));

@@ -332,9 +332,10 @@ public class CharacterSelectionScreen extends Scene{
             case 0:
                 return Gun.createGun(GunCode.Sniper);
             case 1:
-                return Gun.createGun(GunCode.Pistol);
-            case 2:
                 return Gun.createGun(GunCode.Rifle);
+            case 2:
+                return Gun.createGun(GunCode.Pistol);
+
             default:
                 return null;
         }

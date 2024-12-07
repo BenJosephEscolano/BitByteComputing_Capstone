@@ -28,9 +28,15 @@ public class Sound {
         }
     }
 
-    public void playMusic() {
+    public void playMusicLoop() {
         if (backgroundMusic != null && isMusicEnabled) {
             backgroundMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    public void playMusic() {
+        if (backgroundMusic != null && isMusicEnabled) {
+            backgroundMusic.start();
         }
     }
 
@@ -46,7 +52,7 @@ public class Sound {
                 stopMusic();
                 isMusicEnabled = false;
             } else {
-                playMusic();
+                playMusicLoop();
                 isMusicEnabled = true;
             }
         }

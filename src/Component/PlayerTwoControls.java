@@ -16,7 +16,6 @@ public class PlayerTwoControls extends PlayerOneControls{
     }
     @Override
     public void update(double dt){
-        //System.out.println(reloadTime);
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
         //adjust velocity gradually towards the target
         if (velocity.getX() < targetVelocityX) {
@@ -26,14 +25,14 @@ public class PlayerTwoControls extends PlayerOneControls{
         }
         if (keyLisentner.isKeyPressed(KeyEvent.VK_DOWN)) {
             //lastDirection.setX(0);
-            lastDirection.setY(1);
+            //lastDirection.setY(1);
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD0)) {
             //lastDirection.setX(0);
-            lastDirection.setY(-1);
+            //lastDirection.setY(-1);
         }
         if (keyLisentner.isKeyPressed(KeyEvent.VK_UP)) {
             //lastDirection.setX(0);
-            lastDirection.setY(-1);
+            //lastDirection.setY(-1);
             jump();
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_LEFT)) {
             lastDirection.setX(-1);
@@ -46,9 +45,8 @@ public class PlayerTwoControls extends PlayerOneControls{
         } else {
             stop();
         }
-        if (reloadTime.isTime(dt) && keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1)){
-            reloadTime.resetTime();
-            shoot.execute();
+        if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1)){
+            shoot.fire(player);
         }
     }
 

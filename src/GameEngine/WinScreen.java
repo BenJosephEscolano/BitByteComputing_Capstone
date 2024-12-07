@@ -8,7 +8,6 @@ import Util.Vector;
 import Component.Sprite;
 
 import java.awt.*;
-import java.lang.management.MemoryUsage;
 
 public class WinScreen extends Scene{
     private GameObject winScreen;
@@ -17,7 +16,7 @@ public class WinScreen extends Scene{
     public WinScreen(String name, int player, int color) {
         super(name);
         winScreen = new GameObject("", new Transform(new Vector()));
-        continueBuffer = new Timer(7);
+        continueBuffer = new Timer(6);
         Sprite screen = getWinScreen(player, color);
         winScreen.addComponent(screen);
     }

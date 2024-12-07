@@ -7,8 +7,6 @@ import Util.Vector;
 import Component.Button;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 
 public class SplashScene extends Scene{
     private GameObject background;
@@ -32,8 +30,9 @@ public class SplashScene extends Scene{
         startbtn.setPosition(new Vector(530,475));
         exitbtn.addComponent(new Button(200.0f, 100.0f));
         exitbtn.setPosition(new Vector(530, 620));
+        Sound.getInstance().stopMusic();
         Sound.getInstance().loadMusic("assets/Music/music_splash_screen.wav");
-        Sound.getInstance().playMusic();
+        Sound.getInstance().playMusicLoop();
     }
 
     @Override

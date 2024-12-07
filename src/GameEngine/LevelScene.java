@@ -7,7 +7,6 @@ import Component.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 import Component.Button;
@@ -17,7 +16,6 @@ public class LevelScene extends Scene{
     private PlayerCharacter player1, player2;
     private GameObject background;
     private GameObject pauseScreen;
-    private GameObject winScreen;
     private Timer resetLevel;
     private Gun gun1, gun2;
     private  int Player1Wins;
@@ -39,7 +37,6 @@ public class LevelScene extends Scene{
         this.Player1Wins=0;
         this.Player2Wins=0;
         this.pauseScreen = new GameObject("", new Transform(new Vector()));
-        this.winScreen = new GameObject("", new Transform(new Vector()));
         this.keyboardBuffer = new Timer(0.5f);
         this.continueButton = new GameObject("", new Transform(new Vector(380,233)));
         this.exitButton = new GameObject("", new Transform(new Vector(320, 350)));
@@ -58,7 +55,7 @@ public class LevelScene extends Scene{
     public void init() {
         loadPlayerAssets();
         Sound.getInstance().loadMusic("assets/Music/music_in_game.wav");
-        Sound.getInstance().playMusic();
+        Sound.getInstance().playMusicLoop();
         loadLevel(levels.getLevels().get(0));
         player1.setPosition(currLevel.getSpawnPoint(1));
         gun1.setOwner(player1);
@@ -174,7 +171,8 @@ public class LevelScene extends Scene{
             Window.getWindow().play();
             Window.getScene().getRenderer(2).unsubmit(pauseScreen);
         }
-        if (mouse.isMousePressed()
+        if (Window.getWindow().isPause() &&
+                mouse.isMousePressed()
                 && mouse.getX() > exitButton.getX()
                 && mouse.getX() < exitButton.getX() + exitButton.getComponent(Button.class).getWidth()
                 && mouse.getY() > exitButton.getY()
@@ -183,7 +181,8 @@ public class LevelScene extends Scene{
             Sound.getInstance().stopMusic();
             Window.changeScene(SceneCode.SplashScreen);
         }
-        if (mouse.isMousePressed()
+        if (Window.getWindow().isPause() &&
+                mouse.isMousePressed()
                 && mouse.getX() > continueButton.getX()
                 && mouse.getX() < continueButton.getX() + continueButton.getComponent(Button.class).getWidth()
                 && mouse.getY() > continueButton.getY()
