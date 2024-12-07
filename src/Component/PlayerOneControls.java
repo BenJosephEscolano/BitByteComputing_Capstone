@@ -35,16 +35,10 @@ public class PlayerOneControls extends Controls {
         } else if (velocity.getX() > targetVelocityX) {
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_S)) {
-            //lastDirection.setX(0);
-            lastDirection.setY(1);
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_Q)) {
-            //lastDirection.setX(0);
-            lastDirection.setY(-1);
-        }
+
         if (keyLisentner.isKeyPressed(KeyEvent.VK_W)) {
             //lastDirection.setX(0);
-            lastDirection.setY(-1);
+            //lastDirection.setY(-1);
             jump();
         } else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)) {
             lastDirection.setX(-1);

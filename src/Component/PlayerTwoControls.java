@@ -23,13 +23,7 @@ public class PlayerTwoControls extends PlayerOneControls{
         } else if (velocity.getX() > targetVelocityX) {
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_DOWN)) {
-            //lastDirection.setX(0);
-            //lastDirection.setY(1);
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD0)) {
-            //lastDirection.setX(0);
-            //lastDirection.setY(-1);
-        }
+
         if (keyLisentner.isKeyPressed(KeyEvent.VK_UP)) {
             //lastDirection.setX(0);
             //lastDirection.setY(-1);
