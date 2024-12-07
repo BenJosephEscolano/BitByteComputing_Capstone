@@ -15,21 +15,20 @@ public class PlayerOneControls extends Controls {
     protected final float acceleration = 3500f;
     protected final float maxSpeed = 300.0f;
     protected Timer reloadTime;
-    private Command shoot;
+    protected Command shoot;
     private PlayerCharacter player;
 
     public PlayerOneControls(PlayerCharacter player) {
         hasJumped = false;
         reloadTime = new Timer(1.5f, 1.5f);
         lastDirection = new Vector(1, 0);
-        shoot = new ShootCommand(player);
+        shoot = new Command();
         this.player = player;
     }
 
 
     @Override
     public void update(double dt) {
-        reloadTime.addTime(dt);
         //System.out.println(reloadTime);
         Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
         //adjust velocity gradually towards the target
@@ -60,12 +59,11 @@ public class PlayerOneControls extends Controls {
         } else {
             stop();
         }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE) && reloadTime.isTime(0)){
-            System.out.println("bullet");
-            System.out.println("X: " + getGameObject().getX() + " Y: " + getGameObject().getY());
-            Bullet.spawnBullet(player);
-            //shoot.execute();
+        if (reloadTime.isTime(dt) && keyLisentner.isKeyPressed(KeyEvent.VK_SPACE)){
+            reloadTime.resetTime();
+            shoot.execute();
         }
+
     }
 
 
@@ -78,29 +76,26 @@ public class PlayerOneControls extends Controls {
     }
 
     public void stop() {
-        Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
-        //velocity.setX(0);
-
         targetVelocityX = 0; // Slowly bring velocity to 0
     }
 
     @Override
     public void moveLeft() {
-        /*Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
-        velocity.setX(-500);*/
         targetVelocityX = -maxSpeed;
     }
 
     @Override
     public void moveRight() {
-        /*Vector velocity = getGameObject().getComponent(RigidBody.class).velocity;
-        velocity.setX(500);*/
         targetVelocityX = maxSpeed;
     }
 
     @Override
     public void moveDown() {
 
+    }
+
+    public void setCommand(Command shoot){
+        this.shoot = shoot;
     }
 
 

@@ -7,24 +7,25 @@ import Component.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class LevelScene extends Scene{
-    private PlayerCharacter player1, player2, grid;
+    private PlayerCharacter player1, player2;
     private GameObject background;
     private Timer resetLevel;
-    private Gun test, test2;
+    private Gun gun1, gun2;
     private  int Player1Wins;
     private  int Player2Wins;
 
-    public LevelScene(String name){
+    public LevelScene(String name, PlayerCharacter player1, PlayerCharacter player2, Gun gun1, Gun gun2){
         super(name);
-        this.resetLevel = new Timer(5.0f);
-        this.test = Gun.createGun(GunCode.Pistol);
-        this.test2 = Gun.createGun(GunCode.Rifle);
+        this.player1 = player1;
+        this.player2 = player2;
+        this.resetLevel = new Timer(2.5f);
+        this.gun1 = gun1;
+        this.gun2 = gun2;
         this.background = new GameObject("", new Transform(new Vector()));
         this.Player1Wins=0;
         this.Player2Wins=0;
@@ -43,28 +44,17 @@ public class LevelScene extends Scene{
     public void init() {
         loadPlayerAssets();
         loadLevel(levels.getLevels().get(0));
-        System.out.println("Level Loaded: Layer 1 : " + getRenderer(1).getRenderList().size() + " Layer 2: " + getRenderer(2).getRenderList().size());
-        player1 = PlayerCharacter.createPlayer(0,0,0);
-        PlayerOneControls controller1 = new PlayerOneControls(player1);
-        player1.addComponent(controller1);
         player1.setPosition(currLevel.getSpawnPoint(1));
-        //test.addComponent(new Item(player1));
-        player1.setWeapon(test);
-        test.setOwner(player1);
-        player2 = PlayerCharacter.createPlayer(2, 2, 2);
-        PlayerTwoControls controller2 = new PlayerTwoControls(player2);
-        player2.addComponent(controller2);
+        gun1.setOwner(player1);
         player2.setPosition(currLevel.getSpawnPoint(2));
-        //test2.addComponent(new Item(player2));
-        player2.setWeapon(test2);
-        test2.setOwner(player2);
+        player2.setWeapon(gun2);
+        gun2.setOwner(player2);
         switchBackground();
         addToBackground(background);
-        addGameObject(player1);
-        addGameObject(player2);
-        addToLayerTwo(test2);
-        addToLayerTwo(test);
-        //addToBackground(background);
+        setActiveBodies(player1, 2);
+        setActiveBodies(player2, 2);
+        addToLayerTwo(gun2);
+        addToLayerTwo(gun1);
     }
 
     private void respawn(){
@@ -76,8 +66,8 @@ public class LevelScene extends Scene{
         player1.getComponent(RigidBody.class).resetGravity();
         player2.setPosition(currLevel.getSpawnPoint(2).copy());
         player2.getComponent(RigidBody.class).resetGravity();
-        addToLayerTwo(test);
-        addToLayerTwo(test2);
+        addToLayerTwo(gun1);
+        addToLayerTwo(gun2);
     }
 
     private void switchBackground(){
@@ -101,7 +91,8 @@ public class LevelScene extends Scene{
                 break;
             case 5:
                 background.addComponent(AssetPool.getSprite("assets/Background/background_blue_2.png"));
-                break;}
+                break;
+        }
     }
 
     private void switchLevels(int num){
@@ -113,8 +104,6 @@ public class LevelScene extends Scene{
     }
 
     private void loadPlayerAssets(){
-        System.out.println("Loading Platforms: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles.png"));
-        System.out.println("Loading Shadows: " + AssetPool.hasSpriteSheet("assets/Tiles/platform_tiles_shadow.png"));
         if (!AssetPool.hasSpriteSheet("assets/Player/character_body.png")){
             new SpriteSheet("assets/Player/character_body.png",
                     Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, 0, 4, 4);
@@ -135,30 +124,16 @@ public class LevelScene extends Scene{
 
     @Override
     public void update(double dt) {
-        resetLevel.addTime(dt);
         for (int i = 0; i < gameObjectList.size(); i++){
             gameObjectList.get(i).update(dt);
         }
-        if(Player1Wins==3){
-            System.out.println("player 1 is winner");
-            Window.getWindow().close();
-        }
-        if(Player2Wins==3){
-            System.out.println("player 2 is winner");
-            Window.getWindow().close();
-        }
-
-
         Collision.isOutOfBounds(player1);
         Collision.isOutOfBounds(player2);
-
         for (int i = 0; i < getProjectileLayer().size(); i++){
             Collision.isOutOfBounds(getProjectileLayer().get(i));
         }
 
-        if (resetLevel.isTime(0) && (!player1.getAliveStatus() || !player2.getAliveStatus())){
-            switchBackground();
-            switchLevels(-1);
+        if ((!player1.getAliveStatus() || !player2.getAliveStatus()) && resetLevel.isTime(dt) ){
             if(!player1.getAliveStatus()){
                 Player2Wins++;
                 System.out.println("player 2 wins: "+Player2Wins);
@@ -166,11 +141,17 @@ public class LevelScene extends Scene{
                 Player1Wins++;
                 System.out.println("player 1 wins: " + Player1Wins);
             }
-        }
-
-        if (Window.getKeyListener().isKeyPressed(KeyEvent.VK_F9)){
-            System.out.println("Changing scene to level editor");
-            Window.changeScene(SceneCode.LevelEditor);
+            if(Player1Wins==3){
+                System.out.println("player 1 is winner");
+                Window.getWindow().close();
+            }
+            if(Player2Wins==3){
+                System.out.println("player 2 is winner");
+                Window.getWindow().close();
+            }
+            resetLevel.resetTime();
+            switchBackground();
+            switchLevels(-1);
         }
     }
 

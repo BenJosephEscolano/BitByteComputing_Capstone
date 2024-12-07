@@ -62,6 +62,9 @@ public abstract class Gun extends GameObject{
             case Rifle:
                 Gun rifle = new AutomaticRifle();
                 return rifle;
+            case Sniper:
+                Gun sniper = new Sniper();
+                return sniper;
             default:
                 return null;
         }
@@ -69,6 +72,7 @@ public abstract class Gun extends GameObject{
 
     public void setOwner(PlayerCharacter owner){
         this.owner = owner;
+        owner.getComponent(PlayerOneControls.class).setCommand(new ShootCommand(owner, this));
     }
 
     // this checks if enough time has passed since the last shot to fire again
@@ -80,7 +84,7 @@ public abstract class Gun extends GameObject{
     public void resetFiringTimer(double currentTime) {
         lastFireTime = currentTime;
     }
-    public abstract void fire(Vector position, Vector direction, List<GameObject> gameObjectList, double currentTime);
+    public abstract void fire(PlayerCharacter owner);
 
     public float getBulletSpeed() {
         return bulletSpeed;
@@ -102,14 +106,29 @@ public abstract class Gun extends GameObject{
         }
 
         @Override
-        public void fire(Vector position, Vector direction, List<GameObject> gameObjectList, double currentTime) {
-            if (canFire(currentTime)) {
-                Bullet newBullet = new Bullet(position, direction.copy().multiply(bulletSpeed));
-                gameObjectList.add(newBullet);
-                resetFiringTimer(currentTime); // reset firing timer
-            }
+        public void fire(PlayerCharacter owner) {
+                Bullet newBullet = new Bullet(owner);
+                newBullet.spawnBullet();
         }
     }
+
+    public static class Sniper extends Gun {
+        public Sniper() {
+            super(0.5f, 1000.0f,
+                    "assets/Gun/guns/guns_sniper_side_right.png",
+                    "assets/Gun/guns/guns_sniper_side_left.png",
+                    "assets/Gun/guns/guns_sniper_side_right_reload.png",
+                    "assets/Gun/guns/guns_sniper_side_left_reload.png"); // 0.5 firing interval and 1000 units bullet speed
+            addComponent(new RigidBody(new Vector()));
+        }
+
+        @Override
+        public void fire(PlayerCharacter owner) {
+            Bullet newBullet = new Bullet(owner);
+            newBullet.spawnBullet();
+        }
+    }
+
 
     // an AR first continuously while holding space
     public static class AutomaticRifle extends Gun {
@@ -123,14 +142,9 @@ public abstract class Gun extends GameObject{
         }
 
         @Override
-        public void fire(Vector position, Vector direction, List<GameObject> gameObjectList, double currentTime) {
-            if (canFire(currentTime)) {
-                Bullet newBullet = new Bullet(position, direction.copy().multiply(bulletSpeed));
-                gameObjectList.add(newBullet);
-                resetFiringTimer(currentTime);
-            }
+        public void fire(PlayerCharacter owner) {
+            Bullet newBullet = new Bullet(owner);
+            newBullet.spawnBullet();
         }
-
-
     }
 }

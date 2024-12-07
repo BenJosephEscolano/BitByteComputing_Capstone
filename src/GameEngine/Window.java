@@ -3,6 +3,7 @@ package GameEngine;
 import Util.Constants;
 import Util.SceneCode;
 import Util.Time;
+import Component.Gun;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,7 @@ public class Window extends JFrame implements Runnable {
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
         this.addKeyListener(keyListener);
+
     }
     /*
     The singleton design pattern
@@ -73,7 +75,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     public void init(){
-        changeScene(SceneCode.Level);
+        changeScene(SceneCode.CharacterSelection);
     }
 
     /*
@@ -98,12 +100,25 @@ public class Window extends JFrame implements Runnable {
     The changeScene method is in charge of switching between scenes
      */
     public static void changeScene(SceneCode scene){
-        if (scene == SceneCode.Level){
-            getWindow().currentScene = new LevelScene("Level");
-            getWindow().currentScene.init();
+        switch (scene){
+            case SceneCode.LevelEditor:
+                getWindow().currentScene = new LevelEditorScene("Level editor");
+                getWindow().currentScene.init();
+                break;
+            case SceneCode.SplashScreen:
+                getWindow().currentScene = new SplashScene("Splash Screen");
+                getWindow().currentScene.init();
+                break;
+            case SceneCode.CharacterSelection:
+                getWindow().currentScene = new CharacterSelectionScreen("Character Selection");
+                getWindow().currentScene.init();
+                break;
         }
-        if (scene == SceneCode.LevelEditor){
-            getWindow().currentScene = new LevelEditorScene("Level editor");
+    }
+
+    public static void changeScene(SceneCode scene, PlayerCharacter player1, PlayerCharacter player2, Gun gun1, Gun gun2){
+        if (scene == SceneCode.Level){
+            getWindow().currentScene = new LevelScene("Level", player1, player2, gun1, gun2);
             getWindow().currentScene.init();
         }
     }

@@ -2,5 +2,7 @@ package Util;
 
 public enum SceneCode {
     LevelEditor,
-    Level;
+    Level,
+    SplashScreen,
+    CharacterSelection;
 }

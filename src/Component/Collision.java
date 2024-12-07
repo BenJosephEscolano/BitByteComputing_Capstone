@@ -96,7 +96,7 @@ public class Collision {
         if (box.getY() > Constants.SCREEN_HEIGHT && box.getAliveStatus()){
             box.setY(50);
         }
-        if (box.getX() < 0){
+        if (box.getX()  < 0){
             box.setX(Constants.SCREEN_WIDTH);
         }
         if (box.getX() > Constants.SCREEN_WIDTH){
@@ -109,7 +109,7 @@ public class Collision {
         if (box.getY() > Constants.SCREEN_HEIGHT){
             box.setY(50);
         }
-        if (box.getX() < 0){
+        if (box.getX()  < 0){
             box.setX(Constants.SCREEN_WIDTH);
         }
         if (box.getX() > Constants.SCREEN_WIDTH){

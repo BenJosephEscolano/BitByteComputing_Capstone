@@ -17,7 +17,6 @@ public class Timer {
     public boolean isTime(double dt){
         addTime(dt);
         if (currTime > endTime){
-            currTime = 0.00;
             return true;
         }
         return false;
@@ -29,6 +28,10 @@ public class Timer {
 
     public void setEndTime(double endTime){
         this.endTime = endTime;
+    }
+
+    public void resetTime(){
+        currTime = 0.0;
     }
 
     public String toString(){

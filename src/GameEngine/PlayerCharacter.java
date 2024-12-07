@@ -38,6 +38,12 @@ public class PlayerCharacter extends GameObject{
     }
 
     public void dead(){
+        GameObject death = new GameObject("death", new Transform(new Vector()));
+        death.addComponent(AssetPool.getSprite("assets/Player/character_death/character_death_2.png"));
+        death.setPosition(getPosition().copy());
+        death.setX(getX()-40);
+        death.setY(getY()-60);
+        Window.getScene().addToLayerTwo(death);
         aliveStatus = false;
     }
 

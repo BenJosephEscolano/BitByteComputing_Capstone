@@ -6,16 +6,18 @@ import GameEngine.Component;
 import GameEngine.GameObject;
 import GameEngine.Window;
 import Util.Constants;
+import Util.Timer;
 import Util.Vector;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends Component implements Serializable {
-    Sprite layerOne, layerTwo, layerThree;
+    private Sprite layerOne, layerTwo, layerThree;
     private final int width, height;
-
 
     public Player(Sprite layerOne,
                   Sprite layerTwo,
@@ -27,9 +29,6 @@ public class Player extends Component implements Serializable {
         this.width = Constants.PLAYER_WIDTH;
         this.height = Constants.PLAYER_HEIGHT;
     }
-
-
-
 
     @Override
     public void draw(Graphics2D g2){

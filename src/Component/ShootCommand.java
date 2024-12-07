@@ -6,13 +6,14 @@ import GameEngine.PlayerCharacter;
 
 public class ShootCommand extends Command{
     private PlayerCharacter player;
+    private Gun gun;
 
-    public ShootCommand(PlayerCharacter player){
+    public ShootCommand(PlayerCharacter player, Gun gun){
         this.player = player;
+        this.gun = gun;
     }
     @Override
     public void execute() {
-        //player.getWeapon().fire();
-        Bullet.spawnBullet(player);
+        gun.fire(player);
     }
 }

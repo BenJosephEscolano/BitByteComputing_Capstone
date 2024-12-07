@@ -264,9 +264,9 @@ public abstract class Scene {
         } catch (ClassNotFoundException ex){
             System.out.println();
         } finally {
-            System.out.println("Game objects: " + gameObjectList.size());
-            System.out.println("Renderer: Layer 1: " + layer1.getRenderList().size() + " Layer 2: " + layer2.getRenderList().size());
-            System.out.println("Collision: Static: " + staticBodies.getCollisionLayer().size() + " Active: " + activeBodies.getCollisionLayer().size());
+            //System.out.println("Game objects: " + gameObjectList.size());
+            //System.out.println("Renderer: Layer 1: " + layer1.getRenderList().size() + " Layer 2: " + layer2.getRenderList().size());
+            //System.out.println("Collision: Static: " + staticBodies.getCollisionLayer().size() + " Active: " + activeBodies.getCollisionLayer().size());
         }
     }
 
