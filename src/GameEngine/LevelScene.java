@@ -42,8 +42,8 @@ public class LevelScene extends Scene{
         this.keyboardBuffer = new Timer(0.5f);
         this.continueButton = new GameObject("", new Transform(new Vector(380,233)));
         this.exitButton = new GameObject("", new Transform(new Vector(320, 350)));
-        this.player1ScoreBoard = new GameObject("", new Transform(new Vector(20,70)));
-        this.player2ScoreBoard = new GameObject("", new Transform(new Vector(1140, 70)));
+        this.player1ScoreBoard = new GameObject("", new Transform(new Vector(50,70)));
+        this.player2ScoreBoard = new GameObject("", new Transform(new Vector(1050, 70)));
     }
 
     public PlayerCharacter getPlayer1(){
@@ -192,7 +192,7 @@ public class LevelScene extends Scene{
         }
         if (!AssetPool.hasSpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png")){
             new SpriteSheet("assets/CharacterSelection/GUI/gui_player_win_count.png",
-                    92, 16, 0, 4, 4*8);
+                    150, 30, 30, 4, 4*8);
         }
     }
 
@@ -210,12 +210,14 @@ public class LevelScene extends Scene{
         if ((!player1.getAliveStatus() || !player2.getAliveStatus()) && resetLevel.isTime(dt) ){
             if(!player1.getAliveStatus()){
                 Player2Wins++;
-                addPoint(2);
-                System.out.println("player 2 wins: "+Player2Wins);
+                if (Player2Wins < 4){
+                    addPoint(2);
+                }
             }if(!player2.getAliveStatus()){
                 Player1Wins++;
-                addPoint(1);
-                System.out.println("player 1 wins: " + Player1Wins);
+                if (Player1Wins < 4){
+                    addPoint(1);
+                }
             }
             if(Player1Wins==4){
                 Window.changeScene(SceneCode.WinScreen, 1, player1.bulletIndex);
@@ -225,7 +227,7 @@ public class LevelScene extends Scene{
             }
             resetLevel.resetTime();
             switchBackground();
-            switchLevels(-1);
+            switchLevels(1);
         }
         if (Window.getWindow().isPause() && key.isKeyPressed(KeyEvent.VK_ESCAPE) && toggle){
             Window.getWindow().play();
@@ -238,6 +240,7 @@ public class LevelScene extends Scene{
                 && mouse.getY() > exitButton.getY()
                 && mouse.getY() < exitButton.getY()+ exitButton.getComponent(Button.class).getHeight()
         ){
+            Window.getWindow().play();
             Sound.getInstance().stopMusic();
             Window.changeScene(SceneCode.SplashScreen);
         }

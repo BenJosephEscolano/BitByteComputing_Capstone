@@ -19,7 +19,7 @@ public class SpriteSheet implements Serializable {
         for (int i = 0; count < size;i++){
             for (int j = 0; j < columns && count < size; j++){
                 int imgX = (j * tileWidth) + (j * spacing);
-                int imgY = (i * tileHeight) + (i * spacing);
+                int imgY = (i * tileHeight);
                 spriteList.add(new Sprite(parent.getImage().getSubimage(imgX, imgY, tileWidth, tileHeight),
                         i, j, count));
                 count++;

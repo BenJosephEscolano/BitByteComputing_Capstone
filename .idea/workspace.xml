@@ -5,9 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the capstone">
+      <change afterPath="$PROJECT_DIR$/game_data/level06_layer1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level06_layer2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level07_layer1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level07_layer2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level08_layer1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level08_layer2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level09_layer1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level09_layer2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level10_layer1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_data/level10_layer2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/GUI/button_click_sfx.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/CharacterSelection/GUI/gui_player_win_count.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/CharacterSelection/GUI/gui_player_win_count.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level02_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level02_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/SpriteSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/SpriteSheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Level.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -220,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733568508933</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="finishing the capstone">
+      <option name="closed" value="true" />
+      <created>1733573448787</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733573448787</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

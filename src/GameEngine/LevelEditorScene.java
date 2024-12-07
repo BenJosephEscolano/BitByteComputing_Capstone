@@ -41,7 +41,6 @@ public class LevelEditorScene extends Scene{
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Vector()));
         mouseCursor.addComponent(new SnapToGrid(Constants.TILE_WIDTH, Constants.TILE_HEIGHT));
         currItem = editorItems.get(currIndex);
-        //resetCamera();
     }
 
     private void loadAssets(){
@@ -86,24 +85,30 @@ public class LevelEditorScene extends Scene{
             saveLevel(lvl);
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_F2) && debounceTime.isTime(0)){
+            debounceTime.resetTime();
             loadLevel(lvl);
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_F3)) {
             clearLevel();
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_D) && debounceTime.isTime(0)){
+            debounceTime.resetTime();
             rotateItems(1);
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_A) && debounceTime.isTime(0)){
+            debounceTime.resetTime();
             rotateItems(-1);
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_Q) && debounceTime.isTime(0)){
-            rotateLevels(1);
-        }
-        if (keyListener.isKeyPressed(KeyEvent.VK_E) && debounceTime.isTime(0)){
+            debounceTime.resetTime();
             rotateLevels(-1);
         }
+        if (keyListener.isKeyPressed(KeyEvent.VK_E) && debounceTime.isTime(0)){
+            debounceTime.resetTime();
+            rotateLevels(1);
+        }
         if (keyListener.isKeyPressed(KeyEvent.VK_Z) && debounceTime.isTime(0)){
+            debounceTime.resetTime();
             remove();
         }
         if (keyListener.isKeyPressed(KeyEvent.VK_F10)){
