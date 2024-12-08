@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the capstone">
+    <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="removing bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level01_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level01_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level01_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level01_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level02_layer1" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_data/level02_layer2" beforeDir="false" afterPath="$PROJECT_DIR$/game_data/level02_layer2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +59,7 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.LevelEditor">
     <configuration name="LevelEditor" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GameEngine.LevelEditor$Main" />
       <module name="BitByteComputing_Capstone" />
@@ -275,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733636737161</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="removing bugs">
+      <option name="closed" value="true" />
+      <created>1733652558232</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1733652558232</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -294,6 +294,7 @@
     <MESSAGE value="Tried to fix my mistake when merging" />
     <MESSAGE value="finishing the prototype" />
     <MESSAGE value="finishing the capstone" />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing the capstone" />
+    <MESSAGE value="removing bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="removing bugs" />
   </component>
 </project>
