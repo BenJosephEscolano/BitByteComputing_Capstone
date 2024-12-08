@@ -128,8 +128,6 @@ public class LevelScene extends Scene{
     private void respawn(){
         setActiveBodies(player1, 2);
         setActiveBodies(player2, 2);
-        player1.revive();
-        player2.revive();
         player1.setPosition(currLevel.getSpawnPoint(1).copy());
         player1.getComponent(RigidBody.class).resetGravity();
         player2.setPosition(currLevel.getSpawnPoint(2).copy());
@@ -138,6 +136,8 @@ public class LevelScene extends Scene{
         gun2.resetAmmo();
         addToLayerTwo(gun1);
         addToLayerTwo(gun2);
+        //player1.revive();
+        //player2.revive();
     }
 
     private void switchBackground(){
@@ -171,6 +171,8 @@ public class LevelScene extends Scene{
         loadLevel(currLevel);
         System.out.println(currLevel + " | " + currLevelIndex);
         respawn();
+        player1.revive();
+        player2.revive();
     }
 
     private void loadPlayerAssets(){

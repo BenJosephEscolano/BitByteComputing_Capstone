@@ -32,22 +32,24 @@ public class PlayerOneControls extends Controls {
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_W)) {
-            jump();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)) {
-            lastDirection.setX(-1);
-            lastDirection.setY(0);
-            moveLeft();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_D)) {
-            lastDirection.setX(1);
-            lastDirection.setY(0);
-            moveRight();
-        } else {
-            stop();
-        }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE)){
-            shoot.fire(player);
-        }
+            if (keyLisentner.isKeyPressed(KeyEvent.VK_W) && player.getAliveStatus()) {
+                jump();
+            } else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)&& player.getAliveStatus()) {
+                lastDirection.setX(-1);
+                lastDirection.setY(0);
+                moveLeft();
+            } else if (keyLisentner.isKeyPressed(KeyEvent.VK_D)&& player.getAliveStatus()) {
+                lastDirection.setX(1);
+                lastDirection.setY(0);
+                moveRight();
+            } else { // we want to stop the player from moving regardless if they are alive or not
+                stop();
+            }
+            if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE)&& player.getAliveStatus()){
+                shoot.fire(player);
+            }
+
+
 
     }
 

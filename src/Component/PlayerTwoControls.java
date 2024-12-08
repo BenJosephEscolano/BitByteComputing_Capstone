@@ -21,25 +21,25 @@ public class PlayerTwoControls extends PlayerOneControls{
         } else if (velocity.getX() > targetVelocityX) {
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
-
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_I)) {
-            jump();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_J)) {
-            lastDirection.setX(-1);
-            lastDirection.setY(0);
-            moveLeft();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_L)) {
-            lastDirection.setX(1);
-            lastDirection.setY(0);
-            moveRight();
-        } else {
-            stop();
-        }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_ENTER)){
-            shoot.fire(player);
+        if (player.getAliveStatus()){
+            if (keyLisentner.isKeyPressed(KeyEvent.VK_UP)) {
+                jump();
+            } else if (keyLisentner.isKeyPressed(KeyEvent.VK_LEFT)) {
+                lastDirection.setX(-1);
+                lastDirection.setY(0);
+                moveLeft();
+            } else if (keyLisentner.isKeyPressed(KeyEvent.VK_RIGHT)) {
+                lastDirection.setX(1);
+                lastDirection.setY(0);
+                moveRight();
+            } else {
+                stop();
+            }
+            if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1)){
+                shoot.fire(player);
+            }
         }
     }
-
 }
 
 

@@ -110,7 +110,10 @@ public abstract class Gun extends GameObject{
     }
 
     public void resetAmmo(){
-        currAmmo = ammo;
+        //This function is used to reload players ammo when they respawn
+        if (currAmmo > 0){
+            currAmmo = ammo;
+        }
     }
 
 
