@@ -22,20 +22,20 @@ public class PlayerTwoControls extends PlayerOneControls{
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_I)) {
+        if (keyLisentner.isKeyPressed(KeyEvent.VK_UP)) {
             jump();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_J)) {
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_LEFT)) {
             lastDirection.setX(-1);
             lastDirection.setY(0);
             moveLeft();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_L)) {
+        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_RIGHT)) {
             lastDirection.setX(1);
             lastDirection.setY(0);
             moveRight();
         } else {
             stop();
         }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_ENTER)){
+        if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1)){
             shoot.fire(player);
         }
     }
