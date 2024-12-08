@@ -1,0 +1,83 @@
+Index: src/GameEngine/Scene.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package GameEngine;\r\n\r\nimport Util.Vector;\r\n\r\nimport java.awt.*;\r\nimport java.io.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\n/**\r\n * The Scene class is a container of the related objects needed for the game to function\r\n */\r\n\r\npublic abstract class Scene {\r\n    String name;\r\n    protected Camera camera;\r\n    protected List<GameObject> gameObjectList;\r\n    protected Renderer layer1;\r\n    protected Renderer layer2;\r\n    protected Renderer backgroundRender;\r\n    protected CollisionLayer staticBodies;\r\n    protected CollisionLayer activeBodies;\r\n    protected CollisionLayer projectileLayer;\r\n    protected Level levels;\r\n    protected LevelData currLevel;\r\n    protected int currLevelIndex;\r\n\r\n    public Scene(String name){\r\n        this.name = name;\r\n        this.camera = new Camera(new Vector());\r\n        this.gameObjectList = new ArrayList<>();\r\n        this.layer1 = new Renderer(this.camera);\r\n        this.layer2 = new Renderer(this.camera);\r\n        this.backgroundRender = new Renderer(this.camera);\r\n        this.staticBodies = new CollisionLayer();\r\n        this.activeBodies = new CollisionLayer();\r\n        this.levels = new Level();\r\n        this.currLevelIndex = 0;\r\n        this.currLevel = levels.getLevels().get(currLevelIndex);\r\n        this.projectileLayer = new CollisionLayer();\r\n    }\r\n\r\n    public void resetCamera(){\r\n        camera.setX(0);\r\n        camera.setY(Window.getWindow().getInsets().top * -1);\r\n    }\r\n\r\n    public List<GameObject> getGameObjectList() {\r\n        return gameObjectList;\r\n    }\r\n\r\n    public Renderer getRenderer(int n) {\r\n        switch (n){\r\n            case 1:\r\n                return layer1;\r\n            case 2:\r\n                return layer2;\r\n            default:\r\n                return null;\r\n        }\r\n    }\r\n\r\n    public Camera getCamera(){\r\n        return camera;\r\n    }\r\n\r\n    public void addGameObject(GameObject g){\r\n        gameObjectList.add(g);\r\n        layer1.submit(g);\r\n        for (Component c: g.getAllComponents()){\r\n            c.start();\r\n        }\r\n    }\r\n\r\n    public void addToLayerOne(GameObject g){\r\n        gameObjectList.add(g);\r\n        layer1.submit(g);\r\n        for (Component c: g.getAllComponents()){\r\n            c.start();\r\n        }\r\n    }\r\n    public void addToBackground(GameObject g){\r\n        if (backgroundRender.getRenderList().size() > 1){\r\n            backgroundRender.getRenderList().set(0,g);\r\n        } else {\r\n            backgroundRender.getRenderList().add(g);\r\n        }\r\n    }\r\n    public void addToLayerTwo(GameObject g){\r\n        gameObjectList.add(g);\r\n        layer2.submit(g);\r\n        for (Component c: g.getAllComponents()){\r\n            c.start();\r\n        }\r\n    }\r\n\r\n    public void setToLayerTwo(GameObject gameObject){\r\n        List <GameObject> layer = layer2.getRenderList();\r\n        int index = 0;\r\n        for (GameObject g: gameObjectList){\r\n            if (gameObject.equals(g)){\r\n                gameObjectList.set(index, gameObject);\r\n                layer.set(layer.indexOf(g), gameObject);\r\n                return;\r\n            } else {\r\n                index++;\r\n            }\r\n        }\r\n        addToLayerTwo(gameObject);\r\n    }\r\n\r\n    public void setToLayerOne(GameObject gameObject){\r\n        List <GameObject> layer = layer1.getRenderList();\r\n        int index = 0;\r\n        for (GameObject g: gameObjectList){\r\n            if (gameObject.equals(g)){\r\n                gameObjectList.set(index, gameObject);\r\n                layer.set(layer.indexOf(g), gameObject);\r\n                return;\r\n            } else {\r\n                index++;\r\n            }\r\n        }\r\n        addToLayerOne(gameObject);\r\n    }\r\n\r\n\r\n    public void setStaticBodies(GameObject gameObject, int renderLayer){\r\n        if (renderLayer == 1){\r\n            setToLayerOne(gameObject);\r\n        }\r\n        if (renderLayer == 2){\r\n            setToLayerTwo(gameObject);\r\n        }\r\n        getStaticBodies().add(gameObject);\r\n    }\r\n\r\n    public void setActiveBodies(GameObject gameObject, int renderLayer){\r\n        if (renderLayer == 1){\r\n            setToLayerOne(gameObject);\r\n        }\r\n        if (renderLayer == 2){\r\n            setToLayerTwo(gameObject);\r\n        }\r\n        getActiveBodies().add(gameObject);\r\n    }\r\n\r\n    public void setProjectileLayer(GameObject gameObject){\r\n        setToLayerOne(gameObject);\r\n        projectileLayer.addToLayer(gameObject);\r\n    }\r\n\r\n    public List<GameObject> getStaticBodies(){\r\n        return staticBodies.getCollisionLayer();\r\n    }\r\n\r\n    public void removeActiveBody(GameObject gameObject){\r\n        activeBodies.remove(gameObject);\r\n        gameObjectList.remove(gameObject);\r\n    }\r\n\r\n    public void removeProjectileLayer(GameObject gameObject){\r\n        projectileLayer.remove(gameObject);\r\n        gameObjectList.remove(gameObject);\r\n        layer1.unsubmit(gameObject);\r\n    }\r\n\r\n    public List<GameObject> getActiveBodies(){\r\n        return activeBodies.getCollisionLayer();\r\n    }\r\n\r\n    public List<GameObject> getProjectileLayer(){\r\n        return projectileLayer.getCollisionLayer();\r\n    }\r\n\r\n    public void addToActiveBody(GameObject gameObject){\r\n        this.activeBodies.addToLayer(gameObject);\r\n    }\r\n\r\n    public void remove(){\r\n        gameObjectList.remove(gameObjectList.get(gameObjectList.size()-1));\r\n        layer1.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));\r\n        layer2.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));\r\n        staticBodies.getCollisionLayer().remove(gameObjectList.get(gameObjectList.size()-1));\r\n\r\n    }\r\n\r\n    public void removeAll(){\r\n        gameObjectList.removeAll(gameObjectList);\r\n        layer1.removeAll();\r\n        layer2.removeAll();\r\n        staticBodies.removeAll();\r\n        activeBodies.removeAll();\r\n    }\r\n\r\n    public void saveLevel(LevelData levelData){\r\n        File layer1 = new File(levelData.getLevelLayer(1));\r\n        File layer2 = new File(levelData.getLevelLayer(2));\r\n        saveLevel(layer1, layer2);\r\n    }\r\n\r\n    public void saveLevel(File fl1, File fl2){\r\n        try (FileOutputStream file = new FileOutputStream(fl1)){\r\n            ObjectOutputStream oos = new ObjectOutputStream(file);\r\n            oos.writeObject(layer1.getRenderList());\r\n            oos.flush();\r\n            oos.close();\r\n        } catch (FileNotFoundException ex){\r\n            System.out.println(\"oopsies FileNotFoundException\");\r\n        } catch (IOException ex){\r\n            System.out.println();\r\n        }\r\n        try (FileOutputStream file = new FileOutputStream(fl2)){\r\n            ObjectOutputStream oos = new ObjectOutputStream(file);\r\n            oos.writeObject(layer2.getRenderList());\r\n            oos.flush();\r\n            oos.close();\r\n        } catch (FileNotFoundException ex){\r\n            System.out.println(\"oopsies FileNotFoundException\");\r\n        } catch (IOException ex){\r\n            System.out.println();\r\n        }\r\n    }\r\n\r\n    public void loadLevel(LevelData levelData){\r\n        File layer1 = new File(levelData.getLevelLayer(1));\r\n        File layer2 = new File(levelData.getLevelLayer(2));\r\n        loadLevel(layer1, layer2);\r\n    }\r\n\r\n    public void loadLevel(File fl1, File fl2){\r\n        clearLevel();\r\n        try (FileInputStream file = new FileInputStream(fl1)){\r\n            ObjectInputStream ois = new ObjectInputStream(file);\r\n            List<GameObject> loadDate = (List<GameObject>) ois.readObject();\r\n            for(GameObject ld: loadDate){\r\n                addToLayerOne(ld);\r\n            }\r\n            ois.close();\r\n        } catch (FileNotFoundException ex){\r\n            System.out.println(\"oopsies FileNotFoundException\");\r\n        } catch (IOException ex){\r\n            throw new RuntimeException(ex);\r\n        } catch (ClassCastException ex){\r\n            System.out.println(\"oopsies ClassCastException\");\r\n        } catch (ClassNotFoundException ex){\r\n            System.out.println();\r\n        } finally {\r\n            System.out.println(\"Success?\");\r\n        }\r\n        try (FileInputStream file = new FileInputStream(fl2)){\r\n            ObjectInputStream ois = new ObjectInputStream(file);\r\n            List<GameObject> loadDate = (List<GameObject>) ois.readObject();\r\n            for(GameObject ld: loadDate){\r\n                setStaticBodies(ld, 2);\r\n            }\r\n            ois.close();\r\n        } catch (FileNotFoundException ex){\r\n            System.out.println(\"oopsies FileNotFoundException\");\r\n        } catch (IOException ex){\r\n            throw new RuntimeException(ex);\r\n        } catch (ClassCastException ex){\r\n            System.out.println(\"oopsies ClassCastException\");\r\n        } catch (ClassNotFoundException ex){\r\n            System.out.println();\r\n        } finally {\r\n            //System.out.println(\"Game objects: \" + gameObjectList.size());\r\n            //System.out.println(\"Renderer: Layer 1: \" + layer1.getRenderList().size() + \" Layer 2: \" + layer2.getRenderList().size());\r\n            //System.out.println(\"Collision: Static: \" + staticBodies.getCollisionLayer().size() + \" Active: \" + activeBodies.getCollisionLayer().size());\r\n        }\r\n    }\r\n\r\n    public void clearLevel(){\r\n        removeAll();\r\n        System.out.println(\"Game objects: \" + gameObjectList.size());\r\n        System.out.println(\"Renderer: Layer 1: \" + layer1.getRenderList().size() + \" Layer 2: \" + layer2.getRenderList().size());\r\n        System.out.println(\"Collision: Static: \" + staticBodies.getCollisionLayer().size() + \" Active: \" + activeBodies.getCollisionLayer().size());\r\n    }\r\n\r\n    public List<LevelData> getLevels(){\r\n        return levels.getLevels();\r\n    }\r\n\r\n    public abstract void init();\r\n    public abstract void update(double dt);\r\n    public abstract void draw(Graphics2D g2);\r\n    public abstract PlayerCharacter getPlayer1();\r\n    public abstract PlayerCharacter getPlayer2();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GameEngine/Scene.java b/src/GameEngine/Scene.java
+--- a/src/GameEngine/Scene.java	(revision 46910c885ccf04508490ae2a8a8f0d82330357e4)
++++ b/src/GameEngine/Scene.java	(date 1733618941377)
+@@ -63,7 +63,7 @@
+     public Camera getCamera(){
+         return camera;
+     }
+-
++    //dont know if we need this later
+     public void addGameObject(GameObject g){
+         gameObjectList.add(g);
+         layer1.submit(g);
+@@ -113,7 +113,7 @@
+         List <GameObject> layer = layer1.getRenderList();
+         int index = 0;
+         for (GameObject g: gameObjectList){
+-            if (gameObject.equals(g)){
++            if (g.equals(gameObject)){
+                 gameObjectList.set(index, gameObject);
+                 layer.set(layer.indexOf(g), gameObject);
+                 return;
+@@ -178,11 +178,50 @@
+     }
+ 
+     public void remove(){
+-        gameObjectList.remove(gameObjectList.get(gameObjectList.size()-1));
+-        layer1.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));
+-        layer2.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));
+-        staticBodies.getCollisionLayer().remove(gameObjectList.get(gameObjectList.size()-1));
++        //This was originally removeLast(), but after testing this code with our workstation an error removeLast, removeFirst not found
++        //so we used this instead
++        if (gameObjectList.size() > 0){
++            GameObject tobeRemoved = gameObjectList.get(gameObjectList.size()-1);
++            for (int i = 0; i < gameObjectList.size(); i++){
++                if (tobeRemoved.getPosition() == gameObjectList.get(i).getPosition()){
++                    gameObjectList.remove(i);
++                    i--;
++                }
++            }
++            GameObject tobeRemovedShadow = null;
++            for (int i = 0; i < layer2.getRenderList().size(); i++){
++                if (tobeRemoved.getPosition() == layer2.getRenderList().get(i).getPosition()){
++                    layer2.getRenderList().remove(i);
++                    tobeRemovedShadow = layer1.getRenderList().get(i);
++                    i--;
++                }
++            }
++            if (tobeRemovedShadow != null){
++                for (int i = 0; i < layer1.getRenderList().size(); i++){
++                    if (tobeRemovedShadow.getPosition() == layer1.getRenderList().get(i).getPosition()){
++                        layer1.getRenderList().remove(i);
++                        i--;
++                    }
++                }
++                for (int i = 0; i < gameObjectList.size(); i++){
++                    if (tobeRemovedShadow.getPosition() == gameObjectList.get(i).getPosition()){
++                        gameObjectList.remove(i);
++                        i--;
++                    }
++                }
++            }
++            for (int i = 0; i < staticBodies.getCollisionLayer().size(); i++){
++                if (tobeRemoved.getPosition() == staticBodies.getCollisionLayer().get(i).getPosition()){
++                    staticBodies.getCollisionLayer().remove(i);
++                    i--;
++                }
++            }
++        }
+ 
++        //layer1.getRenderList().remove(layer1.getRenderList().get(layer1.getRenderList().size()-1));
++        //layer2.getRenderList().remove(layer2.getRenderList().get(layer2.getRenderList().size()-1));
++        //staticBodies.getCollisionLayer().remove(staticBodies.getCollisionLayer().get(staticBodies.getCollisionLayer().size()-1));
++        System.out.println("Game Object List: " + gameObjectList.size());
+     }
+ 
+     public void removeAll(){
