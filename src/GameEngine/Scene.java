@@ -63,7 +63,7 @@ public abstract class Scene {
     public Camera getCamera(){
         return camera;
     }
-
+    //dont know if we need this later
     public void addToLayerOne(GameObject g){
         gameObjectList.add(g);
         layer1.submit(g);
@@ -105,7 +105,7 @@ public abstract class Scene {
         List <GameObject> layer = layer1.getRenderList();
         int index = 0;
         for (GameObject g: gameObjectList){
-            if (gameObject.equals(g)){
+            if (g.equals(gameObject)){
                 gameObjectList.set(index, gameObject);
                 layer.set(layer.indexOf(g), gameObject);
                 return;
@@ -170,11 +170,50 @@ public abstract class Scene {
     }
 
     public void remove(){
-        gameObjectList.remove(gameObjectList.get(gameObjectList.size()-1));
-        layer1.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));
-        layer2.getRenderList().remove(gameObjectList.get(gameObjectList.size()-1));
-        staticBodies.getCollisionLayer().remove(gameObjectList.get(gameObjectList.size()-1));
+        //This was originally removeLast(), but after testing this code with our workstation an error removeLast, removeFirst not found
+        //so we used this instead
+        if (gameObjectList.size() > 0){
+            GameObject tobeRemoved = gameObjectList.get(gameObjectList.size()-1);
+            for (int i = 0; i < gameObjectList.size(); i++){
+                if (tobeRemoved.getPosition() == gameObjectList.get(i).getPosition()){
+                    gameObjectList.remove(i);
+                    i--;
+                }
+            }
+            GameObject tobeRemovedShadow = null;
+            for (int i = 0; i < layer2.getRenderList().size(); i++){
+                if (tobeRemoved.getPosition() == layer2.getRenderList().get(i).getPosition()){
+                    layer2.getRenderList().remove(i);
+                    tobeRemovedShadow = layer1.getRenderList().get(i);
+                    i--;
+                }
+            }
+            if (tobeRemovedShadow != null){
+                for (int i = 0; i < layer1.getRenderList().size(); i++){
+                    if (tobeRemovedShadow.getPosition() == layer1.getRenderList().get(i).getPosition()){
+                        layer1.getRenderList().remove(i);
+                        i--;
+                    }
+                }
+                for (int i = 0; i < gameObjectList.size(); i++){
+                    if (tobeRemovedShadow.getPosition() == gameObjectList.get(i).getPosition()){
+                        gameObjectList.remove(i);
+                        i--;
+                    }
+                }
+            }
+            for (int i = 0; i < staticBodies.getCollisionLayer().size(); i++){
+                if (tobeRemoved.getPosition() == staticBodies.getCollisionLayer().get(i).getPosition()){
+                    staticBodies.getCollisionLayer().remove(i);
+                    i--;
+                }
+            }
+        }
 
+        //layer1.getRenderList().remove(layer1.getRenderList().get(layer1.getRenderList().size()-1));
+        //layer2.getRenderList().remove(layer2.getRenderList().get(layer2.getRenderList().size()-1));
+        //staticBodies.getCollisionLayer().remove(staticBodies.getCollisionLayer().get(staticBodies.getCollisionLayer().size()-1));
+        System.out.println("Game Object List: " + gameObjectList.size());
     }
 
     public void removeAll(){

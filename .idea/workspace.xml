@@ -6,25 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="d2afb5d0-4343-4062-8cd9-8bac83f0474c" name="Changes" comment="finishing the capstone">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Animation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/BoxBounds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/BoxBounds.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Button.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/CameraControls.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Collision.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Collision.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/CollisionObj.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Controls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Controls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Eraser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Gun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Gun.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Platform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerOneControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PlayerTwoControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/ShootCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/CharacterSelectionScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/LevelEditorScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/PlayerCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level01_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level01_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level02_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level02_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level03_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level03_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level04_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level04_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level05_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level05_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level06_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level06_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level07_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level07_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level08_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level08_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level09_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level09_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level10_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level10_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level1_layer1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_data/level1_layer2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameEngine/Scene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameEngine/Scene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +46,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master-copy" />
+        <entry key="$PROJECT_DIR$" value="master-copy-patch3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -111,6 +115,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>

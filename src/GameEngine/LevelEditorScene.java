@@ -27,7 +27,7 @@ public class LevelEditorScene extends Scene{
     public LevelEditorScene(String name){
         super(name);
         editorItems = new ArrayList<>();
-        debounceTime = new Timer(0.5f, 0.5f);
+        debounceTime = new Timer(0.2f, 0.2f);
         loadLevel(currLevel);
     }
 
@@ -108,11 +108,6 @@ public class LevelEditorScene extends Scene{
         if (keyListener.isKeyPressed(KeyEvent.VK_Z) && debounceTime.isTime(0)){
             debounceTime.resetTime();
             remove();
-        }
-        if (keyListener.isKeyPressed(KeyEvent.VK_F10)){
-            System.out.println("Changing scene to level");
-            saveLevel(currLevel);
-            Window.changeScene(SceneCode.Level);
         }
         grid.update(dt);
         mouseCursor.update(dt);
