@@ -35,7 +35,7 @@ public class PlayerTwoControls extends PlayerOneControls{
         } else {
             stop();
         }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1)){
+        if (keyLisentner.isKeyPressed(KeyEvent.VK_ENTER)){
             shoot.fire(player);
         }
     }
