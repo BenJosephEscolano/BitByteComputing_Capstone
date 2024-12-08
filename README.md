@@ -1,14 +1,19 @@
 # The Capstone Project
 
-## The game loop (run-draw cycle)
-Trying to display something on a screen is easy but trying to display something moving in a cohesive way is challenging. One of the ways we can do this is the game loop. Think of the game loop like a flip book. In order to create an animation of a ball jumping using a flip book is that you draw the same ball but with each subsequent page the ball's position is slightly higher if its going up or slight lower if its going down relative to the previous page. And once your done you quickly flip the page in order to play the animation. We can achieve the same result by using the game loop 
+## The Singleton Design Patterns
+![idea64_SNBipwjysa](https://github.com/user-attachments/assets/cb5bab09-019e-407b-833b-7601cf3387ea)
 
-### The code
-This is how we implement the game loop, in the Window class we create methods for the game loop but we let the scene class to decide on which elements to draw, delta time dictates the speed of the page turn
+![idea64_IDRvZZ1BEp](https://github.com/user-attachments/assets/a198285d-cc3f-4ea3-8815-669e71dfe169)
 
-![image](https://github.com/user-attachments/assets/91156105-e38b-4d02-99aa-2829a7a46c33)
-![idea64_SSr1xMIzeQ](https://github.com/user-attachments/assets/b897b5fc-08aa-42ed-b81f-3203bd57d9d5)
-![idea64_AfpjU1TDIT](https://github.com/user-attachments/assets/0519451f-8741-4c2d-a8ad-45d6efdef870)
+![idea64_uqZVdQXrC9](https://github.com/user-attachments/assets/350c6fdf-cf33-417a-a8bd-6b831906e87e)
+
+The more we use the singleton design pattern, the more we realize that its more than a way of making sure that only one instance can only be made during runtime. It makes the methods and fields of the class into a psuedo static class without making them static. Here is an example with the window instance.
+
+![idea64_6c11jwAe2g](https://github.com/user-attachments/assets/cbf3675a-4992-4358-9d85-6051eae14c83)
+
+![idea64_GLIaId8PCs](https://github.com/user-attachments/assets/91b98673-0f24-43e7-b6cf-2d90a8de7318)
+
+Normally you can't use non-static fields in your static methods, but under the hood the currentScene, mouseListener, keyListener are not static fields. How did we circumvent this, but using the getWindow method (our singleton method) as a way to bridge the gap between static methods and non-static fields.
 
 ## The decoupling pattern, Entity Component System
 Lets say you are in charge of coding the functionality of these games objects.
@@ -39,6 +44,6 @@ Here is an example of removing components:
 
 ![idea64_6yuC2L7W3R](https://github.com/user-attachments/assets/dc39dfdb-e837-423e-aa55-672ace5e2131)
 
-In this example we have a menu item, think of it as a button, when the button is clicked this block of code operates. It duplicates the menu item but removes the MenuItem Component, leaving only the Sprite Component as its only Component. We then add the Snap to Grid component and we then swap the current game object as our new mouse cursor.
+In this example we have a menu item, think of it as a button, when the button is clicked this block of code operates. It duplicates the menu item but removes the MenuItem Component, leaving only the Sprite Component as its only Component. We then add the Snap to Grid component and we then swap the current game object as our new mouse cursor, making the sprite from the menu item as our mousecursor. And if we want to change the sprite of the mousecursor all we have to do is click a different menu item. 
 
-What I want to illustrate is that with the ECS we can freely add and remove functionality without the constraints of a tree like structure. Lets say we have an List of playable characters, We can easliy add a playerController component if we need to like wise we can also easily add an AIController if the situation calls for it.
+What I want to illustrate is that with the ECS we can freely add and remove functionality without the constraints of a tree like structure. Lets say we have an List of playable characters, We can easliy add a playerController component if we need to like wise we can also easily add an AIController if the situation calls for it. 
