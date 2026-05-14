@@ -2,6 +2,7 @@ package Component;
 
 import GameEngine.PlayerCharacter;
 import Util.Vector;
+import com.studiohartman.jamepad.ControllerState;
 
 import java.awt.event.KeyEvent;
 
@@ -32,22 +33,29 @@ public class PlayerOneControls extends Controls {
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-            if (keyLisentner.isKeyPressed(KeyEvent.VK_W) && player.getAliveStatus()) {
-                jump();
-            } else if (keyLisentner.isKeyPressed(KeyEvent.VK_A)&& player.getAliveStatus()) {
-                lastDirection.setX(-1);
-                lastDirection.setY(0);
-                moveLeft();
-            } else if (keyLisentner.isKeyPressed(KeyEvent.VK_D)&& player.getAliveStatus()) {
-                lastDirection.setX(1);
-                lastDirection.setY(0);
-                moveRight();
-            } else { // we want to stop the player from moving regardless if they are alive or not
-                stop();
-            }
-            if (keyLisentner.isKeyPressed(KeyEvent.VK_SPACE)&& player.getAliveStatus()){
-                shoot.fire(player);
-            }
+        ControllerState state = controllerManager.getState(0);
+        
+        boolean jumpPressed = keyLisentner.isKeyPressed(KeyEvent.VK_W) || state.a;
+        boolean leftPressed = keyLisentner.isKeyPressed(KeyEvent.VK_A) || state.dpadLeft || state.leftStickX < -0.5f;
+        boolean rightPressed = keyLisentner.isKeyPressed(KeyEvent.VK_D) || state.dpadRight || state.leftStickX > 0.5f;
+        boolean firePressed = keyLisentner.isKeyPressed(KeyEvent.VK_SPACE) || state.x || state.rightTrigger > 0.5f;
+
+        if (jumpPressed && player.getAliveStatus()) {
+            jump();
+        } else if (leftPressed && player.getAliveStatus()) {
+            lastDirection.setX(-1);
+            lastDirection.setY(0);
+            moveLeft();
+        } else if (rightPressed && player.getAliveStatus()) {
+            lastDirection.setX(1);
+            lastDirection.setY(0);
+            moveRight();
+        } else { // we want to stop the player from moving regardless if they are alive or not
+            stop();
+        }
+        if (firePressed && player.getAliveStatus()){
+            shoot.fire(player);
+        }
 
 
 

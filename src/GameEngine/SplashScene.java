@@ -5,6 +5,7 @@ import DataStructure.Transform;
 import Util.SceneCode;
 import Util.Vector;
 import Component.Button;
+import com.studiohartman.jamepad.ControllerState;
 
 import java.awt.*;
 
@@ -37,20 +38,25 @@ public class SplashScene extends Scene{
 
     @Override
     public void update(double dt) {
-        if (mouse.isMousePressed()
+        ControllerState p1 = Window.getControllerManager().getState(0);
+        ControllerState p2 = Window.getControllerManager().getState(1);
+
+        if ((mouse.isMousePressed()
                 && mouse.getX() > startbtn.getX()
                 && mouse.getX() < startbtn.getX() + startbtn.getComponent(Button.class).getWidth()
                 && mouse.getY() > startbtn.getY()
-                && mouse.getY() < startbtn.getY()+ startbtn.getComponent(Button.class).getHeight()
+                && mouse.getY() < startbtn.getY()+ startbtn.getComponent(Button.class).getHeight())
+            || p1.a || p2.a || p1.start || p2.start
             ){
             Window.changeScene(SceneCode.CharacterSelection);
         }
 
-        if (mouse.isMousePressed()
+        if ((mouse.isMousePressed()
                 && mouse.getX() > exitbtn.getX()
                 && mouse.getX() < exitbtn.getX() + exitbtn.getComponent(Button.class).getWidth()
                 && mouse.getY() > exitbtn.getY()
-                && mouse.getY() < exitbtn.getY()+ exitbtn.getComponent(Button.class).getHeight()
+                && mouse.getY() < exitbtn.getY()+ exitbtn.getComponent(Button.class).getHeight())
+            || p1.b || p2.b || p1.back || p2.back
         ){
             Window.getWindow().close();
         }

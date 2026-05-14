@@ -4,6 +4,7 @@ import Util.Constants;
 import Util.SceneCode;
 import Util.Time;
 import Component.Gun;
+import com.studiohartman.jamepad.ControllerManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class Window extends JFrame implements Runnable {
     private Image doubleBufferImage = null;
     private Graphics doubleBufferGraphics = null;
     private boolean play = true;
+    private ControllerManager controllerManager;
 
     private Window(){
         this.setSize(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
@@ -33,7 +35,8 @@ public class Window extends JFrame implements Runnable {
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
         this.addKeyListener(keyListener);
-
+        controllerManager = new ControllerManager();
+        controllerManager.initSDLGamepad();
     }
     /*
     The singleton design pattern
@@ -63,6 +66,7 @@ public class Window extends JFrame implements Runnable {
                         update(0);
                     }
                 }
+                controllerManager.quitSDLGamepad();
                 dispose();
             } catch (Exception e){
                 e.printStackTrace();
@@ -70,6 +74,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     public void update(double dt){
+        controllerManager.update();
         currentScene.update(dt);
         draw(getGraphics());
     }
@@ -156,5 +161,9 @@ public class Window extends JFrame implements Runnable {
 
     public static KL getKeyListener(){
         return getWindow().keyListener;
+    }
+
+    public static ControllerManager getControllerManager() {
+        return getWindow().controllerManager;
     }
 }

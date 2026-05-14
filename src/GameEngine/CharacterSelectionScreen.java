@@ -11,6 +11,7 @@ import Component.PlayerTwoControls;
 import Component.Gun;
 
 import Util.*;
+import com.studiohartman.jamepad.ControllerState;
 
 import java.awt.*;
 
@@ -27,6 +28,7 @@ public class CharacterSelectionScreen extends Scene{
     private int currmouth2, currbody2, curreye2, currgun2;
     private ML mouse;
     private Timer mousebuffer;
+    private Timer p1ControllerBuffer, p2ControllerBuffer;
 
     public CharacterSelectionScreen(String name) {
         super(name);
@@ -75,6 +77,8 @@ public class CharacterSelectionScreen extends Scene{
         this.currgun1 = 1;
         this.currgun2 = 2;
         this.mousebuffer = new Timer(0.16f);
+        this.p1ControllerBuffer = new Timer(0.2f);
+        this.p2ControllerBuffer = new Timer(0.2f);
     }
 
     @Override
@@ -312,19 +316,53 @@ public class CharacterSelectionScreen extends Scene{
                 && mouse.getY() < playbtn.getY()+ playbtn.getComponent(Button.class).getHeight()
         ){
             mousebuffer.resetTime();
-            PlayerCharacter player1 = PlayerCharacter.createPlayer(currbody1, curreye1, currmouth1);
-            PlayerOneControls controller1 = new PlayerOneControls(player1);
-            player1.addComponent(controller1);
-
-            PlayerCharacter player2 = PlayerCharacter.createPlayer(currbody2, curreye2, currmouth2);
-            PlayerTwoControls controller2 = new PlayerTwoControls(player2);
-            player2.addComponent(controller2);
-
-            Gun player1Gun = getGun(currgun1);
-            Gun player2Gun = getGun(currgun2);
-            Sound.getInstance().closeMusic();
-            Window.changeScene(SceneCode.Level, player1, player2, player1Gun, player2Gun);
+            startGame();
         }
+
+        // Controller support for Player 1
+        ControllerState p1 = Window.getControllerManager().getState(0);
+        p1ControllerBuffer.addTime(dt);
+        if (p1ControllerBuffer.isTime(0)) {
+            if (p1.dpadLeft) { shiftbody(-1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.dpadRight) { shiftbody(1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.lb) { shifteye(-1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.rb) { shifteye(1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.leftStickX < -0.5f) { shiftmouth(-1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.leftStickX > 0.5f) { shiftmouth(1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.leftTrigger > 0.5f) { shiftgun(-1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.rightTrigger > 0.5f) { shiftgun(1, 1); p1ControllerBuffer.resetTime(); }
+            if (p1.start || p1.a) { startGame(); }
+        }
+
+        // Controller support for Player 2
+        ControllerState p2 = Window.getControllerManager().getState(1);
+        p2ControllerBuffer.addTime(dt);
+        if (p2ControllerBuffer.isTime(0)) {
+            if (p2.dpadLeft) { shiftbody(-1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.dpadRight) { shiftbody(1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.lb) { shifteye(-1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.rb) { shifteye(1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.leftStickX < -0.5f) { shiftmouth(-1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.leftStickX > 0.5f) { shiftmouth(1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.leftTrigger > 0.5f) { shiftgun(-1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.rightTrigger > 0.5f) { shiftgun(1, 2); p2ControllerBuffer.resetTime(); }
+            if (p2.start || p2.a) { startGame(); }
+        }
+    }
+
+    private void startGame() {
+        PlayerCharacter player1 = PlayerCharacter.createPlayer(currbody1, curreye1, currmouth1);
+        PlayerOneControls controller1 = new PlayerOneControls(player1);
+        player1.addComponent(controller1);
+
+        PlayerCharacter player2 = PlayerCharacter.createPlayer(currbody2, curreye2, currmouth2);
+        PlayerTwoControls controller2 = new PlayerTwoControls(player2);
+        player2.addComponent(controller2);
+
+        Gun player1Gun = getGun(currgun1);
+        Gun player2Gun = getGun(currgun2);
+        Sound.getInstance().closeMusic();
+        Window.changeScene(SceneCode.Level, player1, player2, player1Gun, player2Gun);
     }
 
     private Gun getGun(int gunIndex){

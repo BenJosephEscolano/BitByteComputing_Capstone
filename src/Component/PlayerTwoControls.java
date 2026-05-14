@@ -2,6 +2,7 @@ package Component;
 
 import GameEngine.*;
 import Util.Vector;
+import com.studiohartman.jamepad.ControllerState;
 
 import java.awt.event.KeyEvent;
 
@@ -22,20 +23,27 @@ public class PlayerTwoControls extends PlayerOneControls{
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_UP) && player.getAliveStatus()) {
+        ControllerState state = controllerManager.getState(1);
+        
+        boolean jumpPressed = keyLisentner.isKeyPressed(KeyEvent.VK_UP) || state.a;
+        boolean leftPressed = keyLisentner.isKeyPressed(KeyEvent.VK_LEFT) || state.dpadLeft || state.leftStickX < -0.5f;
+        boolean rightPressed = keyLisentner.isKeyPressed(KeyEvent.VK_RIGHT) || state.dpadRight || state.leftStickX > 0.5f;
+        boolean firePressed = keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1) || state.x || state.rightTrigger > 0.5f;
+
+        if (jumpPressed && player.getAliveStatus()) {
             jump();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_LEFT) && player.getAliveStatus()) {
+        } else if (leftPressed && player.getAliveStatus()) {
             lastDirection.setX(-1);
             lastDirection.setY(0);
             moveLeft();
-        } else if (keyLisentner.isKeyPressed(KeyEvent.VK_RIGHT) && player.getAliveStatus()) {
+        } else if (rightPressed && player.getAliveStatus()) {
             lastDirection.setX(1);
             lastDirection.setY(0);
             moveRight();
         } else {
             stop();
         }
-        if (keyLisentner.isKeyPressed(KeyEvent.VK_NUMPAD1) && player.getAliveStatus()){
+        if (firePressed && player.getAliveStatus()){
             shoot.fire(player);
         }
     }

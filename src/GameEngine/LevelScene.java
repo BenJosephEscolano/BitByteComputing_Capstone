@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Component.Button;
 import java.util.concurrent.ThreadLocalRandom;
+import com.studiohartman.jamepad.ControllerState;
 
 public class LevelScene extends Scene{
     private PlayerCharacter player1, player2;
@@ -265,6 +266,31 @@ public class LevelScene extends Scene{
         }
         if (!Window.getKeyListener().isKeyPressed(KeyEvent.VK_ESCAPE)){
             toggle = true;
+        }
+
+        // Controller pause support
+        ControllerState p1 = Window.getControllerManager().getState(0);
+        ControllerState p2 = Window.getControllerManager().getState(1);
+
+        if (Window.getWindow().isPause()) {
+            if (p1.a || p2.a || p1.start || p2.start) {
+                // Continue
+                Window.getWindow().play();
+                Window.getScene().getRenderer(2).unsubmit(pauseScreen);
+            }
+            if (p1.b || p2.b || p1.back || p2.back) {
+                // Exit to menu
+                Window.getWindow().play();
+                Sound.getInstance().stopMusic();
+                Window.changeScene(SceneCode.SplashScreen);
+            }
+        } else {
+            if (keyboardBuffer.isTime(dt) && (p1.start || p2.start || p1.back || p2.back)) {
+                keyboardBuffer.resetTime();
+                Window.getWindow().pause();
+                Window.getScene().addToLayerTwo(pauseScreen);
+                toggle = false;
+            }
         }
     }
 
