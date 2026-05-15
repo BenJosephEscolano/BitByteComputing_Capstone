@@ -17,9 +17,14 @@ public class PlayerOneControls extends Controls {
     private PlayerCharacter player;
 
     public PlayerOneControls(PlayerCharacter player) {
+        this(player, 0);
+    }
+
+    public PlayerOneControls(PlayerCharacter player, int controllerIndex) {
         hasJumped = false;
         lastDirection = new Vector(1, 0);
         this.player = player;
+        this.controllerIndex = controllerIndex;
     }
 
 
@@ -33,7 +38,7 @@ public class PlayerOneControls extends Controls {
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-        ControllerState state = controllerManager.getState(0);
+        ControllerState state = controllerManager.getState(controllerIndex);
         
         boolean jumpPressed = keyLisentner.isKeyPressed(KeyEvent.VK_W) || state.a;
         boolean leftPressed = keyLisentner.isKeyPressed(KeyEvent.VK_A) || state.dpadLeft || state.leftStickX < -0.5f;

@@ -166,4 +166,22 @@ public class Window extends JFrame implements Runnable {
     public static ControllerManager getControllerManager() {
         return getWindow().controllerManager;
     }
+
+    private static int[] lastIndices = {-1, -1};
+    public static int getControllerIndex(int playerNum) {
+        int connectedCount = 0;
+        for (int i = 0; i < 8; i++) {
+            if (getWindow().controllerManager.getState(i).connected) {
+                if (connectedCount == playerNum) {
+                    if (playerNum < 2 && lastIndices[playerNum] != i) {
+                        System.out.println("Assigned controller " + i + " to player " + (playerNum + 1));
+                        lastIndices[playerNum] = i;
+                    }
+                    return i;
+                }
+                connectedCount++;
+            }
+        }
+        return playerNum;
+    }
 }

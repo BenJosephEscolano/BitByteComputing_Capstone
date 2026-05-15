@@ -38,8 +38,8 @@ public class SplashScene extends Scene{
 
     @Override
     public void update(double dt) {
-        ControllerState p1 = Window.getControllerManager().getState(0);
-        ControllerState p2 = Window.getControllerManager().getState(1);
+        ControllerState p1 = Window.getControllerManager().getState(Window.getControllerIndex(0));
+        ControllerState p2 = Window.getControllerManager().getState(Window.getControllerIndex(1));
 
         if ((mouse.isMousePressed()
                 && mouse.getX() > startbtn.getX()

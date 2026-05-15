@@ -9,6 +9,7 @@ import com.studiohartman.jamepad.ControllerManager;
 public abstract class Controls extends Component {
     protected KL keyLisentner = Window.getWindow().getKeyListener();
     protected ControllerManager controllerManager = Window.getControllerManager();
+    protected int controllerIndex = 0;
 
     @Override
     public Component copy() {

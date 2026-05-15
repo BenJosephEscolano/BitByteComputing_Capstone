@@ -269,8 +269,8 @@ public class LevelScene extends Scene{
         }
 
         // Controller pause support
-        ControllerState p1 = Window.getControllerManager().getState(0);
-        ControllerState p2 = Window.getControllerManager().getState(1);
+        ControllerState p1 = Window.getControllerManager().getState(Window.getControllerIndex(0));
+        ControllerState p2 = Window.getControllerManager().getState(Window.getControllerIndex(1));
 
         if (Window.getWindow().isPause()) {
             if (p1.a || p2.a || p1.start || p2.start) {

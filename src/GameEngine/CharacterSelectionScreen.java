@@ -320,7 +320,8 @@ public class CharacterSelectionScreen extends Scene{
         }
 
         // Controller support for Player 1
-        ControllerState p1 = Window.getControllerManager().getState(0);
+        int p1Index = Window.getControllerIndex(0);
+        ControllerState p1 = Window.getControllerManager().getState(p1Index);
         p1ControllerBuffer.addTime(dt);
         if (p1ControllerBuffer.isTime(0)) {
             if (p1.dpadLeft) { shiftbody(-1, 1); p1ControllerBuffer.resetTime(); }
@@ -335,28 +336,31 @@ public class CharacterSelectionScreen extends Scene{
         }
 
         // Controller support for Player 2
-        ControllerState p2 = Window.getControllerManager().getState(1);
-        p2ControllerBuffer.addTime(dt);
-        if (p2ControllerBuffer.isTime(0)) {
-            if (p2.dpadLeft) { shiftbody(-1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.dpadRight) { shiftbody(1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.lb) { shifteye(-1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.rb) { shifteye(1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.leftStickX < -0.5f) { shiftmouth(-1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.leftStickX > 0.5f) { shiftmouth(1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.leftTrigger > 0.5f) { shiftgun(-1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.rightTrigger > 0.5f) { shiftgun(1, 2); p2ControllerBuffer.resetTime(); }
-            if (p2.start || p2.a) { startGame(); }
+        int p2Index = Window.getControllerIndex(1);
+        if (p2Index != p1Index) { // Only handle P2 if it's a different controller
+            ControllerState p2 = Window.getControllerManager().getState(p2Index);
+            p2ControllerBuffer.addTime(dt);
+            if (p2ControllerBuffer.isTime(0)) {
+                if (p2.dpadLeft) { shiftbody(-1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.dpadRight) { shiftbody(1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.lb) { shifteye(-1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.rb) { shifteye(1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.leftStickX < -0.5f) { shiftmouth(-1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.leftStickX > 0.5f) { shiftmouth(1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.leftTrigger > 0.5f) { shiftgun(-1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.rightTrigger > 0.5f) { shiftgun(1, 2); p2ControllerBuffer.resetTime(); }
+                if (p2.start || p2.a) { startGame(); }
+            }
         }
     }
 
     private void startGame() {
         PlayerCharacter player1 = PlayerCharacter.createPlayer(currbody1, curreye1, currmouth1);
-        PlayerOneControls controller1 = new PlayerOneControls(player1);
+        PlayerOneControls controller1 = new PlayerOneControls(player1, Window.getControllerIndex(0));
         player1.addComponent(controller1);
 
         PlayerCharacter player2 = PlayerCharacter.createPlayer(currbody2, curreye2, currmouth2);
-        PlayerTwoControls controller2 = new PlayerTwoControls(player2);
+        PlayerTwoControls controller2 = new PlayerTwoControls(player2, Window.getControllerIndex(1));
         player2.addComponent(controller2);
 
         Gun player1Gun = getGun(currgun1);

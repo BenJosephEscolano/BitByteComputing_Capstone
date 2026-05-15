@@ -9,7 +9,11 @@ import java.awt.event.KeyEvent;
 public class PlayerTwoControls extends PlayerOneControls{
     PlayerCharacter player;
     public PlayerTwoControls(PlayerCharacter player){
-        super(player);
+        this(player, 1);
+    }
+
+    public PlayerTwoControls(PlayerCharacter player, int controllerIndex){
+        super(player, controllerIndex);
         this.player = player;
         lastDirection.setX(-1);
     }
@@ -23,7 +27,7 @@ public class PlayerTwoControls extends PlayerOneControls{
             velocity.setX(Math.max(velocity.getX() - acceleration * (float) dt , targetVelocityX));
         }
 
-        ControllerState state = controllerManager.getState(1);
+        ControllerState state = controllerManager.getState(controllerIndex);
         
         boolean jumpPressed = keyLisentner.isKeyPressed(KeyEvent.VK_UP) || state.a;
         boolean leftPressed = keyLisentner.isKeyPressed(KeyEvent.VK_LEFT) || state.dpadLeft || state.leftStickX < -0.5f;
